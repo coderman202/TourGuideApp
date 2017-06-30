@@ -73,7 +73,7 @@ public class Hotel extends Hospitality {
      * @param price           the price
      */
     public Hotel(String name, Address address, URL website, String description, int imageResourceID,
-                 int rating, int price, int hotelClass) {
+                 float rating, float price, int hotelClass) {
         super(name, address, website, description, imageResourceID, rating, price);
         if(hotelClass < CLASS_ONE_STAR || hotelClass > CLASS_FIVE_STAR){
             throw new IllegalArgumentException("Error. You must pass a valid value for hotel class");
@@ -148,6 +148,28 @@ public class Hotel extends Hospitality {
         this.concierge = concierge;
         this.roomService = roomService;
         this.wheelchairAccess = wheelchairAccess;
+    }
+
+    /**
+     * Sets amenities by taking in a boolean array ant sets each on individually.
+     *
+     * @param amenities the amenities
+     */
+    public void setAmenities(boolean[] amenities) {
+        this.amenities = amenities;
+        this.pool = amenities[0];
+        this.restaurant = amenities[1];
+        this.breakfast = amenities[2];
+        this.twentyFourHourReception = amenities[3];
+        this.gym = amenities[4];
+        this.spa = amenities[5];
+        this.lounge = amenities[6];
+        this.wifi = amenities[7];
+        this.parking = amenities[8];
+        this.valet = amenities[9];
+        this.concierge = amenities[10];
+        this.roomService = amenities[11];
+        this.wheelchairAccess = amenities[12];
     }
 
     // All the set methods below also set the array of amenities be recreating a new one including
@@ -424,5 +446,36 @@ public class Hotel extends Hospitality {
         this.amenities = new boolean[]
                 {pool, restaurant, breakfast, twentyFourHourReception, gym, spa, lounge, wifi,
                         parking, valet, concierge, roomService, wheelchairAccess};
+    }
+
+    /**
+     * Convert amenities for storage string to allow storage in DB.
+     *
+     * @return the string
+     */
+    public String convertAmenitiesForStorage(){
+        String amenitiesString = "";
+        for (int i = 0; i < this.amenities.length; i++) {
+            if(i == (amenities.length - 1)){
+                amenitiesString += String.valueOf(amenities[i]) + "";
+            }
+            else {
+                amenitiesString += String.valueOf(amenities[i]) + ",";
+            }
+        }
+        return amenitiesString;
+    }
+
+    /**
+     * Re convert amenities from string storage.
+     *
+     * @param amenitiesString the amenities string
+     */
+    public void reConvertAmenitiesFromString(String amenitiesString){
+        String[] amenitiesArray = amenitiesString.split(",");
+        for (int i = 0; i < amenities.length; i++) {
+            amenities[i] = Boolean.valueOf(amenitiesArray[i]);
+        }
+        setAmenities(amenities);
     }
 }

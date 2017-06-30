@@ -11,11 +11,10 @@ import java.util.List;
 
 public class RestaurantBar extends Hospitality {
 
-    // Constants to represent the number of Michelin Stars the establishment has won, if any.
-    public static final int MICHELIN_STARS_ZERO = 20;
-    public static final int MICHELIN_STARS_ONE = 21;
-    public static final int MICHELIN_STARS_TWO = 22;
-    public static final int MICHELIN_STARS_THREE = 23;
+    // Constants to represent the number of the min and max number of Michelin Stars the
+    // establishment has won, if any.
+    public static final int MICHELIN_STARS_MIN = 0;
+    public static final int MICHELIN_STARS_MAX = 3;
 
     // The opening hours of the establishment.
     private String openingHours;
@@ -26,7 +25,7 @@ public class RestaurantBar extends Hospitality {
 
     // The Michelin Star variable, represented as an int, which must be equal to one of the above
     // constants. By default it will be set to zero stars as most establishments will not have any.
-    private int michelinStars = MICHELIN_STARS_ZERO;
+    private int michelinStars = MICHELIN_STARS_MIN;
 
     // A String array to represent the cuisines such as: Indian, Chinese, Dessert, Drinks, etc..
     private List<String> cuisines;
@@ -69,7 +68,7 @@ public class RestaurantBar extends Hospitality {
                          String openingHours, String diningHours, int michelinStars,
                          List<String> cuisines) {
         super(name, address, website, description, imageResourceID);
-        if(michelinStars < MICHELIN_STARS_ZERO || michelinStars > MICHELIN_STARS_THREE){
+        if(michelinStars < MICHELIN_STARS_MIN || michelinStars > MICHELIN_STARS_MAX){
             throw new IllegalArgumentException("Error. You must pass a valid number of michelin stars");
         }
         this.openingHours = openingHours;
@@ -95,7 +94,7 @@ public class RestaurantBar extends Hospitality {
      * @param cuisines        the cuisines
      */
     public RestaurantBar(String name, Address address, URL website, String description, int imageResourceID,
-                         int rating, int price, String openingHours, String diningHours,
+                         float rating, float price, String openingHours, String diningHours,
                          List<String> cuisines) {
         super(name, address, website, description, imageResourceID, rating, price);
         this.openingHours = openingHours;
@@ -120,10 +119,10 @@ public class RestaurantBar extends Hospitality {
      * @param cuisines        the cuisines
      */
     public RestaurantBar(String name, Address address, URL website, String description, int imageResourceID,
-                         int rating, int price, String openingHours, String diningHours,
+                         float rating, float price, String openingHours, String diningHours,
                          int michelinStars, List<String> cuisines) {
         super(name, address, website, description, imageResourceID, rating, price);
-        if(michelinStars < MICHELIN_STARS_ZERO || michelinStars > MICHELIN_STARS_THREE){
+        if(michelinStars < MICHELIN_STARS_MIN || michelinStars > MICHELIN_STARS_MAX){
             throw new IllegalArgumentException("Error. You must pass a valid number of michelin stars");
         }
         this.openingHours = openingHours;
@@ -183,7 +182,7 @@ public class RestaurantBar extends Hospitality {
      * @param michelinStars the michelin stars
      */
     public void setMichelinStars(int michelinStars) {
-        if(michelinStars < MICHELIN_STARS_ZERO || michelinStars > MICHELIN_STARS_THREE){
+        if(michelinStars < MICHELIN_STARS_MIN || michelinStars > MICHELIN_STARS_MAX){
             throw new IllegalArgumentException("Error. You must pass a valid number of michelin stars");
         }
         this.michelinStars = michelinStars;

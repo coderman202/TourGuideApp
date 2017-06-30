@@ -10,22 +10,14 @@ import java.net.URL;
 public class Hospitality {
 
 
-    // The consumer rating constants
-    public static final int FIVE_STARS = 55;
-    public static final int FOUR_STARS = 54;
-    public static final int THREE_STARS = 53;
-    public static final int TWO_STARS = 52;
-    public static final int ONE_STARS = 51;
-    public static final int NO_STARS = 50;
+    // The consumer rating constants to track the min and max rating values
+    public static final int RATING_MAX = 5;
+    public static final int RATING_MIN = 0;
 
 
     // The price constants representing the price levels of the hospitality
-    public static final int HIGH = 45;
-    public static final int MEDIUM_HIGH = 44;
-    public static final int MEDIUM = 43;
-    public static final int MEDIUM_CHEAP = 42;
-    public static final int CHEAP = 41;
-    public static final int BARGAIN = 40;
+    public static final int PRICE_HIGH = 5;
+    public static final int PRICE_LOW = 1;
 
 
     //The name of the place
@@ -57,10 +49,10 @@ public class Hospitality {
     private String phoneNumber;
 
     // This will be one of the rating constants above
-    private int rating;
+    private float rating;
 
     // This will be one of the price constants above
-    private int price;
+    private float price;
 
 
     /**
@@ -97,8 +89,8 @@ public class Hospitality {
      * @param rating          the rating
      */
     public Hospitality(String name, Address address, URL website, String description,
-                       int imageResourceID, int rating) {
-        if(rating < NO_STARS || rating > FIVE_STARS){
+                       int imageResourceID, float rating) {
+        if(rating < RATING_MIN || rating > RATING_MAX){
             throw new IllegalArgumentException("Error. You must pass a valid rating");
         }
         this.name = name;
@@ -126,8 +118,8 @@ public class Hospitality {
      * @param price           the price
      */
     public Hospitality(String name, Address address, URL website, String description,
-                       int imageResourceID, int rating, int price) {
-        if(rating < NO_STARS || rating > FIVE_STARS || price < BARGAIN || price > HIGH){
+                       int imageResourceID, float rating, float price) {
+        if(rating < RATING_MIN || rating > RATING_MAX || price < PRICE_LOW || price > PRICE_HIGH){
             throw new IllegalArgumentException("Error. You must pass a valid rating and price");
         }
         this.name = name;
@@ -274,7 +266,7 @@ public class Hospitality {
      *
      * @return the rating
      */
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
@@ -283,8 +275,8 @@ public class Hospitality {
      *
      * @param rating the rating
      */
-    public void setRating(int rating) {
-        if(rating < NO_STARS || rating > FIVE_STARS){
+    public void setRating(float rating) {
+        if(rating < RATING_MIN || rating > RATING_MAX){
             throw new IllegalArgumentException("Error. You must pass a valid rating");
         }
         this.rating = rating;
@@ -295,7 +287,7 @@ public class Hospitality {
      *
      * @return the price
      */
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
@@ -304,8 +296,8 @@ public class Hospitality {
      *
      * @param price the price
      */
-    public void setPrice(int price) {
-        if(price < BARGAIN || price > HIGH){
+    public void setPrice(float price) {
+        if(price < PRICE_LOW || price > PRICE_HIGH){
             throw new IllegalArgumentException("Error. You must pass a valid price");
         }
         this.price = price;

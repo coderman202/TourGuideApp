@@ -63,6 +63,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
     private static final String HOTEL_WEBSITE = "WebsiteURL";
     private static final String HOTEL_NEIGHBOURHOOD = "Neighbourhood";
     private static final String HOTEL_PHONE = "Phone";
+    private static final String HOTEL_AMENITIES = "Amenities";
 
     // Column names for the RestaurantBar table
     private static final String RESTAURANT_BAR_ID = "RestaurantBarID";
@@ -170,16 +171,17 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_HOTEL = CREATE_TABLE + TABLE_HOTEL + "(" +
             HOTEL_ID + PRIMARY_KEY_CONSTRAINTS + HOTEL_NAME + " TEXT NOT NULL, " +
             HOTEL_CITY + " INTEGER NOT NULL, " + HOTEL_CLASS + " INTEGER NOT NULL, " +
-            HOTEL_RATING + " INTEGER NOT NULL, " + HOTEL_PRICE + " INTEGER NOT NULL, " +
+            HOTEL_RATING + " REAL NOT NULL, " + HOTEL_PRICE + " REAL NOT NULL, " +
             HOTEL_DESCRIPTION + " TEXT NOT NULL, " + HOTEL_WEBSITE + " TEXT NOT NULL, " +
             HOTEL_NEIGHBOURHOOD + " TEXT, " + HOTEL_PHONE + " TEXT NOT NULL, " +
-            HOTEL_IMAGE + " INTEGER NOT NULL, " + HOTEL_ADDRESS + " TEXT, " + FOREIGN_KEY_CITY_ID;
+            HOTEL_IMAGE + " INTEGER NOT NULL, " + HOTEL_ADDRESS + " TEXT, " +
+            HOTEL_AMENITIES + " TEXT NOT NULL, " + FOREIGN_KEY_CITY_ID;
 
     // The create table statement for RestaurantBar table
     private static final String CREATE_TABLE_RESTAURANT_BAR = CREATE_TABLE + TABLE_RESTAURANT_BAR + "(" +
             RESTAURANT_BAR_ID + PRIMARY_KEY_CONSTRAINTS + RESTAURANT_BAR_NAME + " TEXT NOT NULL, " +
             RESTAURANT_BAR_CITY + " INTEGER NOT NULL, " + RESTAURANT_BAR_MICHELIN_STARS + " INTEGER NOT NULL, " +
-            RESTAURANT_BAR_RATING + " INTEGER NOT NULL, " + RESTAURANT_BAR_PRICE + " INTEGER NOT NULL, " +
+            RESTAURANT_BAR_RATING + " REAL NOT NULL, " + RESTAURANT_BAR_PRICE + " REAL NOT NULL, " +
             RESTAURANT_BAR_DESCRIPTION + " TEXT NOT NULL, " + RESTAURANT_BAR_WEBSITE + " TEXT, " +
             RESTAURANT_BAR_NEIGHBOURHOOD + " TEXT, " + RESTAURANT_BAR_PHONE + " TEXT NOT NULL, " +
             RESTAURANT_BAR_IMAGE + " INTEGER NOT NULL, " + RESTAURANT_BAR_ADDRESS + " TEXT, " +
@@ -204,8 +206,8 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
     // The create table statement for Attraction table
     private static final String CREATE_TABLE_ATTRACTION = CREATE_TABLE + TABLE_ATTRACTION + "(" +
             ATTRACTION_ID + PRIMARY_KEY_CONSTRAINTS + ATTRACTION_NAME + " TEXT NOT NULL, " +
-            ATTRACTION_CITY + " INTEGER NOT NULL, " + ATTRACTION_RATING + " INTEGER NOT NULL, " +
-            ATTRACTION_PRICE + " INTEGER NOT NULL, " + ATTRACTION_DESCRIPTION + " TEXT NOT NULL, " +
+            ATTRACTION_CITY + " INTEGER NOT NULL, " + ATTRACTION_RATING + " REAL NOT NULL, " +
+            ATTRACTION_PRICE + " REAL NOT NULL, " + ATTRACTION_DESCRIPTION + " TEXT NOT NULL, " +
             ATTRACTION_WEBSITE + " TEXT, " + ATTRACTION_IMAGE + " INTEGER NOT NULL, " +
             ATTRACTION_NEIGHBOURHOOD + " TEXT, " + ATTRACTION_PHONE + " TEXT NOT NULL, " +
             ATTRACTION_ADDRESS + " TEXT, " + ATTRACTION_OPENING_HOURS + " TEXT NOT NULL, " +
@@ -217,7 +219,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
             TOUR_CITY + " INTEGER NOT NULL, " + TOUR_COMPANY + " TEXT NOT NULL, " +
             TOUR_DESCRIPTION + " TEXT NOT NULL, " + TOUR_WEBSITE + " TEXT, " +
             TOUR_IMAGE + " INTEGER NOT NULL, " + TOUR_START_ADDRESS + " TEXT, " +
-            TOUR_PRICE + " INTEGER NOT NULL, " + TOUR_RATING + " INTEGER NOT NULL, " +
+            TOUR_PRICE + " REAL NOT NULL, " + TOUR_RATING + " REAL NOT NULL, " +
             TOUR_END_ADDRESS + " TEXT, " + TOUR_OPERATING_TIMES + " TEXT NOT NULL, " +
             TOUR_WHEELCHAIR_ACCESS + " INTEGER NOT NULL, " + TOUR_PHONE + " TEXT, " +
             FOREIGN_KEY_CITY_ID;
@@ -484,6 +486,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
         val.put(HOTEL_IMAGE, hotel.getImageResourceID());
         val.put(HOTEL_WEBSITE, hotel.getWebsite().toString());
         val.put(HOTEL_DESCRIPTION, hotel.getDescription());
+        val.put(HOTEL_AMENITIES, hotel.convertAmenitiesForStorage());
 
         db.insert(TABLE_HOTEL, null, val);
         db.close();
@@ -608,10 +611,11 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String add = c.getString(c.getColumnIndex(HOTEL_ADDRESS));
                 String description = c.getString(c.getColumnIndex(HOTEL_DESCRIPTION));
                 String neighbourhood = c.getString(c.getColumnIndex(HOTEL_NEIGHBOURHOOD));
-                int rating = c.getInt(c.getColumnIndex(HOTEL_RATING));
-                int price = c.getInt(c.getColumnIndex(HOTEL_PRICE));
+                float rating = c.getFloat(c.getColumnIndex(HOTEL_RATING));
+                float price = c.getFloat(c.getColumnIndex(HOTEL_PRICE));
                 int hotelClass = c.getInt(c.getColumnIndex(HOTEL_CLASS));
                 int imageResourceID = c.getInt(c.getColumnIndex(HOTEL_IMAGE));
+                String amenities = c.getString(c.getColumnIndex(HOTEL_AMENITIES));
                 URL website;
                 try{
                     website = new URL((c.getString(c.getColumnIndex(HOTEL_WEBSITE))));
@@ -625,7 +629,10 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 address.setSubLocality(neighbourhood);
                 address.setPhone(phone);
 
-                hotelList.add(new Hotel(name, address, website, description, imageResourceID, rating, price, hotelClass));
+                Hotel hotel = new Hotel(name, address, website, description, imageResourceID, rating, price, hotelClass);
+                hotel.reConvertAmenitiesFromString(amenities);
+
+                hotelList.add(hotel);
             }
             c.close();
             return hotelList;
@@ -656,8 +663,8 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String neighbourhood = c.getString(c.getColumnIndex(RESTAURANT_BAR_NEIGHBOURHOOD));
                 String openingHours = c.getString(c.getColumnIndex(RESTAURANT_BAR_OPENING_HOURS));
                 String diningHours = c.getString(c.getColumnIndex(RESTAURANT_BAR_DINING_HOURS));
-                int rating = c.getInt(c.getColumnIndex(RESTAURANT_BAR_RATING));
-                int price = c.getInt(c.getColumnIndex(RESTAURANT_BAR_RATING));
+                float rating = c.getFloat(c.getColumnIndex(RESTAURANT_BAR_RATING));
+                float price = c.getFloat(c.getColumnIndex(RESTAURANT_BAR_RATING));
                 int michelinStars = c.getInt(c.getColumnIndex(RESTAURANT_BAR_MICHELIN_STARS));
                 int imageResourceID = c.getInt(c.getColumnIndex(RESTAURANT_BAR_IMAGE));
                 URL website;
@@ -778,8 +785,8 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String openingHours = c.getString(c.getColumnIndex(ATTRACTION_OPENING_HOURS));
                 String phone = c.getString(c.getColumnIndex(ATTRACTION_PHONE));
                 int imageResourceID = c.getInt(c.getColumnIndex(ATTRACTION_IMAGE));
-                int rating = c.getInt(c.getColumnIndex(ATTRACTION_RATING));
-                int price = c.getInt(c.getColumnIndex(ATTRACTION_PRICE));
+                float rating = c.getFloat(c.getColumnIndex(ATTRACTION_RATING));
+                float price = c.getFloat(c.getColumnIndex(ATTRACTION_PRICE));
                 URL website;
                 try{
                     website = new URL((c.getString(c.getColumnIndex(ATTRACTION_WEBSITE))));
@@ -828,8 +835,8 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String operatingTimes = c.getString(c.getColumnIndex(TOUR_OPERATING_TIMES));
                 String phone = c.getString(c.getColumnIndex(TOUR_PHONE));
                 int imageResourceID = c.getInt(c.getColumnIndex(TOUR_IMAGE));
-                int rating = c.getInt(c.getColumnIndex(TOUR_RATING));
-                int price = c.getInt(c.getColumnIndex(TOUR_PRICE));
+                float rating = c.getFloat(c.getColumnIndex(TOUR_RATING));
+                float price = c.getFloat(c.getColumnIndex(TOUR_PRICE));
 
                 URL website;
                 try{

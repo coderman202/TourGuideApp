@@ -13,7 +13,7 @@ public class Attraction extends Hospitality{
 
     // Adding an extra price constant to take into account that an attraction could be free.
     // The remaining price constants are contained withing the superclass.
-    public static final int FREE = 39;
+    public static final int PRICE_FREE = 0;
 
     // An attribute to represent the opening hours for the attraction.
     private String openingHours;
@@ -24,7 +24,7 @@ public class Attraction extends Hospitality{
 
     // A variable to represent the price which will override the price variable in the superclass
     // because I need to take into account the attraction being free.
-    private int price;
+    private float price;
 
 
     /**
@@ -62,11 +62,11 @@ public class Attraction extends Hospitality{
      * @param wheelchairAccess the wheelchair access
      */
     public Attraction(String name, Address address, URL website, String description, int imageResourceID,
-                      int rating, int price, String openingHours, boolean wheelchairAccess) {
+                      float rating, float price, String openingHours, boolean wheelchairAccess) {
         super(name, address, website, description, imageResourceID, rating);
         this.openingHours = openingHours;
         this.wheelchairAccess = wheelchairAccess;
-        if(price < FREE){
+        if(price < PRICE_FREE){
             throw new IllegalArgumentException("Error. You must pass a valid price");
         }
         this.price = price;
@@ -111,15 +111,15 @@ public class Attraction extends Hospitality{
     /**
      * Set price. Ensure it is a valid price.
      */
-    public void setPrice(int price){
-        if(price < FREE || price > HIGH) {
+    public void setPrice(float price){
+        if(price < PRICE_FREE || price > PRICE_HIGH) {
             throw new IllegalArgumentException("Error. You must pass a valid price");
         }
         this.price = price;
     }
 
     @Override
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 }

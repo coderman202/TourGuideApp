@@ -11,21 +11,12 @@ import java.net.URL;
 public class Tour {
 
     // The consumer rating constants
-    public static final int FIVE_STARS = 55;
-    public static final int FOUR_STARS = 54;
-    public static final int THREE_STARS = 53;
-    public static final int TWO_STARS = 52;
-    public static final int ONE_STARS = 51;
-    public static final int NO_STARS = 50;
+    public static final int RATING_MAX = 5;
+    public static final int RATING_MIN = 0;
 
     // The price constants representing the price levels of the tour
-    public static final int HIGH = 45;
-    public static final int MEDIUM_HIGH = 44;
-    public static final int MEDIUM = 43;
-    public static final int MEDIUM_CHEAP = 42;
-    public static final int CHEAP = 41;
-    public static final int BARGAIN = 40;
-    public static final int FREE = 39;
+    public static final int PRICE_HIGH = 5;
+    public static final int PRICE_FREE = 0;
 
     // The name of the Tour
     private String name;
@@ -37,10 +28,10 @@ public class Tour {
     private int imageResourceID;
 
     // An attribute for the rating
-    private int rating;
+    private float rating;
 
     // An attribute for the price.
-    private int price;
+    private float price;
 
     // A short text description of the tour
     private String description;
@@ -106,10 +97,10 @@ public class Tour {
      * @param website          the website
      * @param phoneNumber      the phone number
      */
-    public Tour(String name, String operator, int imageResourceID, int rating, int price,
+    public Tour(String name, String operator, int imageResourceID, float rating, float price,
                 String description, String operatingTimes, Address startLocation,
                 Address endLocation, boolean wheelchairAccess, URL website, String phoneNumber) {
-        if(price < FREE || price > HIGH){
+        if(price < PRICE_FREE || price > PRICE_HIGH){
             throw new IllegalArgumentException("Error. You must pass a valid price");
         }
         this.name = name;
@@ -185,7 +176,7 @@ public class Tour {
      *
      * @return the rating
      */
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
@@ -194,7 +185,7 @@ public class Tour {
      *
      * @param rating the rating
      */
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 
@@ -203,7 +194,7 @@ public class Tour {
      *
      * @return the price
      */
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
@@ -212,8 +203,8 @@ public class Tour {
      *
      * @param price the price
      */
-    public void setPrice(int price) {
-        if(price < FREE || price > HIGH){
+    public void setPrice(float price) {
+        if(price < PRICE_FREE || price > PRICE_HIGH){
             throw new IllegalArgumentException("Error. You must pass a valid price");
         }
         this.price = price;
