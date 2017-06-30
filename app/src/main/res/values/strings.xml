@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Tour Guide App</string>
+
+    <!--All strings for Buenos Aires, including history, description, and string-arrays of strings
+    for the events, tours, and restaurants, etc..-->
+
+    <string name="bsas_name">Buenos Aires</string>
+
+    <!--The description of BsAs was taken from this link:
+    http://www.unepfi.org/regionalroundtable/la-logistics/-->
+    <string name="bsas_description">Buenos Aires, is Argentina’s big, cosmopolitan capital city.
+        Its center is the Plaza de Mayo, lined with stately 19th-century buildings including Casa
+        Rosada, the iconic, balconied presidential palace. Other major attractions include Teatro
+        Colón, a grand 1908 opera house with nearly 2,500 seats, and the modern MALBA museum,
+        displaying Latin American art.</string>
+
+    <!--The history of Buenos Aires was taken from this link:
+    https://www.britannica.com/place/Buenos-Aires/History-->
+    <string name="bsas_history">The city of Buenos Aires was founded twice. It was first founded in
+        1536 by an expedition led by the Spaniard Pedro de Mendoza, who named it Nuestra Señora
+        Santa María del Buen Aire (“Our Lady St. Mary of the Good Air”). He was made the first
+        governor-general of the Río de la Plata region.</string>
+
+    
+</resources>
