@@ -8,4 +8,29 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <!--Styles for list item views on the home screen-->
+    <style name="CityImageStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/city_image_height</item>
+    </style>
+
+    <style name="TextItemStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/text_item_size</item>
+        <item name="android:padding">@dimen/text_item_padding</item>
+        <item name="android:drawablePadding">@dimen/text_item_drawable_padding</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="TextItemMoreStyle" parent = "TextItemStyle">
+        <item name="android:textColor">@color/icon_text_more_color</item>
+        <item name="android:textSize">@dimen/text_item_small_size</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

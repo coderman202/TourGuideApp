@@ -1,18 +1,21 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Tour Guide App</string>
+
+    <!--The view more textview in the listview of cities on the main screen-->
+    <string name="more">View more</string>
 
     <!--All strings for Buenos Aires, including history, description, and string-arrays of strings
     for the events, tours, and restaurants, etc..-->
 
-    <string name="bsas_name">Buenos Aires</string>
+    <string name="city1_name">Buenos Aires</string>
 
-    <string name="bsas_country">Argentina</string>
+    <string name="city1_country">Argentina</string>
 
-    <string name="bsas_population">14,902,908</string>
+    <string name="city1_population">14,902,908</string>
 
     <!--The description of BsAs was taken from this link:
     http://www.unepfi.org/regionalroundtable/la-logistics/-->
-    <string name="bsas_description">Buenos Aires, is Argentina’s big, cosmopolitan capital city.
+    <string name="city1_description">Buenos Aires, is Argentina’s big, cosmopolitan capital city.
         Its center is the Plaza de Mayo, lined with stately 19th-century buildings including Casa
         Rosada, the iconic, balconied presidential palace. Other major attractions include Teatro
         Colón, a grand 1908 opera house with nearly 2,500 seats, and the modern MALBA museum,
@@ -20,195 +23,283 @@
 
     <!--The history of Buenos Aires was taken from this link:
     https://www.britannica.com/place/Buenos-Aires/History-->
-    <string name="bsas_history">The city of Buenos Aires was founded twice. It was first founded in
+    <string name="city1_history">The city of Buenos Aires was founded twice. It was first founded in
         1536 by an expedition led by the Spaniard Pedro de Mendoza, who named it Nuestra Señora
         Santa María del Buen Aire (“Our Lady St. Mary of the Good Air”). He was made the first
         governor-general of the Río de la Plata region.</string>
 
-    <string name="bsas_language">Spanish</string>
+    <string name="city1_language">Spanish</string>
+
+    <string-array name="city1_info">
+        <item>@string/city1_name</item>
+        <item>@string/city1_country</item>
+        <item>@string/city1_population</item>
+        <item>@string/city1_description</item>
+        <item>@string/city1_history</item>
+        <item>@string/city1_language</item>
+    </string-array>
 
     <!--Some highly popular and rated restaurants and bars in BsAs-->
 
     <!--#1 Sarkis-->
 
-    <string name="bsas_sarkis_name">Sarkis</string>
-    <string name="bsas_sarkis_phone">+54&#8211;11&#8211;4772&#8211;4991</string>
-    <string name="bsas_sarkis_price">2.2</string>
-    <string name="bsas_sarkis_rating">4.5</string>
-    <string name="bsas_sarkis_michelin_stars">0</string>
-    <string name="bsas_sarkis_address">Thames 1101, 1414 Villa Crespo, Distrito Federal</string>
-    <string name="bsas_sarkis_neighbourhood">Villa Crespo</string>
-    <string name="bsas_sarkis_website">https://www.facebook.com/pages/Sarkis/156339884415152</string>
+    <string name="city1_restaurant1_name">Sarkis</string>
+    <string name="city1_restaurant1_phone">+54&#8211;11&#8211;4772&#8211;4991</string>
+    <string name="city1_restaurant1_price">2.2</string>
+    <string name="city1_restaurant1_rating">4.5</string>
+    <string name="city1_restaurant1_michelin_stars">0</string>
+    <string name="city1_restaurant1_address">Thames 1101, 1414 Villa Crespo, Distrito Federal</string>
+    <string name="city1_restaurant1_neighbourhood">Villa Crespo</string>
+    <string name="city1_restaurant1_website">https://www.facebook.com/pages/Sarkis/156339884415152</string>
 
-    <string name="bsas_sarkis_description">Sarkis is one of the most popular restaurants in Buenos
+    <string name="city1_restaurant1_description">Sarkis is one of the most popular restaurants in Buenos
         Aires. Sarkis offer Middle Eastern cuisine of a high quality at very reasonable prices. The
         results, however are long waiting times for a seat. Once you get a table though, you will
         not be disappointed.</string>
 
-    <string name="bsas_sarkis_opening_hours">
+    <string name="city1_restaurant1_opening_hours">
         Mon &#8211; Sun 12:00 &#8211; 15:00\nMon &#8211; Sun 20:00 &#8211; 01:00
     </string>
-    <string name="bsas_sarkis_dining_hours">@string/bsas_sarkis_opening_hours</string>
+    <string name="city1_restaurant1_dining_hours">@string/city1_restaurant1_opening_hours</string>
 
-    <string-array name="bsas_sarkis_cuisines">
-        <item>Lebanese</item>
-        <item>Armenian</item>
-        <item>Middle Eastern</item>
-        <item>Eastern European</item>
+    <string name="city1_restaurant1_cuisines">Lebanese|Armenian|Middle Eastern|Eastern European</string>
+
+    <string-array name="city1_restaurant1_info">
+        <item>@string/city1_restaurant1_name</item>
+        <item>@string/city1_restaurant1_phone</item>
+        <item>@string/city1_restaurant1_price</item>
+        <item>@string/city1_restaurant1_rating</item>
+        <item>@string/city1_restaurant1_michelin_stars</item>
+        <item>@string/city1_restaurant1_address</item>
+        <item>@string/city1_restaurant1_neighbourhood</item>
+        <item>@string/city1_restaurant1_website</item>
+        <item>@string/city1_restaurant1_description</item>
+        <item>@string/city1_restaurant1_opening_hours</item>
+        <item>@string/city1_restaurant1_dining_hours</item>
+        <item>@string/city1_restaurant1_cuisines</item>
     </string-array>
 
     <!--#2 Hola Jacoba-->
 
-    <string name="bsas_hola_jacoba_name">Hola Jacoba</string>
-    <string name="bsas_hola_jacoba_phone">+54&#8211;11&#8211;4833&#8211;5858</string>
-    <string name="bsas_hola_jacoba_price">3.9</string>
-    <string name="bsas_hola_jacoba_rating">4.5</string>
-    <string name="bsas_hola_jacoba_michelin_stars">0</string>
-    <string name="bsas_hola_jacoba_address">Thames 1801, 1414 Palermo Soho, Distrito Federal</string>
-    <string name="bsas_hola_jacoba_neighbourhood">Palermo Soho</string>
-    <string name="bsas_hola_jacoba_website">https://www.facebook.com/holajacoba/</string>
+    <string name="city1_restaurant2_name">Hola Jacoba</string>
+    <string name="city1_restaurant2_phone">+54&#8211;11&#8211;4833&#8211;5858</string>
+    <string name="city1_restaurant2_price">3.9</string>
+    <string name="city1_restaurant2_rating">4.5</string>
+    <string name="city1_restaurant2_michelin_stars">0</string>
+    <string name="city1_restaurant2_address">Thames 1801, 1414 Palermo Soho, Distrito Federal</string>
+    <string name="city1_restaurant2_neighbourhood">Palermo Soho</string>
+    <string name="city1_restaurant2_website">https://www.facebook.com/holajacoba/</string>
 
-    <string name="bsas_hola_jacoba_description">Situated in the trendy confines of Palermo Soho,
+    <string name="city1_restaurant2_description">Situated in the trendy confines of Palermo Soho,
         Hola Jacoba is a highly popular Jewish restaurant.</string>
 
-    <string name="bsas_hola_jacoba_opening_hours">
+    <string name="city1_restaurant2_opening_hours">
         Tue &#8211; Fri 19:00 &#8211; 00:00\nTue &#8211; Fri 12:00 &#8211; 00:00
     </string>
 
-    <string name="bsas_hola_jacoba_dining_hours">@string/bsas_hola_jacoba_opening_hours</string>
+    <string name="city1_restaurant2_dining_hours">@string/city1_restaurant2_opening_hours</string>
 
-    <string-array name="bsas_hola_jacoba_cuisines">
-        <item>Jewish</item>
-        <item>Mediterranean</item>
-        <item>Middle Eastern</item>
-        <item>Eastern European</item>
+    <string name="city1_restaurant2_cuisines">
+        Jewish|Mediterranean|Middle Eastern|Eastern European
+    </string>
+
+    <string-array name="city1_restaurant2_info">
+        <item>@string/city1_restaurant2_name</item>
+        <item>@string/city1_restaurant2_phone</item>
+        <item>@string/city1_restaurant2_price</item>
+        <item>@string/city1_restaurant2_rating</item>
+        <item>@string/city1_restaurant2_michelin_stars</item>
+        <item>@string/city1_restaurant2_address</item>
+        <item>@string/city1_restaurant2_neighbourhood</item>
+        <item>@string/city1_restaurant2_website</item>
+        <item>@string/city1_restaurant2_description</item>
+        <item>@string/city1_restaurant2_opening_hours</item>
+        <item>@string/city1_restaurant2_dining_hours</item>
+        <item>@string/city1_restaurant2_cuisines</item>
     </string-array>
 
     <!--#3 i Latina-->
 
-    <string name="bsas_i_latina_name">i Latina</string>
-    <string name="bsas_i_latina_phone">+54&#8211;11&#8211;4857&#8211;9095</string>
-    <string name="bsas_i_latina_price">4.5</string>
-    <string name="bsas_i_latina_rating">4.7</string>
-    <string name="bsas_i_latina_michelin_stars">0</string>
-    <string name="bsas_i_latina_address">Murillo 725, 1414 Villa Crespo, Distrito Federal</string>
-    <string name="bsas_i_latina_neighbourhood">Villa Crespo</string>
-    <string name="bsas_i_latina_website">http://www.ilatinabuenosaires.com/</string>
+    <string name="city1_restaurant3_name">i Latina</string>
+    <string name="city1_restaurant3_phone">+54&#8211;11&#8211;4857&#8211;9095</string>
+    <string name="city1_restaurant3_price">4.5</string>
+    <string name="city1_restaurant3_rating">4.7</string>
+    <string name="city1_restaurant3_michelin_stars">0</string>
+    <string name="city1_restaurant3_address">Murillo 725, 1414 Villa Crespo, Distrito Federal</string>
+    <string name="city1_restaurant3_neighbourhood">Villa Crespo</string>
+    <string name="city1_restaurant3_website">http://www.ilatinabuenosaires.com/</string>
 
     <!--Description taken from here:
     https://www.gringoinbuenosaires.com/i-latina-unforgettable-dining-experience-buenos-aires/-->
-    <string name="bsas_i_latina_description">Since its opening two years ago, i Latina has been
+    <string name="city1_restaurant3_description">Since its opening two years ago, i Latina has been
         providing the flavors of Latin America to a curious and sophisticated audience. In a
         beautiful French-style house, in the neighborhood of Villa Crespo 3 Colombian siblings:
         Santiago, Camilo and Laura Macias, launched a project that involves a 7 course tasting menu
         that celebrates the unique and electric tastes of Latin America.</string>
 
-    <string name="bsas_i_latina_opening_hours">
+    <string name="city1_restaurant3_opening_hours">
         Tue &#8211; Sat 20:00 &#8211; 01:00
     </string>
 
-    <string name="bsas_i_latina_dining_hours">@string/bsas_i_latina_opening_hours</string>
+    <string name="city1_restaurant3_dining_hours">@string/city1_restaurant3_opening_hours</string>
 
-    <string-array name="bsas_i_latina_cuisines">
-        <item>Latin</item>
-        <item>Colombian</item>
-        <item>South American</item>
+    <string name="city1_restaurant3_cuisines">Latin|Colombian|South American</string>
+
+    <string-array name="city1_restaurant3_info">
+        <item>@string/city1_restaurant3_name</item>
+        <item>@string/city1_restaurant3_phone</item>
+        <item>@string/city1_restaurant3_price</item>
+        <item>@string/city1_restaurant3_rating</item>
+        <item>@string/city1_restaurant3_michelin_stars</item>
+        <item>@string/city1_restaurant3_address</item>
+        <item>@string/city1_restaurant3_neighbourhood</item>
+        <item>@string/city1_restaurant3_website</item>
+        <item>@string/city1_restaurant3_description</item>
+        <item>@string/city1_restaurant3_opening_hours</item>
+        <item>@string/city1_restaurant3_dining_hours</item>
+        <item>@string/city1_restaurant3_cuisines</item>
     </string-array>
 
-    <!--#3 Burger Joint-->
+    <!--#4 Burger Joint-->
 
-    <string name="bsas_burger_joint_name">Burger Joint</string>
-    <string name="bsas_burger_joint_phone">+54&#8211;11&#8211;4833&#8211;5151</string>
-    <string name="bsas_burger_joint_price">2.1</string>
-    <string name="bsas_burger_joint_rating">4.3</string>
-    <string name="bsas_burger_joint_michelin_stars">0</string>
-    <string name="bsas_burger_joint_address">Jorge Luis Borges 1776, 1414 Palermo Soho, Distrito Federal</string>
-    <string name="bsas_burger_joint_neighbourhood">Palermo Soho</string>
-    <string name="bsas_burger_joint_website">https://www.facebook.com/BurgerJointPalermo</string>
+    <string name="city1_restaurant4_name">Burger Joint</string>
+    <string name="city1_restaurant4_phone">+54&#8211;11&#8211;4833&#8211;5151</string>
+    <string name="city1_restaurant4_price">2.1</string>
+    <string name="city1_restaurant4_rating">4.3</string>
+    <string name="city1_restaurant4_michelin_stars">0</string>
+    <string name="city1_restaurant4_address">Jorge Luis Borges 1776, 1414 Palermo Soho, Distrito Federal</string>
+    <string name="city1_restaurant4_neighbourhood">Palermo Soho</string>
+    <string name="city1_restaurant4_website">https://www.facebook.com/BurgerJointPalermo</string>
 
-    <string name="bsas_burger_joint_description">Since opening in 2013, Burger Joint has a claim to
+    <string name="city1_restaurant4_description">Since opening in 2013, Burger Joint has a claim to
         have the best burgers in the city. A visit to this Palermo Soho establishment is well worth
         the time.</string>
 
-    <string name="bsas_burger_joint_opening_hours">
+    <string name="city1_restaurant4_opening_hours">
         Sun &#8211; Sat 12:00 &#8211; 00:00
     </string>
 
-    <string name="bsas_burger_joint_dining_hours">@string/bsas_burger_joint_opening_hours</string>
+    <string name="city1_restaurant4_dining_hours">@string/city1_restaurant4_opening_hours</string>
 
-    <string-array name="bsas_burger_joint_cuisines">
-        <item>American</item>
-        <item>Bar</item>
-        <item>Fast Food</item>
+    <string name="city1_restaurant4_cuisines">American|Bar|Fast Food</string>
+
+    <string-array name="city1_restaurant4_info">
+        <item>@string/city1_restaurant4_name</item>
+        <item>@string/city1_restaurant4_phone</item>
+        <item>@string/city1_restaurant4_price</item>
+        <item>@string/city1_restaurant4_rating</item>
+        <item>@string/city1_restaurant4_michelin_stars</item>
+        <item>@string/city1_restaurant4_address</item>
+        <item>@string/city1_restaurant4_neighbourhood</item>
+        <item>@string/city1_restaurant4_website</item>
+        <item>@string/city1_restaurant4_description</item>
+        <item>@string/city1_restaurant4_opening_hours</item>
+        <item>@string/city1_restaurant4_dining_hours</item>
+        <item>@string/city1_restaurant4_cuisines</item>
     </string-array>
 
-    <!--#4 Chila-->
+    <!--#5 Chila-->
 
-    <string name="bsas_chila_name">Chila</string>
-    <string name="bsas_chila_phone">+54&#8211;11&#8211;4343&#8211;6067</string>
-    <string name="bsas_chila_price">4.7</string>
-    <string name="bsas_chila_rating">4.4</string>
-    <string name="bsas_chila_michelin_stars">0</string>
-    <string name="bsas_chila_address">Alicia Moreau de Justo 1160, 1107 Puerto Madero, Distrito Federal</string>
-    <string name="bsas_chila_neighbourhood">Puerto Madero</string>
-    <string name="bsas_chila_website">http://www.chilaweb.com.ar/</string>
+    <string name="city1_restaurant5_name">Chila</string>
+    <string name="city1_restaurant5_phone">+54&#8211;11&#8211;4343&#8211;6067</string>
+    <string name="city1_restaurant5_price">4.7</string>
+    <string name="city1_restaurant5_rating">4.4</string>
+    <string name="city1_restaurant5_michelin_stars">0</string>
+    <string name="city1_restaurant5_address">Alicia Moreau de Justo 1160, 1107 Puerto Madero, Distrito Federal</string>
+    <string name="city1_restaurant5_neighbourhood">Puerto Madero</string>
+    <string name="city1_restaurant5_website">http://www.chilaweb.com.ar/</string>
 
     <!--Description taken from here: http://www.tinyurbankitchen.com/chila-buenos-aires/-->
-    <string name="bsas_chila_description">Chila opened in 2006 in Puerto Madero, a beautiful, newer
+    <string name="city1_restaurant5_description">Chila opened in 2006 in Puerto Madero, a beautiful, newer
         riverside neighborhood on the modern side of Buenos Aires. It has gorgeous views of the
         Rio de la Plata and serves new Argentinian cuisine.</string>
 
-    <string name="bsas_chila_opening_hours">
+    <string name="city1_restaurant5_opening_hours">
         Tue &#8211; Sun 20:00 &#8211; 23:00
     </string>
 
-    <string name="bsas_chila_dining_hours">@string/bsas_chila_opening_hours</string>
+    <string name="city1_restaurant5_dining_hours">@string/city1_restaurant5_opening_hours</string>
 
-    <string-array name="bsas_chila_cuisines">
-        <item>Argentinian</item>
-        <item>South American</item>
-        <item>International</item>
+    <string name="city1_restaurant5_cuisines">Argentinian|South American|International</string>
+
+    <string-array name="city1_restaurant5_info">
+        <item>@string/city1_restaurant5_name</item>
+        <item>@string/city1_restaurant5_phone</item>
+        <item>@string/city1_restaurant5_price</item>
+        <item>@string/city1_restaurant5_rating</item>
+        <item>@string/city1_restaurant5_michelin_stars</item>
+        <item>@string/city1_restaurant5_address</item>
+        <item>@string/city1_restaurant5_neighbourhood</item>
+        <item>@string/city1_restaurant5_website</item>
+        <item>@string/city1_restaurant5_description</item>
+        <item>@string/city1_restaurant5_opening_hours</item>
+        <item>@string/city1_restaurant5_dining_hours</item>
+        <item>@string/city1_restaurant5_cuisines</item>
     </string-array>
 
+    <!--All restaurant string arrays for bsas stored in one array-->
+    <array name="city1_restaurants_list">
+        <item>@array/city1_restaurant1_info</item>
+        <item>@array/city1_restaurant2_info</item>
+        <item>@array/city1_restaurant3_info</item>
+        <item>@array/city1_restaurant4_info</item>
+        <item>@array/city1_restaurant5_info</item>
+    </array>
 
     <!--Some highly popular and rated hotels in BsAs-->
 
     <!--#1 VAIN Hotel-->
 
-    <string name="bsas_vain_boutique_hotel_name">VAIN Boutique Hotel</string>
-    <string name="bsas_vain_boutique_hotel_phone">+54&#8211;11&#8211;4776&#8211;8246</string>
-    <string name="bsas_vain_boutique_hotel_price">3.1</string>
-    <string name="bsas_vain_boutique_hotel_rating">4.1</string>
-    <string name="bsas_vain_boutique_hotel_class">4</string>
-    <string name="bsas_vain_boutique_hotel_address">Thames 2226, 1414 Palermo Viejo, Distrito Federal</string>
-    <string name="bsas_vain_boutique_hotel_neighbourhood">Palermo Viejo</string>
-    <string name="bsas_vain_boutique_hotel_website">http://www.vainhotel.com/</string>
+    <string name="city1_hotel1_name">VAIN Boutique Hotel</string>
+    <string name="city1_hotel1_phone">+54&#8211;11&#8211;4776&#8211;8246</string>
+    <string name="city1_hotel1_price">3.1</string>
+    <string name="city1_hotel1_rating">4.1</string>
+    <string name="city1_hotel1_class">4</string>
+    <string name="city1_hotel1_address">Thames 2226, 1414 Palermo Viejo, Distrito Federal</string>
+    <string name="city1_hotel1_neighbourhood">Palermo Viejo</string>
+    <string name="city1_hotel1_website">http://www.vainhotel.com/</string>
 
     <!--Description taken from here:
     https://www.tripadvisor.ie/Hotel_Review-g312741-d656301-Reviews-Vain_Boutique_Hotel-Buenos_Aires_Capital_Federal_District.html-->
-    <string name="bsas_vain_boutique_hotel_description">Located in the heart of Palermo Viejo
+    <string name="city1_hotel1_description">Located in the heart of Palermo Viejo
         neighborhood, only 15 minutes away from the main tourist attractions, VAIN Boutique Hotel
         gives the possibility of having another alternative to the noisy BA downtown. It preserves
         the "Porteno" neighborhood feeling, combined with a bohemian and avant-garde mixture that
         can be sensed in the variety of stores, from fashion designers, antique and design furniture
         to coffee shops, fashion restaurants and bars, along with the traditional ones.</string>
 
-    <string-array name="bsas_vain_boutique_hotel_amenities">
-        <item name = "pool">False</item>
-        <item name = "restaurant">True</item>
-        <item name = "breakfast">True</item>
-        <item name = "twenty_four_hour_reception">True</item>
-        <item name = "gym">False</item>
-        <item name = "spa">True</item>
-        <item name = "lounge">True</item>
-        <item name = "wifi">True</item>
-        <item name = "parking">False</item>
-        <item name = "valet">True</item>
-        <item name = "concierge">True</item>
-        <item name = "room_service">False</item>
-        <item name = "wheelchair_access">True</item>
+    <string name="city1_hotel1_amenities">False|True|True|True|False|True|True|True|False|True|True|False|True
+    </string>
+
+    <string-array name="city1_hotel1_info">
+        <item>@string/city1_hotel1_name</item>
+        <item>@string/city1_hotel1_phone</item>
+        <item>@string/city1_hotel1_price</item>
+        <item>@string/city1_hotel1_rating</item>
+        <item>@string/city1_hotel1_class</item>
+        <item>@string/city1_hotel1_address</item>
+        <item>@string/city1_hotel1_neighbourhood</item>
+        <item>@string/city1_hotel1_website</item>
+        <item>@string/city1_hotel1_description</item>
+        <item>@string/city1_hotel1_amenities</item>
     </string-array>
 
+
+    <!--All hotel string arrays for bsas stored in one array-->
+    <array name="city1_hotels_list">
+        <item>@array/city1_hotel1_info</item>
+    </array>
+
+
+    <!--ARRAYS OF ALL STRING ARRAYS OF CITIES-->
+    <array name="city_list">
+        <item>@array/city1_info</item>
+    </array>
+
+    <!--Content descriptions for all images-->
+    <string name="city_images">
+        An image of <xliff:g id="city_name" example="London">%d</xliff:g>
+    </string>
 
 
 </resources>

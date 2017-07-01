@@ -40,4 +40,9 @@ public final class TourGuideUtilities {
         }
     }
 
+    public static void readAndWriteAllStringsToDB(){
+
+
+    }
+
 }
