@@ -1,5 +1,6 @@
 package com.example.android.tourguideapp;
 
+import android.content.Context;
 import android.location.Address;
 
 import java.net.URL;
@@ -30,98 +31,29 @@ public class RestaurantBar extends Hospitality {
     // A String array to represent the cuisines such as: Indian, Chinese, Dessert, Drinks, etc..
     private List<String> cuisines;
 
-    /**
-     * Instantiates a new RestaurantBar without a rating and price or michelin stars.
-     *
-     * @param name            the name
-     * @param address         the address
-     * @param website         the website
-     * @param description     the description
-     * @param imageResourceID the image resource id
-     * @param openingHours    the opening hours
-     * @param diningHours     the dining hours
-     * @param cuisines        the cuisines
-     */
-    public RestaurantBar(String name, Address address, URL website, String description, int imageResourceID,
-                         String openingHours, String diningHours, List<String> cuisines) {
-        super(name, address, website, description, imageResourceID);
-        this.openingHours = openingHours;
-        this.diningHours = diningHours;
-        this.cuisines = cuisines;
-    }
-
-    /**
-     * Instantiates a new RestaurantBar without a rating and price but with a michelin star and a
-     * check to make to a value value is passed.
-     *
-     * @param name            the name
-     * @param address         the address
-     * @param website         the website
-     * @param description     the description
-     * @param imageResourceID the image resource id
-     * @param openingHours    the opening hours
-     * @param diningHours     the dining hours
-     * @param michelinStars   the michelin stars
-     * @param cuisines        the cuisines
-     */
-    public RestaurantBar(String name, Address address, URL website, String description, int imageResourceID,
-                         String openingHours, String diningHours, int michelinStars,
-                         List<String> cuisines) {
-        super(name, address, website, description, imageResourceID);
-        if(michelinStars < MICHELIN_STARS_MIN || michelinStars > MICHELIN_STARS_MAX){
-            throw new IllegalArgumentException("Error. You must pass a valid number of michelin stars");
-        }
-        this.openingHours = openingHours;
-        this.diningHours = diningHours;
-        this.michelinStars = michelinStars;
-        this.cuisines = cuisines;
-    }
-
-    /**
-     * Instantiates a new RestaurantBar with a rating and price, along with a check to make sure the
-     * price and rating values passed to the constructor were valid. No Michelin Star rating is
-     * passed and so the default value is used.
-     *
-     * @param name            the name
-     * @param address         the address
-     * @param website         the website
-     * @param description     the description
-     * @param imageResourceID the image resource id
-     * @param rating          the rating
-     * @param price           the price
-     * @param openingHours    the opening hours
-     * @param diningHours     the dining hours
-     * @param cuisines        the cuisines
-     */
-    public RestaurantBar(String name, Address address, URL website, String description, int imageResourceID,
-                         float rating, float price, String openingHours, String diningHours,
-                         List<String> cuisines) {
-        super(name, address, website, description, imageResourceID, rating, price);
-        this.openingHours = openingHours;
-        this.diningHours = diningHours;
-        this.cuisines = cuisines;
-    }
 
     /**
      * Instantiates a new RestaurantBar with a michelin star, along with a check to make sure the
      * values passed to the constructor were valid.
      *
-     * @param name            the name
-     * @param address         the address
-     * @param website         the website
-     * @param description     the description
-     * @param imageResourceID the image resource id
-     * @param rating          the rating
-     * @param price           the price
-     * @param openingHours    the opening hours
-     * @param diningHours     the dining hours
-     * @param michelinStars   the michelin stars
-     * @param cuisines        the cuisines
+     * @param context       the context
+     * @param name          the name
+     * @param address       the address
+     * @param website       the website
+     * @param description   the description
+     * @param imageFileName the image file name
+     * @param rating        the rating
+     * @param price         the price
+     * @param openingHours  the opening hours
+     * @param diningHours   the dining hours
+     * @param michelinStars the michelin stars
+     * @param cuisines      the cuisines
      */
-    public RestaurantBar(String name, Address address, URL website, String description, int imageResourceID,
-                         float rating, float price, String openingHours, String diningHours,
-                         int michelinStars, List<String> cuisines) {
-        super(name, address, website, description, imageResourceID, rating, price);
+    public RestaurantBar(Context context, String name, Address address, URL website,
+                         String description, String imageFileName, float rating, float price,
+                         String openingHours, String diningHours, int michelinStars,
+                         List<String> cuisines) {
+        super(context, name, address, website, description, imageFileName, rating, price);
         if(michelinStars < MICHELIN_STARS_MIN || michelinStars > MICHELIN_STARS_MAX){
             throw new IllegalArgumentException("Error. You must pass a valid number of michelin stars");
         }

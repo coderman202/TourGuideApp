@@ -1,13 +1,17 @@
 package com.example.android.tourguideapp;
 
-import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Address;
+import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,8 +23,11 @@ import static com.example.android.tourguideapp.TourGuideUtilities.stringToDate;
 /**
  * My custom class for handling all db queries
  */
-
 public class TourGuideDBHelper extends SQLiteOpenHelper {
+
+    // Storing the context for later use in passing through to custom class objects via their
+    // constructors.
+    private Context context;
 
     //region DB, Table and column name declarations
     //----------------------------------------------------------------------------------------------
@@ -32,509 +39,204 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
     // Table names in DB
     private static final String TABLE_CITY = "City";
     private static final String TABLE_HOTEL = "Hotel";
+    private static final String TABLE_AMENITY = "Amenity";
+    private static final String TABLE_HOTEL_AMENITY = "HotelAmenity";
     private static final String TABLE_RESTAURANT_BAR = "RestaurantBar";
+    private static final String TABLE_CUISINE = "Cuisine";
+    private static final String TABLE_RESTAURANT_BAR_CUISINE = "RestaurantBarCuisine";
     private static final String TABLE_AIRPORT = "Airport";
     private static final String TABLE_EVENT = "Event";
     private static final String TABLE_ATTRACTION = "Attraction";
     private static final String TABLE_TOUR = "Tour";
-    private static final String TABLE_CUISINE = "Cuisine";
     private static final String TABLE_TRANSPORT = "Transport";
+    private static final String TABLE_TRANSPORT_SYSTEM = "TransportSystem";
 
     // Column names for City table
     private static final String CITY_ID = "CityID";
-    private static final String CITY_NAME = "Name";
-    private static final String CITY_COUNTRY = "Country";
-    private static final String CITY_POP = "Population";
-    private static final String CITY_DESCRIPTION = "Description";
-    private static final String CITY_HISTORY = "History";
-    private static final String CITY_LANGUAGE = "Language";
-    private static final String CITY_IMAGE = "ImageID";
-
-    // Column names for the Hotel table
-    private static final String HOTEL_ID = "HotelID";
-    private static final String HOTEL_NAME = "Name";
-    private static final String HOTEL_CITY = "CityID";
-    private static final String HOTEL_DESCRIPTION = "Description";
-    private static final String HOTEL_ADDRESS = "Address";
-    private static final String HOTEL_CLASS = "Class";
-    private static final String HOTEL_RATING = "Rating";
-    private static final String HOTEL_PRICE = "Price";
-    private static final String HOTEL_IMAGE = "ImageID";
-    private static final String HOTEL_WEBSITE = "WebsiteURL";
-    private static final String HOTEL_NEIGHBOURHOOD = "Neighbourhood";
-    private static final String HOTEL_PHONE = "Phone";
-    private static final String HOTEL_AMENITIES = "Amenities";
-
-    // Column names for the RestaurantBar table
-    private static final String RESTAURANT_BAR_ID = "RestaurantBarID";
-    private static final String RESTAURANT_BAR_NAME = "Name";
-    private static final String RESTAURANT_BAR_CITY = "CityID";
-    private static final String RESTAURANT_BAR_OPENING_HOURS = "OpeningHours";
-    private static final String RESTAURANT_BAR_DINING_HOURS = "DiningHours";
-    private static final String RESTAURANT_BAR_DESCRIPTION = "Description";
-    private static final String RESTAURANT_BAR_MICHELIN_STARS = "MichelinStars";
-    private static final String RESTAURANT_BAR_ADDRESS = "Address";
-    private static final String RESTAURANT_BAR_RATING = "Rating";
-    private static final String RESTAURANT_BAR_PRICE = "Price";
-    private static final String RESTAURANT_BAR_IMAGE = "ImageID";
-    private static final String RESTAURANT_BAR_WEBSITE = "WebsiteURL";
-    private static final String RESTAURANT_BAR_NEIGHBOURHOOD = "Neighbourhood";
-    private static final String RESTAURANT_BAR_PHONE = "Phone";
+    private static final String CITY_NAME = "CityName";
+    private static final String CITY_COUNTRY = "CityCountry";
+    private static final String CITY_POP = "CityPopulation";
+    private static final String CITY_DESCRIPTION = "CityDescription";
+    private static final String CITY_HISTORY = "CityHistory";
+    private static final String CITY_LANGUAGE = "CityLanguage";
+    private static final String CITY_IMAGE = "CityImage";
 
     // Column names for the Airport table
     private static final String AIRPORT_ID = "AirportID";
-    private static final String AIRPORT_NAME = "Name";
+    private static final String AIRPORT_NAME = "AirportName";
     private static final String AIRPORT_CITY = "CityID";
-    private static final String AIRPORT_IATA = "IATACode";
-    private static final String AIRPORT_ADDRESS = "Address";
-
-    // Column names for the Event table
-    private static final String EVENT_ID = "EventID";
-    private static final String EVENT_NAME = "Name";
-    private static final String EVENT_CITY = "CityID";
-    private static final String EVENT_START_DATE = "StartDate";
-    private static final String EVENT_END_DATE = "EndDate";
-    private static final String EVENT_ADDRESS = "Address";
-    private static final String EVENT_DESCRIPTION = "Description";
-    private static final String EVENT_WEBSITE = "WebsiteURL";
-    private static final String EVENT_THEME = "Theme";
-    private static final String EVENT_IMAGE = "ImageID";
-    private static final String EVENT_WHEELCHAIR_ACCESS = "WheelchairAccess";
-
-    // Column names for the Attraction table
-    private static final String ATTRACTION_ID = "AttractionID";
-    private static final String ATTRACTION_NAME = "Name";
-    private static final String ATTRACTION_CITY = "CityID";
-    private static final String ATTRACTION_OPENING_HOURS = "OpeningHours";
-    private static final String ATTRACTION_ADDRESS = "Address";
-    private static final String ATTRACTION_DESCRIPTION = "Description";
-    private static final String ATTRACTION_RATING = "Rating";
-    private static final String ATTRACTION_PRICE = "Price";
-    private static final String ATTRACTION_WEBSITE = "WebsiteURL";
-    private static final String ATTRACTION_IMAGE = "ImageID";
-    private static final String ATTRACTION_WHEELCHAIR_ACCESS = "WheelchairAccess";
-    private static final String ATTRACTION_NEIGHBOURHOOD = "Neighbourhood";
-    private static final String ATTRACTION_PHONE = "Phone";
-
-    // Column names for the Tour table
-    private static final String TOUR_ID = "TourID";
-    private static final String TOUR_NAME = "Name";
-    private static final String TOUR_CITY = "CityID";
-    private static final String TOUR_OPERATING_TIMES = "OperatingTimes";
-    private static final String TOUR_START_ADDRESS = "StartAddress";
-    private static final String TOUR_END_ADDRESS = "EndAddress";
-    private static final String TOUR_DESCRIPTION = "Description";
-    private static final String TOUR_WEBSITE = "WebsiteURL";
-    private static final String TOUR_COMPANY = "Company";
-    private static final String TOUR_IMAGE = "ImageID";
-    private static final String TOUR_WHEELCHAIR_ACCESS = "WheelchairAccess";
-    private static final String TOUR_PHONE = "Phone";
-    private static final String TOUR_PRICE = "Price";
-    private static final String TOUR_RATING = "Rating";
-
-    // Column names for the Cuisine table
-    private static final String CUISINE_ID = "CusineID";
-    private static final String CUISINE_NAME = "Name";
-    private static final String CUISINE_RESTAURANT_BAR = "RestuarantBarID";
+    private static final String AIRPORT_IATA = "AirportIATACode";
 
     // Column names for the Transport table
     private static final String TRANSPORT_ID = "TransportID";
-    private static final String TRANSPORT_TYPE = "Type";
-    private static final String TRANSPORT_CITY = "CityID";
+    private static final String TRANSPORT_TYPE = "TransportType";
+    private static final String TRANSPORT_ICON = "TransportIcon";
 
-    //----------------------------------------------------------------------------------------------
-    //endregion
+    // Column names for the TransportSystem table which acts as a lookup table for the many-to-many
+    // relationship.
+    private static final String TRANSPORT_SYSTEM_ID = "TransportSystemID";
+    private static final String TRANSPORT_SYSTEM_TRANSPORT_ID = "TransportID";
+    private static final String TRANSPORT_SYSTEM_CITY_ID = "CityID";
 
-    //region Helper Strings for the create and drop table statements
-    //----------------------------------------------------------------------------------------------
-    private static final String PRIMARY_KEY_CONSTRAINTS = " INTEGER NOT NULL " +
-            "PRIMARY KEY AUTOINCREMENT UNIQUE, ";
-    private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS ";
-    private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
-    private static final String ON_DELETE = "ON DELETE SET NULL);";
-    private static final String FOREIGN_KEY_CITY_ID =
-            "FOREIGN KEY (" + TOUR_CITY + ") REFERENCES " + TABLE_CITY +
-                    " (" + CITY_ID + ")" + ON_DELETE;
-    //----------------------------------------------------------------------------------------------
-    //endregion
+    // Column names for the Hotel table
+    private static final String HOTEL_ID = "HotelID";
+    private static final String HOTEL_NAME = "HotelName";
+    private static final String HOTEL_CITY = "CityID";
+    private static final String HOTEL_DESCRIPTION = "HotelDescription";
+    private static final String HOTEL_ADDRESS = "HotelAddress";
+    private static final String HOTEL_CLASS = "HotelClass";
+    private static final String HOTEL_RATING = "HotelRating";
+    private static final String HOTEL_PRICE = "HotelPrice";
+    private static final String HOTEL_IMAGE = "HotelImage";
+    private static final String HOTEL_WEBSITE = "HotelWebsite";
+    private static final String HOTEL_NEIGHBOURHOOD = "HotelNeighbourhood";
+    private static final String HOTEL_PHONE = "HotelPhone";
 
-    //region All the create table statements
-    //----------------------------------------------------------------------------------------------
-    // The create table statement for City table
-    private static final String CREATE_TABLE_CITY = CREATE_TABLE + TABLE_CITY +
-            "(" + CITY_ID + PRIMARY_KEY_CONSTRAINTS + CITY_NAME + " TEXT NOT NULL, " +
-            CITY_COUNTRY + " TEXT NOT NULL, " + CITY_POP + " INTEGER NOT NULL, " +
-            CITY_DESCRIPTION + " TEXT NOT NULL, " + CITY_HISTORY + " TEXT NOT NULL, " +
-            CITY_LANGUAGE + " TEXT NOT NULL, " + CITY_IMAGE + " INTEGER NOT NULL);";
+    // Column names for the Amenity table.
+    private static final String AMENITY_ID = "AmenityID";
+    private static final String AMENITY_NAME = "AmenityName";
+    private static final String AMENITY_ICON = "AmenityIcon";
 
-    // The create table statement for Hotel table
-    private static final String CREATE_TABLE_HOTEL = CREATE_TABLE + TABLE_HOTEL + "(" +
-            HOTEL_ID + PRIMARY_KEY_CONSTRAINTS + HOTEL_NAME + " TEXT NOT NULL, " +
-            HOTEL_CITY + " INTEGER NOT NULL, " + HOTEL_CLASS + " INTEGER NOT NULL, " +
-            HOTEL_RATING + " REAL NOT NULL, " + HOTEL_PRICE + " REAL NOT NULL, " +
-            HOTEL_DESCRIPTION + " TEXT NOT NULL, " + HOTEL_WEBSITE + " TEXT NOT NULL, " +
-            HOTEL_NEIGHBOURHOOD + " TEXT, " + HOTEL_PHONE + " TEXT NOT NULL, " +
-            HOTEL_IMAGE + " INTEGER NOT NULL, " + HOTEL_ADDRESS + " TEXT, " +
-            HOTEL_AMENITIES + " TEXT NOT NULL, " + FOREIGN_KEY_CITY_ID;
+    // Column names for the HotelAmenity lookup table which deals with the many-to-many relationship.
+    private static final String HOTEL_AMENITY_ID = "HotelAmenityID";
+    private static final String HOTEL_AMENITY_AMENITY_ID = "AmenityID";
+    private static final String HOTEL_AMENITY_HOTEL_ID = "HotelID";
 
-    // The create table statement for RestaurantBar table
-    private static final String CREATE_TABLE_RESTAURANT_BAR = CREATE_TABLE + TABLE_RESTAURANT_BAR + "(" +
-            RESTAURANT_BAR_ID + PRIMARY_KEY_CONSTRAINTS + RESTAURANT_BAR_NAME + " TEXT NOT NULL, " +
-            RESTAURANT_BAR_CITY + " INTEGER NOT NULL, " + RESTAURANT_BAR_MICHELIN_STARS + " INTEGER NOT NULL, " +
-            RESTAURANT_BAR_RATING + " REAL NOT NULL, " + RESTAURANT_BAR_PRICE + " REAL NOT NULL, " +
-            RESTAURANT_BAR_DESCRIPTION + " TEXT NOT NULL, " + RESTAURANT_BAR_WEBSITE + " TEXT, " +
-            RESTAURANT_BAR_NEIGHBOURHOOD + " TEXT, " + RESTAURANT_BAR_PHONE + " TEXT NOT NULL, " +
-            RESTAURANT_BAR_IMAGE + " INTEGER NOT NULL, " + RESTAURANT_BAR_ADDRESS + " TEXT, " +
-            RESTAURANT_BAR_OPENING_HOURS + " TEXT NOT NULL, " +
-            RESTAURANT_BAR_DINING_HOURS + " TEXT NOT NULL, " + FOREIGN_KEY_CITY_ID;
+    // Column names for the RestaurantBar table
+    private static final String RESTAURANT_BAR_ID = "RestaurantBarID";
+    private static final String RESTAURANT_BAR_NAME = "RestaurantBarName";
+    private static final String RESTAURANT_BAR_CITY = "CityID";
+    private static final String RESTAURANT_BAR_OPENING_HOURS = "RestaurantBarOpeningHours";
+    private static final String RESTAURANT_BAR_DINING_HOURS = "RestaurantBarDiningHours";
+    private static final String RESTAURANT_BAR_DESCRIPTION = "RestaurantBarDescription";
+    private static final String RESTAURANT_BAR_MICHELIN_STARS = "RestaurantBarMichelinStars";
+    private static final String RESTAURANT_BAR_ADDRESS = "RestaurantBarAddress";
+    private static final String RESTAURANT_BAR_RATING = "RestaurantBarRating";
+    private static final String RESTAURANT_BAR_PRICE = "RestaurantBarPrice";
+    private static final String RESTAURANT_BAR_IMAGE = "RestaurantBarImage";
+    private static final String RESTAURANT_BAR_WEBSITE = "RestaurantBarWebsite";
+    private static final String RESTAURANT_BAR_NEIGHBOURHOOD = "RestaurantBarNeighbourhood";
+    private static final String RESTAURANT_BAR_PHONE = "RestaurantBarPhone";
+    private static final String RESTAURANT_BAR_WHEELCHAIR_ACCESS = "RestaurantBarWheelchairAccess";
 
-    // The create table statement for Airport table
-    private static final String CREATE_TABLE_AIRPORT = CREATE_TABLE + TABLE_AIRPORT + "(" +
-            AIRPORT_ID + PRIMARY_KEY_CONSTRAINTS + AIRPORT_NAME + " TEXT NOT NULL, " +
-            AIRPORT_CITY + " INTEGER NOT NULL, " + AIRPORT_IATA + " TEXT NOT NULL, " +
-            AIRPORT_ADDRESS + " TEXT, " + FOREIGN_KEY_CITY_ID;
+    // Column names for the Cuisine table
+    private static final String CUISINE_ID = "CuisineID";
+    private static final String CUISINE_NAME = "CuisineName";
 
-    // The create table statement for Event table
-    private static final String CREATE_TABLE_EVENT = CREATE_TABLE + TABLE_EVENT + "(" +
-            EVENT_ID + PRIMARY_KEY_CONSTRAINTS + EVENT_NAME + " TEXT NOT NULL, " +
-            EVENT_CITY + " INTEGER NOT NULL, " + EVENT_THEME + " TEXT NOT NULL, " +
-            EVENT_DESCRIPTION + " TEXT NOT NULL, " + EVENT_WEBSITE + " TEXT, " +
-            EVENT_IMAGE + " INTEGER NOT NULL, " + EVENT_ADDRESS + " TEXT, " +
-            EVENT_START_DATE + " TEXT NOT NULL, " + EVENT_END_DATE + " TEXT NOT NULL " +
-            EVENT_WHEELCHAIR_ACCESS + " INTEGER NOT NULL, " + FOREIGN_KEY_CITY_ID;
+    // Column names for the RestaurantBarCuisine table which deals with the many-to-many relationship.
+    private static final String RESTAURANT_BAR_CUISINE_ID = "RestaurantBarCuisineID";
+    private static final String RESTAURANT_BAR_CUISINE_CUISINE_ID = "CuisineID";
+    private static final String RESTAURANT_BAR_CUISINE_RESTAURANT_BAR_ID = "RestaurantBarID";
 
-    // The create table statement for Attraction table
-    private static final String CREATE_TABLE_ATTRACTION = CREATE_TABLE + TABLE_ATTRACTION + "(" +
-            ATTRACTION_ID + PRIMARY_KEY_CONSTRAINTS + ATTRACTION_NAME + " TEXT NOT NULL, " +
-            ATTRACTION_CITY + " INTEGER NOT NULL, " + ATTRACTION_RATING + " REAL NOT NULL, " +
-            ATTRACTION_PRICE + " REAL NOT NULL, " + ATTRACTION_DESCRIPTION + " TEXT NOT NULL, " +
-            ATTRACTION_WEBSITE + " TEXT, " + ATTRACTION_IMAGE + " INTEGER NOT NULL, " +
-            ATTRACTION_NEIGHBOURHOOD + " TEXT, " + ATTRACTION_PHONE + " TEXT NOT NULL, " +
-            ATTRACTION_ADDRESS + " TEXT, " + ATTRACTION_OPENING_HOURS + " TEXT NOT NULL, " +
-            ATTRACTION_WHEELCHAIR_ACCESS + " INTEGER NOT NULL, " + FOREIGN_KEY_CITY_ID;
+    // Column names for the Event table
+    private static final String EVENT_ID = "EventID";
+    private static final String EVENT_NAME = "EventName";
+    private static final String EVENT_CITY = "CityID";
+    private static final String EVENT_START_DATE_TIME = "EventStartDateTime";
+    private static final String EVENT_END_DATE_TIME = "EventEndDateTime";
+    private static final String EVENT_ADDRESS = "EventAddress";
+    private static final String EVENT_DESCRIPTION = "EventDescription";
+    private static final String EVENT_WEBSITE = "EventWebsite";
+    private static final String EVENT_THEME = "EventTheme";
+    private static final String EVENT_IMAGE = "EventImage";
+    private static final String EVENT_WHEELCHAIR_ACCESS = "EventWheelchairAccess";
 
-    // The create table statement for Tour table
-    private static final String CREATE_TABLE_TOUR = CREATE_TABLE + TABLE_TOUR + "(" +
-            TOUR_ID + PRIMARY_KEY_CONSTRAINTS + TOUR_NAME + " TEXT NOT NULL, " +
-            TOUR_CITY + " INTEGER NOT NULL, " + TOUR_COMPANY + " TEXT NOT NULL, " +
-            TOUR_DESCRIPTION + " TEXT NOT NULL, " + TOUR_WEBSITE + " TEXT, " +
-            TOUR_IMAGE + " INTEGER NOT NULL, " + TOUR_START_ADDRESS + " TEXT, " +
-            TOUR_PRICE + " REAL NOT NULL, " + TOUR_RATING + " REAL NOT NULL, " +
-            TOUR_END_ADDRESS + " TEXT, " + TOUR_OPERATING_TIMES + " TEXT NOT NULL, " +
-            TOUR_WHEELCHAIR_ACCESS + " INTEGER NOT NULL, " + TOUR_PHONE + " TEXT, " +
-            FOREIGN_KEY_CITY_ID;
+    // Column names for the Attraction table
+    private static final String ATTRACTION_ID = "AttractionID";
+    private static final String ATTRACTION_NAME = "AttractionName";
+    private static final String ATTRACTION_CITY = "CityID";
+    private static final String ATTRACTION_OPENING_HOURS = "AttractionOpeningHours";
+    private static final String ATTRACTION_ADDRESS = "AttractionAddress";
+    private static final String ATTRACTION_DESCRIPTION = "AttractionDescription";
+    private static final String ATTRACTION_RATING = "AttractionRating";
+    private static final String ATTRACTION_PRICE = "AttractionPrice";
+    private static final String ATTRACTION_WEBSITE = "AttractionWebsite";
+    private static final String ATTRACTION_IMAGE = "AttractionImage";
+    private static final String ATTRACTION_WHEELCHAIR_ACCESS = "AttractionWheelchairAccess";
+    private static final String ATTRACTION_NEIGHBOURHOOD = "AttractionNeighbourhood";
+    private static final String ATTRACTION_PHONE = "AttractionPhone";
 
-    // The create table statement for Cuisine table
-    private static final String CREATE_TABLE_CUISINE = CREATE_TABLE + TABLE_CUISINE + "(" +
-            CUISINE_ID + PRIMARY_KEY_CONSTRAINTS + CUISINE_NAME + " TEXT NOT NULL, " +
-            CUISINE_RESTAURANT_BAR + " INTEGER NOT NULL, FOREIGN KEY (" + CUISINE_RESTAURANT_BAR +
-            ") REFERENCES " + TABLE_RESTAURANT_BAR + " (" + RESTAURANT_BAR_ID + ")" + ON_DELETE;
+    // Column names for the Tour table
+    private static final String TOUR_ID = "TourID";
+    private static final String TOUR_NAME = "TourName";
+    private static final String TOUR_CITY = "CityID";
+    private static final String TOUR_OPERATING_TIMES = "TourOperatingTimes";
+    private static final String TOUR_START_ADDRESS = "TourStartAddress";
+    private static final String TOUR_END_ADDRESS = "TourEndAddress";
+    private static final String TOUR_DESCRIPTION = "TourDescription";
+    private static final String TOUR_WEBSITE = "TourWebsite";
+    private static final String TOUR_OPERATOR = "TourOperator";
+    private static final String TOUR_IMAGE = "TourImage";
+    private static final String TOUR_WHEELCHAIR_ACCESS = "TourWheelchairAccess";
+    private static final String TOUR_PHONE = "TourPhone";
+    private static final String TOUR_PRICE = "TourPrice";
+    private static final String TOUR_RATING = "TourRating";
 
-    // The create table statement for Transport table
-    private static final String CREATE_TABLE_TRANSPORT = CREATE_TABLE + TABLE_TRANSPORT + "(" +
-            TRANSPORT_ID + PRIMARY_KEY_CONSTRAINTS + TRANSPORT_TYPE + " TEXT NOT NULL, " +
-            TRANSPORT_CITY + " INTEGER NOT NULL, " + FOREIGN_KEY_CITY_ID;
+
     //----------------------------------------------------------------------------------------------
     //endregion
 
     //region The default constructor and the basic overridden onCreate and onUpgrade methods.
+    // Also includes a method ro execute sql scripts from the assets folder.
     //----------------------------------------------------------------------------------------------
     /**
      * Default constructor
-     * @param context
+     * @param context the context
      */
     public TourGuideDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_CITY);
-        db.execSQL(CREATE_TABLE_HOTEL);
-        db.execSQL(CREATE_TABLE_RESTAURANT_BAR);
-        db.execSQL(CREATE_TABLE_AIRPORT);
-        db.execSQL(CREATE_TABLE_EVENT);
-        db.execSQL(CREATE_TABLE_ATTRACTION);
-        db.execSQL(CREATE_TABLE_TOUR);
-        db.execSQL(CREATE_TABLE_CUISINE);
-        db.execSQL(CREATE_TABLE_TRANSPORT);
+
     }
 
     // On upgrade drop older tables and create new ones calling the onCreate() method.
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(DROP_TABLE + TABLE_CITY);
-        db.execSQL(DROP_TABLE + TABLE_HOTEL);
-        db.execSQL(DROP_TABLE + TABLE_RESTAURANT_BAR);
-        db.execSQL(DROP_TABLE + TABLE_AIRPORT);
-        db.execSQL(DROP_TABLE + TABLE_EVENT);
-        db.execSQL(DROP_TABLE + TABLE_ATTRACTION);
-        db.execSQL(DROP_TABLE + TABLE_TOUR);
-        db.execSQL(DROP_TABLE + TABLE_CUISINE);
-        db.execSQL(DROP_TABLE + TABLE_TRANSPORT);
+
         onCreate(db);
     }
-    //----------------------------------------------------------------------------------------------
-    //endregion
 
-    //region Methods for the inserting data.
-    //----------------------------------------------------------------------------------------------
     /**
-     * This method will insert a city object into the database and also all the airports, tours,
-     * restaurants, bars, events, attractions, and all related items will be inserted also by
-     * calling the insert methods for each objects below. I first complete the insertion of the city
-     * object, then taking the long return value from the db.insert() method which returns the last
-     * row id, in otherwords to auto-incremented primary key, casts it to an int and passes it as a
-     * parameter for the further insert methods, as it will be the city id foreign key of all the
-     * related places.
-     *
-     * @param city the city
+     * A method to execute sql scripts. This can be called to run the create_tables.sql script in
+     * the onCreate method, along with the insert_data.sql file. n the onUpgrade method, the
+     * drop_tables.sql file can be called along with the create and insert scripts. My resource for
+     * this method is found below.
+     * @param context   The context
+     * @param db        The db that the script is run on
+     * @param sqlScript The sql script
+     * @see <a href="http://www.drdobbs.com/database/using-sqlite-on-android/232900584">Here</a>
      */
-    public void insertCity(City city){
-        SQLiteDatabase db = this.getWritableDatabase();
+    private void runSQLScript(Context context, SQLiteDatabase db, String sqlScript) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte buf[] = new byte[1024];
+        int len;
+        AssetManager assetManager = context.getAssets();
+        InputStream inputStream;
 
-        ContentValues val = new ContentValues();
-        val.put(CITY_NAME, city.getName());
-        val.put(CITY_DESCRIPTION, city.getDescription());
-        val.put(CITY_HISTORY, city.getHistory());
-        val.put(CITY_LANGUAGE, city.getLanguage());
-        val.put(CITY_COUNTRY, city.getCountry());
-        val.put(CITY_POP, city.getPopulation());
-        val.put(CITY_IMAGE, city.getImageResourceID());
+        try {
+            inputStream = assetManager.open(sqlScript);
+            while ((len = inputStream.read(buf)) != -1) {
+                outputStream.write(buf, 0, len);
+            }
+            outputStream.close();
+            inputStream.close();
 
-        int cityID = (int) db.insert(TABLE_CITY, null, val);
-        db.close();
-
-        List<Airport> airportsList = city.getAirports();
-        for (Airport airport: airportsList) {
-            insertAirport(airport, cityID);
+            String[] script = outputStream.toString().split(";");
+            for (String sqlStatement:script) {
+                sqlStatement = sqlStatement.trim();
+                if (sqlStatement.length() > 0) {
+                    db.execSQL(sqlStatement + ";");
+                }
+            }
+        } catch (IOException e) {
+            Log.e(e.toString(), sqlScript + "failed to load");
+        } catch (SQLException e) {
+            Log.e(e.toString(), sqlScript + "failed to execute");
         }
-
-        List<RestaurantBar> restaurantBarsList = city.getRestaurantBars();
-        for (RestaurantBar restaurantBar: restaurantBarsList) {
-            insertRestaurantBar(restaurantBar, cityID);
-        }
-
-        List<Hotel> hotelsList = city.getHotels();
-        for (Hotel hotel: hotelsList) {
-            insertHotel(hotel, cityID);
-        }
-
-        List<Event> eventsList = city.getEvents();
-        for (Event event: eventsList) {
-            insertEvent(event, cityID);
-        }
-
-        List<Attraction> attractionsList = city.getAttractions();
-        for (Attraction attraction: attractionsList) {
-            insertAttraction(attraction, cityID);
-        }
-
-        List<Tour> toursList = city.getTours();
-        for (Tour tour: toursList) {
-            insertTour(tour, cityID);
-        }
-
-        List<String> transportList = city.getTransport();
-        for (String transport: transportList) {
-            insertTransport(transport, cityID);
-        }
-    }
-
-    /**
-     * Insert airport.
-     *
-     * @param airport the airport
-     * @param cityID  the city id
-     */
-    public void insertAirport(Airport airport, int cityID){
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues val = new ContentValues();
-        val.put(AIRPORT_NAME, airport.getName());
-        val.put(AIRPORT_CITY, cityID);
-        val.put(AIRPORT_IATA, airport.getIata());
-        val.put(AIRPORT_ADDRESS, airport.getAddressToString());
-
-        db.insert(TABLE_AIRPORT, null, val);
-        db.close();
-
-    }
-
-    /**
-     * Insert restaurant bar. Also uses the same principle as the insertCity() method by passing the
-     * restaurantBarID taken as a result of the db.insert() method and passes it as a parameter for
-     * the insertCuisine() method.
-     *
-     * @param restaurantBar the restaurant bar
-     * @param cityID        the city id
-     */
-    public void insertRestaurantBar(RestaurantBar restaurantBar, int cityID){
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues val = new ContentValues();
-        val.put(RESTAURANT_BAR_NAME, restaurantBar.getName());
-        val.put(RESTAURANT_BAR_CITY, cityID);
-        val.put(RESTAURANT_BAR_ADDRESS, restaurantBar.getAddress().toString());
-        val.put(RESTAURANT_BAR_NEIGHBOURHOOD, restaurantBar.getNeighbourhood());
-        val.put(RESTAURANT_BAR_PHONE, restaurantBar.getPhoneNumber());
-        val.put(RESTAURANT_BAR_RATING, restaurantBar.getRating());
-        val.put(RESTAURANT_BAR_PRICE, restaurantBar.getPrice());
-        val.put(RESTAURANT_BAR_MICHELIN_STARS, restaurantBar.getMichelinStars());
-        val.put(RESTAURANT_BAR_IMAGE, restaurantBar.getImageResourceID());
-        val.put(RESTAURANT_BAR_WEBSITE, restaurantBar.getWebsite().toString());
-        val.put(RESTAURANT_BAR_OPENING_HOURS, restaurantBar.getOpeningHours());
-        val.put(RESTAURANT_BAR_DINING_HOURS, restaurantBar.getDiningHours());
-        val.put(RESTAURANT_BAR_DESCRIPTION, restaurantBar.getDescription());
-
-        int resraurantBarID = (int) db.insert(TABLE_RESTAURANT_BAR, null, val);
-        db.close();
-
-        List<String> cuisinesList = restaurantBar.getCuisines();
-        for (String cuisine: cuisinesList) {
-            insertCuisine(cuisine, resraurantBarID);
-        }
-    }
-
-    /**
-     * Insert cuisine.
-     *
-     * @param cuisine         the cuisine
-     * @param restaurantBarID the restaurant bar id
-     */
-    public void insertCuisine(String cuisine, int restaurantBarID){
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues val = new ContentValues();
-        val.put(CUISINE_NAME, cuisine);
-        val.put(CUISINE_RESTAURANT_BAR, restaurantBarID);
-
-        db.insert(TABLE_CUISINE, null, val);
-        db.close();
-    }
-
-    /**
-     * Insert event.
-     *
-     * @param event  the event
-     * @param cityID the city id
-     */
-    public void insertEvent(Event event, int cityID){
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues val = new ContentValues();
-        val.put(EVENT_NAME, event.getName());
-        val.put(EVENT_CITY, cityID);
-        val.put(EVENT_ADDRESS, event.getAddress().toString());
-        val.put(EVENT_DESCRIPTION, event.getDescription());
-        val.put(EVENT_START_DATE, event.getStartDateTime().toString());
-        val.put(EVENT_END_DATE, event.getEndDateTime().toString());
-        val.put(EVENT_THEME, event.getTheme());
-        val.put(EVENT_WHEELCHAIR_ACCESS, event.hasWheelchairAccess());
-        val.put(EVENT_IMAGE, event.getImageResourceID());
-        val.put(EVENT_WEBSITE, event.getWebsite().toString());
-
-        db.insert(TABLE_EVENT, null, val);
-        db.close();
-    }
-
-    /**
-     * Insert attraction.
-     *
-     * @param attraction the attraction
-     * @param cityID     the city id
-     */
-    public void insertAttraction(Attraction attraction, int cityID){
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues val = new ContentValues();
-        val.put(ATTRACTION_NAME, attraction.getName());
-        val.put(ATTRACTION_CITY, cityID);
-        val.put(ATTRACTION_ADDRESS, attraction.getAddress().toString());
-        val.put(ATTRACTION_DESCRIPTION, attraction.getDescription());
-        val.put(ATTRACTION_OPENING_HOURS, attraction.getOpeningHours());
-        val.put(ATTRACTION_PHONE, attraction.getPhoneNumber());
-        val.put(ATTRACTION_PRICE, attraction.getPrice());
-        val.put(ATTRACTION_WHEELCHAIR_ACCESS, attraction.hasWheelchairAccess());
-        val.put(ATTRACTION_IMAGE, attraction.getImageResourceID());
-        val.put(ATTRACTION_WEBSITE, attraction.getWebsite().toString());
-        val.put(ATTRACTION_RATING, attraction.getRating());
-        val.put(ATTRACTION_NEIGHBOURHOOD, attraction.getNeighbourhood());
-
-        db.insert(TABLE_ATTRACTION, null, val);
-        db.close();
-    }
-
-    /**
-     * Insert hotel.
-     *
-     * @param hotel  the hotel
-     * @param cityID the city id
-     */
-    public void insertHotel(Hotel hotel, int cityID){
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues val = new ContentValues();
-        val.put(HOTEL_NAME, hotel.getName());
-        val.put(HOTEL_CITY, cityID);
-        val.put(HOTEL_ADDRESS, hotel.getAddress().toString());
-        val.put(HOTEL_NEIGHBOURHOOD, hotel.getNeighbourhood());
-        val.put(HOTEL_PHONE, hotel.getPhoneNumber());
-        val.put(HOTEL_RATING, hotel.getRating());
-        val.put(HOTEL_PRICE, hotel.getPrice());
-        val.put(HOTEL_CLASS, hotel.getHotelClass());
-        val.put(HOTEL_IMAGE, hotel.getImageResourceID());
-        val.put(HOTEL_WEBSITE, hotel.getWebsite().toString());
-        val.put(HOTEL_DESCRIPTION, hotel.getDescription());
-        val.put(HOTEL_AMENITIES, hotel.convertAmenitiesForStorage());
-
-        db.insert(TABLE_HOTEL, null, val);
-        db.close();
-    }
-
-    /**
-     * Insert tour.
-     *
-     * @param tour   the tour
-     * @param cityID the city id
-     */
-    public void insertTour(Tour tour, int cityID){
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues val = new ContentValues();
-        val.put(TOUR_NAME, tour.getName());
-        val.put(TOUR_CITY, cityID);
-        val.put(TOUR_START_ADDRESS, tour.getStartLocation().toString());
-        val.put(TOUR_END_ADDRESS, tour.getEndLocation().toString());
-        val.put(TOUR_PHONE, tour.getPhoneNumber());
-        val.put(TOUR_COMPANY, tour.getOperator());
-        val.put(TOUR_WHEELCHAIR_ACCESS, tour.hasWheelchairAccess());
-        val.put(TOUR_OPERATING_TIMES, tour.getOperatingTimes());
-        val.put(TOUR_IMAGE, tour.getImageResourceID());
-        val.put(TOUR_WEBSITE, tour.getWebsite().toString());
-        val.put(TOUR_DESCRIPTION, tour.getDescription());
-        val.put(TOUR_RATING, tour.getPrice());
-        val.put(TOUR_PRICE, tour.getRating());
-
-        db.insert(TABLE_TOUR, null, val);
-        db.close();
-    }
-
-    /**
-     * Insert transport.
-     *
-     * @param transport the transport
-     * @param cityID    the city id
-     */
-    public void insertTransport(String transport, int cityID){
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues val = new ContentValues();
-        val.put(TRANSPORT_TYPE, transport);
-        val.put(TRANSPORT_CITY, cityID);
-
-        db.insert(TABLE_TRANSPORT, null, val);
-        db.close();
     }
     //----------------------------------------------------------------------------------------------
     //endregion
@@ -563,7 +265,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String description = c.getString(c.getColumnIndex(CITY_DESCRIPTION));
                 String history = c.getString(c.getColumnIndex(CITY_HISTORY));
                 int population = c.getInt(c.getColumnIndex(CITY_POP));
-                int imageResourceID = c.getInt(c.getColumnIndex(CITY_IMAGE));
+                String imageFileName = c.getString(c.getColumnIndex(CITY_IMAGE));
                 String language = c.getString(c.getColumnIndex(CITY_LANGUAGE));
 
                 Locale locale = new Locale(language, country);
@@ -576,11 +278,11 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 List<Tour> toursList = getAllToursByCity(cityID, address);
                 List<Event> eventsList = getAllEventsByCity(cityID, address);
                 List<Attraction> attractionsList = getAllAttractionsByCity(cityID, address);
-                List<String> transportList = getAllTransportByCity(cityID);
+                List<Transport> transportList = getAllTransportByCity(cityID);
 
-                City city = new City(address, airportsList, population, description, history,
+                City city = new City(context, address, airportsList, population, description, history,
                         hotelsList, restaurantBarList, attractionsList, eventsList, toursList,
-                        imageResourceID, transportList);
+                        imageFileName, transportList);
 
                 cityList.add(city);
 
@@ -607,6 +309,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
         if(c != null && c.moveToFirst()) {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
+                int hotelID = c.getInt(c.getColumnIndex(HOTEL_ID));
                 String name = c.getString(c.getColumnIndex(HOTEL_NAME));
                 String add = c.getString(c.getColumnIndex(HOTEL_ADDRESS));
                 String description = c.getString(c.getColumnIndex(HOTEL_DESCRIPTION));
@@ -614,8 +317,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 float rating = c.getFloat(c.getColumnIndex(HOTEL_RATING));
                 float price = c.getFloat(c.getColumnIndex(HOTEL_PRICE));
                 int hotelClass = c.getInt(c.getColumnIndex(HOTEL_CLASS));
-                int imageResourceID = c.getInt(c.getColumnIndex(HOTEL_IMAGE));
-                String amenities = c.getString(c.getColumnIndex(HOTEL_AMENITIES));
+                String imageFileName = c.getString(c.getColumnIndex(HOTEL_IMAGE));
                 URL website;
                 try{
                     website = new URL((c.getString(c.getColumnIndex(HOTEL_WEBSITE))));
@@ -629,13 +331,43 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 address.setSubLocality(neighbourhood);
                 address.setPhone(phone);
 
-                Hotel hotel = new Hotel(name, address, website, description, imageResourceID, rating, price, hotelClass);
-                hotel.reConvertAmenitiesFromString(amenities);
+                List<Amenity> amenityList = getAllAmenitiesByHotel(hotelID);
 
-                hotelList.add(hotel);
+                hotelList.add(new Hotel(context, name, address, website, description, imageFileName,
+                        rating, price, hotelClass, amenityList));
             }
             c.close();
             return hotelList;
+        }
+        return null;
+    }
+
+    /**
+     * Get all amenities by hotel in list form.
+     *
+     * @param hotelID the hotel id
+     * @return the list
+     */
+    public List<Amenity> getAllAmenitiesByHotel(int hotelID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Amenity> amenityList = new ArrayList<>();
+        String query = "SELECT " + TABLE_AMENITY + "." + AMENITY_NAME + ", " + TABLE_AMENITY + "." +
+                AMENITY_ICON + " FROM " + TABLE_AMENITY + ", " + TABLE_HOTEL_AMENITY + " WHERE " +
+                TABLE_HOTEL_AMENITY + "." + HOTEL_AMENITY_HOTEL_ID + " = " + hotelID + " AND " +
+                TABLE_HOTEL_AMENITY + "." + HOTEL_AMENITY_AMENITY_ID + " = " + TABLE_AMENITY + "." +
+                AMENITY_ID + ";";
+        Cursor c = db.rawQuery(query, null);
+
+        if(c != null && c.moveToFirst()) {
+            c.moveToFirst();
+            for (int i = 0; i < c.getCount(); i++) {
+                String name = c.getString(c.getColumnIndex(AMENITY_NAME));
+                String iconFileName = c.getString(c.getColumnIndex(AMENITY_ICON));
+
+                amenityList.add(new Amenity(context, name, iconFileName));
+            }
+            c.close();
+            return amenityList;
         }
         return null;
     }
@@ -666,7 +398,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 float rating = c.getFloat(c.getColumnIndex(RESTAURANT_BAR_RATING));
                 float price = c.getFloat(c.getColumnIndex(RESTAURANT_BAR_RATING));
                 int michelinStars = c.getInt(c.getColumnIndex(RESTAURANT_BAR_MICHELIN_STARS));
-                int imageResourceID = c.getInt(c.getColumnIndex(RESTAURANT_BAR_IMAGE));
+                String imageFileName = c.getString(c.getColumnIndex(RESTAURANT_BAR_IMAGE));
                 URL website;
                 try{
                     website = new URL((c.getString(c.getColumnIndex(RESTAURANT_BAR_WEBSITE))));
@@ -682,7 +414,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
 
                 List<String> cuisines = getAllCuisinesByRestaurantBar(restaurantBarID);
 
-                restaurantBarList.add(new RestaurantBar(name, address, website, description, imageResourceID, rating, price, openingHours, diningHours, michelinStars, cuisines));
+                restaurantBarList.add(new RestaurantBar(context, name, address, website, description, imageFileName, rating, price, openingHours, diningHours, michelinStars, cuisines));
             }
             c.close();
             return restaurantBarList;
@@ -699,8 +431,11 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
     public List<String> getAllCuisinesByRestaurantBar(int restaurantBarID){
         SQLiteDatabase db = this.getReadableDatabase();
         List<String> cuisineList = new ArrayList<>();
-        String query = "SELECT * FROM " + TABLE_CUISINE + " WHERE " +
-                CUISINE_RESTAURANT_BAR + " = " + restaurantBarID;
+        String query = "SELECT " + TABLE_CUISINE + "." + CUISINE_NAME + " FROM " + TABLE_CUISINE +
+                ", " + TABLE_RESTAURANT_BAR_CUISINE + " WHERE " + TABLE_RESTAURANT_BAR_CUISINE +
+                "." + RESTAURANT_BAR_CUISINE_RESTAURANT_BAR_ID + " = " + restaurantBarID + " AND " +
+                TABLE_RESTAURANT_BAR_CUISINE + "." + RESTAURANT_BAR_CUISINE_CUISINE_ID + " = " +
+                TABLE_CUISINE + "." + CUISINE_ID + ";";
         Cursor c = db.rawQuery(query, null);
 
         if(c != null && c.moveToFirst()) {
@@ -735,9 +470,9 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String add = c.getString(c.getColumnIndex(EVENT_ADDRESS));
                 String description = c.getString(c.getColumnIndex(EVENT_DESCRIPTION));
                 String theme = c.getString(c.getColumnIndex(EVENT_THEME));
-                String dateEnd = c.getString(c.getColumnIndex(EVENT_END_DATE));
-                String dateStart = c.getString(c.getColumnIndex(EVENT_START_DATE));
-                int imageResourceID = c.getInt(c.getColumnIndex(EVENT_IMAGE));
+                String dateEnd = c.getString(c.getColumnIndex(EVENT_END_DATE_TIME));
+                String dateStart = c.getString(c.getColumnIndex(EVENT_START_DATE_TIME));
+                String imageFileName = c.getString(c.getColumnIndex(EVENT_IMAGE));
                 URL website;
                 try{
                     website = new URL((c.getString(c.getColumnIndex(EVENT_WEBSITE))));
@@ -753,8 +488,8 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 Date startDate = stringToDate(dateStart);
                 Date endDate = stringToDate(dateEnd);
 
-                eventList.add(new Event(name, startDate, endDate, address, description, theme,
-                        imageResourceID, website, wheelchairAccess));
+                eventList.add(new Event(context, name, startDate, endDate, address, description, theme,
+                        imageFileName, website, wheelchairAccess));
             }
             c.close();
             return eventList;
@@ -784,7 +519,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String neighbourhood = c.getString(c.getColumnIndex(ATTRACTION_NEIGHBOURHOOD));
                 String openingHours = c.getString(c.getColumnIndex(ATTRACTION_OPENING_HOURS));
                 String phone = c.getString(c.getColumnIndex(ATTRACTION_PHONE));
-                int imageResourceID = c.getInt(c.getColumnIndex(ATTRACTION_IMAGE));
+                String imageFileName = c.getString(c.getColumnIndex(ATTRACTION_IMAGE));
                 float rating = c.getFloat(c.getColumnIndex(ATTRACTION_RATING));
                 float price = c.getFloat(c.getColumnIndex(ATTRACTION_PRICE));
                 URL website;
@@ -802,8 +537,8 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 address.setSubLocality(neighbourhood);
                 address.setPhone(phone);
 
-                attractionsList.add(new Attraction(name, address, website, description,
-                        imageResourceID, rating, price, openingHours, wheelchairAccess));
+                attractionsList.add(new Attraction(context, name, address, website, description,
+                        imageFileName, rating, price, openingHours, wheelchairAccess));
             }
             c.close();
             return attractionsList;
@@ -831,10 +566,10 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String addressStart = c.getString(c.getColumnIndex(TOUR_START_ADDRESS));
                 String addressEnd = c.getString(c.getColumnIndex(TOUR_START_ADDRESS));
                 String description = c.getString(c.getColumnIndex(TOUR_DESCRIPTION));
-                String operator = c.getString(c.getColumnIndex(TOUR_COMPANY));
+                String operator = c.getString(c.getColumnIndex(TOUR_OPERATOR));
                 String operatingTimes = c.getString(c.getColumnIndex(TOUR_OPERATING_TIMES));
                 String phone = c.getString(c.getColumnIndex(TOUR_PHONE));
-                int imageResourceID = c.getInt(c.getColumnIndex(TOUR_IMAGE));
+                String imageFileName = c.getString(c.getColumnIndex(TOUR_IMAGE));
                 float rating = c.getFloat(c.getColumnIndex(TOUR_RATING));
                 float price = c.getFloat(c.getColumnIndex(TOUR_PRICE));
 
@@ -856,7 +591,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 getFirstThreeAddressLines(addressEnd, endLocation);
                 address.setPhone(phone);
 
-                toursList.add(new Tour(name, operator, imageResourceID, rating, price, description,
+                toursList.add(new Tour(context, name, operator, imageFileName, rating, price, description,
                         operatingTimes, startLocation, endLocation, wheelchairAccess, website, phone));
             }
             c.close();
@@ -871,18 +606,22 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
      * @param cityID the city id
      * @return the list
      */
-    public List<String> getAllTransportByCity(int cityID){
+    public List<Transport> getAllTransportByCity(int cityID){
         SQLiteDatabase db = this.getReadableDatabase();
-        List<String> transportList = new ArrayList<>();
-        String query = "SELECT * FROM " + TABLE_TRANSPORT + " WHERE " +
-                TRANSPORT_CITY + " = " + cityID;
+        List<Transport> transportList = new ArrayList<>();
+        String query = "SELECT " + TABLE_TRANSPORT + "." + TRANSPORT_TYPE + ", " + TABLE_TRANSPORT + "." +
+                TRANSPORT_ICON + " FROM " + TABLE_TRANSPORT + ", " + TABLE_TRANSPORT_SYSTEM + " WHERE " +
+                TABLE_TRANSPORT_SYSTEM + "." + TRANSPORT_SYSTEM_CITY_ID + " = " + cityID + " AND " +
+                TABLE_TRANSPORT_SYSTEM + "." + TRANSPORT_SYSTEM_TRANSPORT_ID + " = " + TABLE_TRANSPORT + "." +
+                TRANSPORT_ID + ";";
         Cursor c = db.rawQuery(query, null);
 
         if(c != null && c.moveToFirst()) {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
                 String name = c.getString(c.getColumnIndex(TRANSPORT_TYPE));
-                transportList.add(name);
+                String icon = c.getString(c.getColumnIndex(TRANSPORT_ICON));
+                transportList.add(new Transport(context, name, icon));
             }
             c.close();
             return transportList;
@@ -907,12 +646,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
                 String name = c.getString(c.getColumnIndex(AIRPORT_NAME));
-                String add = c.getString(c.getColumnIndex(AIRPORT_ADDRESS));
                 String iataCode = c.getString(c.getColumnIndex(AIRPORT_IATA));
-
-                // Updating the address object by converting the String to an address through
-                // getting the first three lines of the address.
-                getFirstThreeAddressLines(add, address);
 
                 airportsList.add(new Airport(name, iataCode, address));
             }

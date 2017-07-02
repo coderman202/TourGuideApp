@@ -1,5 +1,6 @@
 package com.example.android.tourguideapp;
 
+import android.content.Context;
 import android.location.Address;
 
 import java.net.URL;
@@ -28,42 +29,25 @@ public class Attraction extends Hospitality{
 
 
     /**
-     * Instantiates a new Hospitality without a rating or a price.
-     *
-     * @param name             the name
-     * @param address          the address
-     * @param website          the website
-     * @param description      the description
-     * @param imageResourceID  the image resource id
-     * @param openingHours     the opening hours
-     * @param wheelchairAccess the wheelchair access
-     */
-    public Attraction(String name, Address address, URL website, String description, int imageResourceID,
-                      String openingHours, boolean wheelchairAccess) {
-        super(name, address, website, description, imageResourceID);
-        this.openingHours = openingHours;
-        this.wheelchairAccess = wheelchairAccess;
-    }
-
-    /**
      * Instantiates a new Attraction with a rating and price, along with a check to make sure the
      * price and rating values passed to the constructor were valid.
      * In this instance there is a check in the superclass constructor for the rating and a
      * further check in this child class to make sure the price meets the requirements
      *
+     * @param context          the context
      * @param name             the name
      * @param address          the address
      * @param website          the website
      * @param description      the description
-     * @param imageResourceID  the image resource id
+     * @param imageFileName    the image file name
      * @param rating           the rating
      * @param price            the price
      * @param openingHours     the opening hours
      * @param wheelchairAccess the wheelchair access
      */
-    public Attraction(String name, Address address, URL website, String description, int imageResourceID,
+    public Attraction(Context context, String name, Address address, URL website, String description, String imageFileName,
                       float rating, float price, String openingHours, boolean wheelchairAccess) {
-        super(name, address, website, description, imageResourceID, rating);
+        super(context, name, address, website, description, imageFileName, rating, price);
         this.openingHours = openingHours;
         this.wheelchairAccess = wheelchairAccess;
         if(price < PRICE_FREE){

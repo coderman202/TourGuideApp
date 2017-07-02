@@ -1,5 +1,6 @@
 package com.example.android.tourguideapp;
 
+import android.content.Context;
 import android.location.Address;
 
 import java.util.List;
@@ -22,8 +23,8 @@ public class City {
     // A list of custom Airport objects to represent the number of airports in the city
     private List<Airport> airports;
 
-    // A list of strings to represent all the forms of transport in the city
-    private List<String> transport;
+    // A list of transport objects to represent all the forms of transport in the city
+    private List<Transport> transport;
 
     // The current city population
     private int population;
@@ -57,26 +58,31 @@ public class City {
     // A list of all the tours in the city
     private List<Tour> tours;
 
+    // The context which will be needed to get the correct resource id of the city image.
+    private Context context;
+
     /**
      * Instantiates a new City.
      *
-     * @param address         the address
-     * @param airports        the airports
-     * @param population      the population
-     * @param description     the description
-     * @param history         the history
-     * @param hotels          the hotels
-     * @param restaurantBars  the restaurant bars
-     * @param attractions     the attractions
-     * @param events          the events
-     * @param tours           the tours
-     * @param imageResourceID the image resource id
-     * @param transport       the transport
+     * @param context        the context
+     * @param address        the address
+     * @param airports       the airports
+     * @param population     the population
+     * @param description    the description
+     * @param history        the history
+     * @param hotels         the hotels
+     * @param restaurantBars the restaurant bars
+     * @param attractions    the attractions
+     * @param events         the events
+     * @param tours          the tours
+     * @param imageFileName  the image file name
+     * @param transport      the transport
      */
-    public City(Address address, List<Airport> airports, int population,
+    public City(Context context, Address address, List<Airport> airports, int population,
                 String description, String history, List<Hotel> hotels,
                 List<RestaurantBar> restaurantBars, List<Attraction> attractions,
-                List<Event> events, List<Tour> tours, int imageResourceID, List<String> transport) {
+                List<Event> events, List<Tour> tours, String imageFileName, List<Transport> transport) {
+        this.context = context;
         this.address = address;
         this.airports = airports;
         this.population = population;
@@ -87,7 +93,7 @@ public class City {
         this.attractions = attractions;
         this.events = events;
         this.tours = tours;
-        this.imageResourceID = imageResourceID;
+        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
         this.transport = transport;
     }
 
@@ -95,16 +101,20 @@ public class City {
      * Instantiates a new City without lists of hotels, bars, restaurants, tours, attractions
      * or events.
      *
-     * @param address         the address
-     * @param airports        the airports
-     * @param population      the population
-     * @param description     the description
-     * @param history         the history
-     * @param imageResourceID the image resource id
-     * @param transport       the transport
+     * @param context       the context
+     * @param address       the address
+     * @param weather       the weather
+     * @param airports      the airports
+     * @param population    the population
+     * @param description   the description
+     * @param history       the history
+     * @param imageFileName the image file name
+     * @param transport     the transport
      */
-    public City(Address address, List<Weather> weather, List<Airport> airports, int population,
-                String description, String history, int imageResourceID, List<String> transport) {
+    public City(Context context, Address address, List<Weather> weather, List<Airport> airports,
+                int population, String description, String history, String imageFileName,
+                List<Transport> transport) {
+        this.context = context;
         this.address = address;
         this.airports = airports;
         this.population = population;
@@ -113,23 +123,25 @@ public class City {
         this.country = address.getCountryName();
         this.name = address.getLocality();
         this.language = address.getLocale().getLanguage();
-        this.imageResourceID = imageResourceID;
+        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
         this.transport = transport;
     }
 
     /**
      * Instantiates a new City without weather known or any lists bar the Airports.
      *
-     * @param address         the address
-     * @param airports        the airports
-     * @param transport       the transport
-     * @param population      the population
-     * @param description     the description
-     * @param history         the history
-     * @param imageResourceID the image resource id
+     * @param context       the context
+     * @param address       the address
+     * @param airports      the airports
+     * @param transport     the transport
+     * @param population    the population
+     * @param description   the description
+     * @param history       the history
+     * @param imageFileName the image file name
      */
-    public City(Address address, List<Airport> airports, List<String> transport, int population,
-                String description, String history, int imageResourceID) {
+    public City(Context context, Address address, List<Airport> airports, List<Transport> transport,
+                int population, String description, String history, String imageFileName) {
+        this.context = context;
         this.address = address;
         this.airports = airports;
         this.population = population;
@@ -138,7 +150,7 @@ public class City {
         this.country = address.getCountryName();
         this.name = address.getLocality();
         this.language = address.getLocale().getLanguage();
-        this.imageResourceID = imageResourceID;
+        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
         this.transport = transport;
     }
 
@@ -241,7 +253,7 @@ public class City {
      *
      * @return the transport
      */
-    public List<String> getTransport() {
+    public List<Transport> getTransport() {
         return transport;
     }
 
@@ -250,7 +262,7 @@ public class City {
      *
      * @param transport the transport
      */
-    public void setTransport(List<String> transport) {
+    public void setTransport(List<Transport> transport) {
         this.transport = transport;
     }
 
@@ -389,6 +401,17 @@ public class City {
         this.imageResourceID = imageResourceID;
     }
 
+    /**
+     * Sets image resource id.
+     *
+     * @param imageFileName the image file name
+     */
+    public void setImageResourceID(String imageFileName) {
+        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
+
+    }
+
+
     // The following methods allow the user to add places to the city.
 
     /**
@@ -450,7 +473,7 @@ public class City {
      *
      * @param transport the transport
      */
-    public void addTransport(String transport){
+    public void addTransport(Transport transport){
         this.transport.add(transport);
     }
 }

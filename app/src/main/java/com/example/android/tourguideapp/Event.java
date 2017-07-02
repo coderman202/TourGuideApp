@@ -1,5 +1,6 @@
 package com.example.android.tourguideapp;
 
+import android.content.Context;
 import android.location.Address;
 
 import java.net.URL;
@@ -37,33 +38,38 @@ public class Event {
     // A boolean value to represent whether or not the event is wheelchair accessible.
     private boolean wheelchairAccess;
 
+    // The context which will be needed to get the correct resource id of the event image.
+    private Context context;
+
     /**
      * Instantiates a new Event with a check to ensure the dates are set correctly.
      *
+     * @param context          the context
      * @param name             the name
      * @param startDateTime    the start date time
      * @param endDateTime      the end date time
      * @param address          the address
      * @param description      the description
      * @param theme            the theme
-     * @param imageResourceID  the image resource id
+     * @param imageFileName    the image file name
      * @param website          the website
      * @param wheelchairAccess the wheelchair access
      */
-    public Event( String name, Date startDateTime, Date endDateTime, Address address,
-                  String description, String theme, int imageResourceID, URL website,
-                  boolean wheelchairAccess) {
+    public Event(Context context, String name, Date startDateTime, Date endDateTime, Address address,
+                 String description, String theme, String imageFileName, URL website,
+                 boolean wheelchairAccess) {
         if(startDateTime.after(endDateTime)){
             throw new IllegalArgumentException("Error. Ensure the dates are correct. " +
                     "The start date cannot come after the end date");
         }
+        this.context = context;
         this.name = name;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.address = address;
         this.description = description;
         this.theme = theme;
-        this.imageResourceID = imageResourceID;
+        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
         this.website = website;
         this.wheelchairAccess = wheelchairAccess;
     }
@@ -200,6 +206,16 @@ public class Event {
      */
     public void setImageResourceID(int imageResourceID) {
         this.imageResourceID = imageResourceID;
+    }
+
+    /**
+     * Sets image resource id from the string file name.
+     *
+     * @param imageFileName the image file name
+     */
+    public void setImageResourceID(String imageFileName) {
+        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
+
     }
 
     /**

@@ -13,9 +13,6 @@ public class Airport {
     // The IATA code of the airport which is a 3 digit code, eg 'DUB' for Dublin Airport.
     private String iata;
 
-    // An Address object to store the location of the airport
-    private Address address;
-
     // This attribute will be derived from the Address.getCountry() method to ensure accuracy.
     private String country;
 
@@ -33,7 +30,6 @@ public class Airport {
     public Airport(String name, String iata, Address address) {
         this.name = name;
         this.iata = iata;
-        this.address = address;
         this.city = address.getLocality();
         this.country = address.getCountryName();
     }
@@ -54,15 +50,6 @@ public class Airport {
      */
     public String getIata() {
         return iata;
-    }
-
-    /**
-     * Gets address.
-     *
-     * @return the address
-     */
-    public Address getAddress() {
-        return address;
     }
 
     /**
@@ -99,25 +86,5 @@ public class Airport {
      */
     public void setIata(String iata) {
         this.iata = iata;
-    }
-
-    /**
-     * Sets address.
-     *
-     * @param address the address
-     */
-    public void setAddress(Address address) {
-        this.address = address;
-        this.city = address.getLocality();
-        this.country = address.getCountryName();
-    }
-
-    /**
-     * Get string version of the address.
-     *
-     * @return the string
-     */
-    public String getAddressToString(){
-        return this.address.toString();
     }
 }

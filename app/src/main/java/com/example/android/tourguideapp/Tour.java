@@ -1,5 +1,6 @@
 package com.example.android.tourguideapp;
 
+import android.content.Context;
 import android.location.Address;
 
 import java.net.URL;
@@ -52,41 +53,16 @@ public class Tour {
     // The phone number of the tour company
     private String phoneNumber;
 
-    /**
-     * Instantiates a new Tour.
-     *
-     * @param name             the name
-     * @param operator         the operator
-     * @param imageResourceID  the image resource id
-     * @param description      the description
-     * @param operatingTimes   the operating times
-     * @param startLocation    the start location
-     * @param endLocation      the end location
-     * @param wheelchairAccess the wheelchair access
-     * @param website          the website
-     * @param phoneNumber      the phone number
-     */
-    public Tour(String name, String operator, int imageResourceID, String description,
-                String operatingTimes, Address startLocation, Address endLocation,
-                boolean wheelchairAccess, URL website, String phoneNumber) {
-        this.name = name;
-        this.operator = operator;
-        this.imageResourceID = imageResourceID;
-        this.description = description;
-        this.operatingTimes = operatingTimes;
-        this.startLocation = startLocation;
-        this.endLocation = endLocation;
-        this.wheelchairAccess = wheelchairAccess;
-        this.website = website;
-        this.phoneNumber = phoneNumber;
-    }
+    // The context which will be needed to get the correct resource id of the tour image.
+    private Context context;
 
     /**
      * Instantiates a new Tour. Checks that the price set is valid.
      *
+     * @param context          the context
      * @param name             the name
      * @param operator         the operator
-     * @param imageResourceID  the image resource id
+     * @param imageFileName    the image file name
      * @param rating           the rating
      * @param price            the price
      * @param description      the description
@@ -97,15 +73,16 @@ public class Tour {
      * @param website          the website
      * @param phoneNumber      the phone number
      */
-    public Tour(String name, String operator, int imageResourceID, float rating, float price,
+    public Tour(Context context, String name, String operator, String imageFileName, float rating, float price,
                 String description, String operatingTimes, Address startLocation,
                 Address endLocation, boolean wheelchairAccess, URL website, String phoneNumber) {
         if(price < PRICE_FREE || price > PRICE_HIGH){
             throw new IllegalArgumentException("Error. You must pass a valid price");
         }
+        this.context = context;
         this.name = name;
         this.operator = operator;
-        this.imageResourceID = imageResourceID;
+        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());this.description = description;
         this.rating = rating;
         this.price = price;
         this.description = description;
@@ -170,6 +147,17 @@ public class Tour {
     public void setImageResourceID(int imageResourceID) {
         this.imageResourceID = imageResourceID;
     }
+
+    /**
+     * Sets image resource id.
+     *
+     * @param imageFileName the image file name
+     */
+    public void setImageResourceID(String imageFileName) {
+        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
+
+    }
+
 
     /**
      * Gets rating.

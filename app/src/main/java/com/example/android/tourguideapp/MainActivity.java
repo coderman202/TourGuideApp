@@ -12,8 +12,14 @@ import butterknife.BindArray;
 public class MainActivity extends AppCompatActivity {
 
     @BindArray(R.array.city_list) TypedArray cityListArray;
+    @BindArray(R.array.city1_restaurants_list) TypedArray city1RestaurantListArray;
+    @BindArray(R.array.city1_hotels_list) TypedArray city1HotelListArray;
 
-    List<List<String>> cityList;
+    List<List<String>> cityStringsList;
+
+    List<City> cityList;
+    List<RestaurantBar> city1RestaurantBarList;
+    List<Hotel> city1HotelList;
 
 
 
@@ -23,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         for(int i = 0; i < cityListArray.length(); i++){
-            cityList.add(Arrays.asList(getResources().getStringArray(cityListArray.getResourceId(i, 0))));
-
+            cityStringsList.add(Arrays.asList(getResources().getStringArray(cityListArray.getResourceId(i, 0))));
         }
+        
 
     }
 }

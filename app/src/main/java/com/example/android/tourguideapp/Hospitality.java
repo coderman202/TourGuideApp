@@ -1,5 +1,6 @@
 package com.example.android.tourguideapp;
 
+import android.content.Context;
 import android.location.Address;
 
 import java.net.URL;
@@ -54,18 +55,23 @@ public class Hospitality {
     // This will be one of the price constants above
     private float price;
 
+    // The context which will be needed to get the correct resource id of the hospitality image.
+    private Context context;
+
 
     /**
      * Instantiates a new Hospitality without a rating and price.
      *
-     * @param name            the name
-     * @param address         the address
-     * @param website         the website
-     * @param description     the description
-     * @param imageResourceID the image resource id
+     * @param context       the context
+     * @param name          the name
+     * @param address       the address
+     * @param website       the website
+     * @param description   the description
+     * @param imageFileName the image file name
      */
-    public Hospitality(String name, Address address, URL website, String description,
-                       int imageResourceID) {
+    public Hospitality(Context context, String name, Address address, URL website,
+                       String description, String imageFileName) {
+        this.context = context;
         this.name = name;
         this.address = address;
         this.website = website;
@@ -74,54 +80,29 @@ public class Hospitality {
         this.city = address.getLocality();
         this.neighbourhood = address.getSubLocality();
         this.phoneNumber = address.getPhone();
-        this.imageResourceID = imageResourceID;
+        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
     }
 
-    /**
-     * Instantiates a new Hospitality without a price. Includes a check to ensure the rating value
-     * passed is valid.
-     *
-     * @param name            the name
-     * @param address         the address
-     * @param website         the website
-     * @param description     the description
-     * @param imageResourceID the image resource id
-     * @param rating          the rating
-     */
-    public Hospitality(String name, Address address, URL website, String description,
-                       int imageResourceID, float rating) {
-        if(rating < RATING_MIN || rating > RATING_MAX){
-            throw new IllegalArgumentException("Error. You must pass a valid rating");
-        }
-        this.name = name;
-        this.address = address;
-        this.website = website;
-        this.description = description;
-        this.country = address.getCountryName();
-        this.city = address.getLocality();
-        this.neighbourhood = address.getSubLocality();
-        this.phoneNumber = address.getPhone();
-        this.imageResourceID = imageResourceID;
-        this.rating = rating;
-    }
 
     /**
      * Instantiates a new Hospitality with a rating and price, along with a check to make sure the
      * price and rating values passed to the constructor were valid.
      *
-     * @param name            the name
-     * @param address         the address
-     * @param website         the website
-     * @param description     the description
-     * @param imageResourceID the image resource id
-     * @param rating          the rating
-     * @param price           the price
+     * @param context       the context
+     * @param name          the name
+     * @param address       the address
+     * @param website       the website
+     * @param description   the description
+     * @param imageFileName the image file name
+     * @param rating        the rating
+     * @param price         the price
      */
-    public Hospitality(String name, Address address, URL website, String description,
-                       int imageResourceID, float rating, float price) {
+    public Hospitality(Context context, String name, Address address, URL website, String description,
+                       String imageFileName, float rating, float price) {
         if(rating < RATING_MIN || rating > RATING_MAX || price < PRICE_LOW || price > PRICE_HIGH){
             throw new IllegalArgumentException("Error. You must pass a valid rating and price");
         }
+        this.context = context;
         this.name = name;
         this.address = address;
         this.website = website;
@@ -130,7 +111,7 @@ public class Hospitality {
         this.city = address.getLocality();
         this.neighbourhood = address.getSubLocality();
         this.phoneNumber = address.getPhone();
-        this.imageResourceID = imageResourceID;
+        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
         this.rating = rating;
         this.price = price;
     }
@@ -187,6 +168,15 @@ public class Hospitality {
      */
     public void setImageResourceID(int imageResourceID) {
         this.imageResourceID = imageResourceID;
+    }
+
+    /**
+     * Sets image resource id from the name of the image drawable.
+     *
+     * @param imageFileName the image file name
+     */
+    public void setImageResourceID(String imageFileName) {
+        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
     }
 
     /**
