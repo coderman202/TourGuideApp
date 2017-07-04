@@ -1,26 +1,17 @@
 package com.example.android.tourguideapp;
 
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.ListView;
 
-import java.util.Arrays;
 import java.util.List;
 
-import butterknife.BindArray;
+import butterknife.BindView;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindArray(R.array.city_list) TypedArray cityListArray;
-    @BindArray(R.array.city1_restaurants_list) TypedArray city1RestaurantListArray;
-    @BindArray(R.array.city1_hotels_list) TypedArray city1HotelListArray;
-
-    List<List<String>> cityStringsList;
-
-    List<City> cityList;
-    List<RestaurantBar> city1RestaurantBarList;
-    List<Hotel> city1HotelList;
-
+    @BindView(R.id.city_list_view) ListView cityListView;
 
 
     @Override
@@ -28,10 +19,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        for(int i = 0; i < cityListArray.length(); i++){
-            cityStringsList.add(Arrays.asList(getResources().getStringArray(cityListArray.getResourceId(i, 0))));
+        TourGuideDBHelper tourGuideDBHelper = new TourGuideDBHelper(this);
+        List<City> cityList = tourGuideDBHelper.getAllCities();
+
+        for (City city:cityList) {
+
+            Log.d("City", city.toString());
+
         }
-        
+
+        CityAdapter cityAdapter = new CityAdapter(this, cityList);
+        cityListView.setAdapter(cityAdapter);
 
     }
 }

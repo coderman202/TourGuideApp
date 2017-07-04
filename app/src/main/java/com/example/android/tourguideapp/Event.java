@@ -254,4 +254,19 @@ public class Event {
         this.wheelchairAccess = wheelchairAccess;
     }
 
+    @Override
+    public String toString() {
+        return "Event{" +
+                "name='" + name + '\'' +
+                ", startDateTime=" + startDateTime +
+                ", endDateTime=" + endDateTime +
+                ", address=" + address +
+                ", description='" + description + '\'' +
+                ", theme='" + theme + '\'' +
+                ", imageResourceID=" + imageResourceID +
+                ", website=" + website +
+                ", wheelchairAccess=" + wheelchairAccess +
+                ", context=" + context +
+                '}';
+    }
 }

@@ -21,13 +21,13 @@ import butterknife.ButterKnife;
 
 public class CityAdapter extends ArrayAdapter<City> {
 
-    private static class ViewHolder{
+    static class ViewHolder{
         // Get the city info text views to set their text to the values from the current city in the
         // list. Also get the city image view to set the correct image below in the getView method.
-        @BindView(R.id.population) private TextView populationView;
-        @BindView(R.id.country) private TextView countryView;
-        @BindView(R.id.language) private TextView languageView;
-        @BindView(R.id.city_image) private ImageView cityImage;
+        @BindView(R.id.population) TextView populationView;
+        @BindView(R.id.country) TextView countryView;
+        @BindView(R.id.language) TextView languageView;
+        @BindView(R.id.city_image) ImageView cityImage;
 
         public ViewHolder(View view){
             ButterKnife.bind(this, view);

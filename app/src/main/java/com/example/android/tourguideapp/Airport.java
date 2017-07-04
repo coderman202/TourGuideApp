@@ -87,4 +87,14 @@ public class Airport {
     public void setIata(String iata) {
         this.iata = iata;
     }
+
+    @Override
+    public String toString() {
+        return "Airport{" +
+                "name='" + name + '\'' +
+                ", iata='" + iata + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                '}';
+    }
 }

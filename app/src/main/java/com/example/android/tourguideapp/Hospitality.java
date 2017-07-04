@@ -18,7 +18,7 @@ public class Hospitality {
 
     // The price constants representing the price levels of the hospitality
     public static final int PRICE_HIGH = 5;
-    public static final int PRICE_LOW = 1;
+    public static final int PRICE_LOW = 0;
 
 
     //The name of the place
@@ -291,5 +291,23 @@ public class Hospitality {
             throw new IllegalArgumentException("Error. You must pass a valid price");
         }
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Hospitality{" +
+                "name='" + name + '\'' +
+                ", address=" + address +
+                ", imageResourceID=" + imageResourceID +
+                ", neighbourhood='" + neighbourhood + '\'' +
+                ", website=" + website +
+                ", description='" + description + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", rating=" + rating +
+                ", price=" + price +
+                ", context=" + context +
+                '}';
     }
 }

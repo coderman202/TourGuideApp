@@ -95,64 +95,12 @@ public class City {
         this.tours = tours;
         this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
         this.transport = transport;
+        this.name = address.getLocality();
+        this.country = address.getCountryName();
+        String lang = address.getLocale().getLanguage();
+        this.language = lang.substring(0,1).toUpperCase() + lang.substring(1);
     }
 
-    /**
-     * Instantiates a new City without lists of hotels, bars, restaurants, tours, attractions
-     * or events.
-     *
-     * @param context       the context
-     * @param address       the address
-     * @param weather       the weather
-     * @param airports      the airports
-     * @param population    the population
-     * @param description   the description
-     * @param history       the history
-     * @param imageFileName the image file name
-     * @param transport     the transport
-     */
-    public City(Context context, Address address, List<Weather> weather, List<Airport> airports,
-                int population, String description, String history, String imageFileName,
-                List<Transport> transport) {
-        this.context = context;
-        this.address = address;
-        this.airports = airports;
-        this.population = population;
-        this.description = description;
-        this.history = history;
-        this.country = address.getCountryName();
-        this.name = address.getLocality();
-        this.language = address.getLocale().getLanguage();
-        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
-        this.transport = transport;
-    }
-
-    /**
-     * Instantiates a new City without weather known or any lists bar the Airports.
-     *
-     * @param context       the context
-     * @param address       the address
-     * @param airports      the airports
-     * @param transport     the transport
-     * @param population    the population
-     * @param description   the description
-     * @param history       the history
-     * @param imageFileName the image file name
-     */
-    public City(Context context, Address address, List<Airport> airports, List<Transport> transport,
-                int population, String description, String history, String imageFileName) {
-        this.context = context;
-        this.address = address;
-        this.airports = airports;
-        this.population = population;
-        this.description = description;
-        this.history = history;
-        this.country = address.getCountryName();
-        this.name = address.getLocality();
-        this.language = address.getLocale().getLanguage();
-        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
-        this.transport = transport;
-    }
 
     /**
      * Gets address.
@@ -475,5 +423,27 @@ public class City {
      */
     public void addTransport(Transport transport){
         this.transport.add(transport);
+    }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "address=" + address +
+                ", country='" + country + '\'' +
+                ", name='" + name + '\'' +
+                ", airports=" + airports.toString() +
+                ", transport=" + transport.toString() +
+                ", population=" + population +
+                ", imageResourceID=" + imageResourceID +
+                ", description='" + description + '\'' +
+                ", history='" + history + '\'' +
+                ", language='" + language + '\'' +
+                ", hotels=" + hotels.toString() +
+                ", restaurantBars=" + restaurantBars.toString() +
+                ", attractions=" + attractions.toString() +
+                ", events=" + events.toString() +
+                ", tours=" + tours.toString() +
+                ", context=" + context +
+                '}';
     }
 }

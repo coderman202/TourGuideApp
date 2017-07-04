@@ -31,28 +31,31 @@ public class RestaurantBar extends Hospitality {
     // A String array to represent the cuisines such as: Indian, Chinese, Dessert, Drinks, etc..
     private List<String> cuisines;
 
+    private boolean wheelchairAccess;
+
 
     /**
      * Instantiates a new RestaurantBar with a michelin star, along with a check to make sure the
      * values passed to the constructor were valid.
      *
-     * @param context       the context
-     * @param name          the name
-     * @param address       the address
-     * @param website       the website
-     * @param description   the description
-     * @param imageFileName the image file name
-     * @param rating        the rating
-     * @param price         the price
-     * @param openingHours  the opening hours
-     * @param diningHours   the dining hours
-     * @param michelinStars the michelin stars
-     * @param cuisines      the cuisines
+     * @param context          the context
+     * @param name             the name
+     * @param address          the address
+     * @param website          the website
+     * @param description      the description
+     * @param imageFileName    the image file name
+     * @param rating           the rating
+     * @param price            the price
+     * @param openingHours     the opening hours
+     * @param diningHours      the dining hours
+     * @param michelinStars    the michelin stars
+     * @param cuisines         the cuisines
+     * @param wheelchairAccess the wheelchair access
      */
     public RestaurantBar(Context context, String name, Address address, URL website,
                          String description, String imageFileName, float rating, float price,
                          String openingHours, String diningHours, int michelinStars,
-                         List<String> cuisines) {
+                         List<String> cuisines, boolean wheelchairAccess) {
         super(context, name, address, website, description, imageFileName, rating, price);
         if(michelinStars < MICHELIN_STARS_MIN || michelinStars > MICHELIN_STARS_MAX){
             throw new IllegalArgumentException("Error. You must pass a valid number of michelin stars");
@@ -61,6 +64,7 @@ public class RestaurantBar extends Hospitality {
         this.diningHours = diningHours;
         this.michelinStars = michelinStars;
         this.cuisines = cuisines;
+        this.wheelchairAccess = wheelchairAccess;
     }
 
     /**
@@ -154,5 +158,34 @@ public class RestaurantBar extends Hospitality {
      */
     public void removeCuisine(String cuisine){
         this.cuisines.remove(cuisine);
+    }
+
+    /**
+     * Has wheelchair access or not?
+     *
+     * @return the boolean
+     */
+    public boolean hasWheelchairAccess() {
+        return wheelchairAccess;
+    }
+
+    /**
+     * Sets wheelchair access.
+     *
+     * @param wheelchairAccess the wheelchair access
+     */
+    public void setWheelchairAccess(boolean wheelchairAccess) {
+        this.wheelchairAccess = wheelchairAccess;
+    }
+
+    @Override
+    public String toString() {
+        return "RestaurantBar{" +
+                "openingHours='" + openingHours + '\'' +
+                ", diningHours='" + diningHours + '\'' +
+                ", michelinStars=" + michelinStars +
+                ", cuisines=" + cuisines +
+                ", wheelchairAccess=" + wheelchairAccess +
+                '}';
     }
 }

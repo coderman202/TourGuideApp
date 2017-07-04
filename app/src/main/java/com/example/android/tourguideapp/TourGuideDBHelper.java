@@ -29,11 +29,16 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
     // constructors.
     private Context context;
 
+    // File names of the scripts stored in assets directory
+    private static final String CREATE_TABLES = "create_tables.sql";
+    private static final String DROP_TABLES = "drop_tables.sql";
+    private static final String INSERT_DATA = "insert_data.sql";
+
     //region DB, Table and column name declarations
     //----------------------------------------------------------------------------------------------
     // DB name, version and log_tag
     private static final String LOG_TAG = "TourGuideDBHelper";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 9;
     private static final String DATABASE_NAME = "TourGuideDB";
 
     // Table names in DB
@@ -161,8 +166,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
     private static final String TOUR_NAME = "TourName";
     private static final String TOUR_CITY = "CityID";
     private static final String TOUR_OPERATING_TIMES = "TourOperatingTimes";
-    private static final String TOUR_START_ADDRESS = "TourStartAddress";
-    private static final String TOUR_END_ADDRESS = "TourEndAddress";
+    private static final String TOUR_ADDRESS = "TourAddress";
     private static final String TOUR_DESCRIPTION = "TourDescription";
     private static final String TOUR_WEBSITE = "TourWebsite";
     private static final String TOUR_OPERATOR = "TourOperator";
@@ -190,13 +194,14 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        runSQLScript(this.context, db, CREATE_TABLES);
+        runSQLScript(this.context, db, INSERT_DATA);
     }
 
     // On upgrade drop older tables and create new ones calling the onCreate() method.
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        runSQLScript(this.context, db, DROP_TABLES);
         onCreate(db);
     }
 
@@ -271,6 +276,11 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 Locale locale = new Locale(language, country);
                 Address address = new Address(locale);
                 address.setLocality(name);
+                address.setCountryName(country);
+
+                String s = cityID + "|" + name + "|" +country + "|" + description + "|" +history + "|" +population + "|" +imageFileName + "|" +language;
+
+                Log.d(name, s);
 
                 List<Airport> airportsList = getAllAirportsByCity(cityID, address);
                 List<RestaurantBar> restaurantBarList = getAllRestaurantBarsByCity(cityID, address);
@@ -280,12 +290,17 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 List<Attraction> attractionsList = getAllAttractionsByCity(cityID, address);
                 List<Transport> transportList = getAllTransportByCity(cityID);
 
+                address.setLocality(name);
+                address.setCountryName(country);
+
+                Log.d("Context", context.toString());
+
                 City city = new City(context, address, airportsList, population, description, history,
                         hotelsList, restaurantBarList, attractionsList, eventsList, toursList,
                         imageFileName, transportList);
 
                 cityList.add(city);
-
+                c.moveToNext();
             }
             c.close();
             return cityList;
@@ -327,14 +342,19 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String phone = c.getString(c.getColumnIndex(HOTEL_PHONE));
 
                 // Updating the address object by converting the String to an address
-                getFirstThreeAddressLines(add, address);
-                address.setSubLocality(neighbourhood);
-                address.setPhone(phone);
+                Address hotelAddress = getFirstThreeAddressLines(add, address);
+                hotelAddress.setSubLocality(neighbourhood);
+                hotelAddress.setPhone(phone);
+
+                String s = cityID + "|" + name + "|" +add + "|" + description + "|" +neighbourhood + "|" +rating + "|" + price + "|" + hotelClass + "|" + imageFileName + "|" +website + "|" + phone;
+
+                Log.d(name, s);
 
                 List<Amenity> amenityList = getAllAmenitiesByHotel(hotelID);
 
-                hotelList.add(new Hotel(context, name, address, website, description, imageFileName,
+                hotelList.add(new Hotel(context, name, hotelAddress, website, description, imageFileName,
                         rating, price, hotelClass, amenityList));
+                c.moveToNext();
             }
             c.close();
             return hotelList;
@@ -365,6 +385,11 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String iconFileName = c.getString(c.getColumnIndex(AMENITY_ICON));
 
                 amenityList.add(new Amenity(context, name, iconFileName));
+                c.moveToNext();
+
+                String s = hotelID + "|" + name + "|" + iconFileName;
+
+                Log.d(name, s);
             }
             c.close();
             return amenityList;
@@ -396,7 +421,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String openingHours = c.getString(c.getColumnIndex(RESTAURANT_BAR_OPENING_HOURS));
                 String diningHours = c.getString(c.getColumnIndex(RESTAURANT_BAR_DINING_HOURS));
                 float rating = c.getFloat(c.getColumnIndex(RESTAURANT_BAR_RATING));
-                float price = c.getFloat(c.getColumnIndex(RESTAURANT_BAR_RATING));
+                float price = c.getFloat(c.getColumnIndex(RESTAURANT_BAR_PRICE));
                 int michelinStars = c.getInt(c.getColumnIndex(RESTAURANT_BAR_MICHELIN_STARS));
                 String imageFileName = c.getString(c.getColumnIndex(RESTAURANT_BAR_IMAGE));
                 URL website;
@@ -406,15 +431,24 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                     throw new RuntimeException(e);
                 }
                 String phone = c.getString(c.getColumnIndex(RESTAURANT_BAR_PHONE));
+                int access = c.getInt(c.getColumnIndex(RESTAURANT_BAR_WHEELCHAIR_ACCESS));
+                boolean wheelchairAccess = (access == 1);
 
                 // Updating the address object by converting the String to an address
-                getFirstThreeAddressLines(add, address);
-                address.setSubLocality(neighbourhood);
-                address.setPhone(phone);
+                Address restaurantBarAddress = getFirstThreeAddressLines(add, address);
+                restaurantBarAddress.setSubLocality(neighbourhood);
+                restaurantBarAddress.setPhone(phone);
 
                 List<String> cuisines = getAllCuisinesByRestaurantBar(restaurantBarID);
 
-                restaurantBarList.add(new RestaurantBar(context, name, address, website, description, imageFileName, rating, price, openingHours, diningHours, michelinStars, cuisines));
+                restaurantBarList.add(new RestaurantBar(context, name, restaurantBarAddress, website, description,
+                        imageFileName, rating, price, openingHours, diningHours, michelinStars,
+                        cuisines, wheelchairAccess));
+                c.moveToNext();
+
+                String s = cityID + "|" + name + "|" +add + "|" + description + "|" +neighbourhood + "|" + openingHours +"|" + diningHours + "|" +rating + "|" + price + "|" + michelinStars + "|" + imageFileName + "|" +website + "|" + phone + "|" + wheelchairAccess;
+
+                Log.d(name, s);
             }
             c.close();
             return restaurantBarList;
@@ -443,6 +477,11 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
             for (int i = 0; i < c.getCount(); i++) {
                 String name = c.getString(c.getColumnIndex(CUISINE_NAME));
                 cuisineList.add(name);
+                c.moveToNext();
+
+                String s = restaurantBarID + "|" + name;
+
+                Log.d(name, s);
             }
             c.close();
             return cuisineList;
@@ -483,13 +522,18 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 boolean wheelchairAccess = (access == 1);
 
                 // Updating the address object by converting the String to an address
-                getFirstThreeAddressLines(add, address);
+                Address eventAddress = getFirstThreeAddressLines(add, address);
 
                 Date startDate = stringToDate(dateStart);
                 Date endDate = stringToDate(dateEnd);
 
-                eventList.add(new Event(context, name, startDate, endDate, address, description, theme,
+                eventList.add(new Event(context, name, startDate, endDate, eventAddress, description, theme,
                         imageFileName, website, wheelchairAccess));
+                c.moveToNext();
+
+                String s = cityID + "|" + name + "|" +add + "|" + description + "|" + theme + "|" + dateStart + "|" + dateEnd + "|" + imageFileName + "|" +website + "|" + wheelchairAccess;
+
+                Log.d(name, s);
             }
             c.close();
             return eventList;
@@ -533,12 +577,17 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
 
                 // Updating the address object by converting the String to an address and setting
                 // the neighbourhood and phone number.
-                getFirstThreeAddressLines(add, address);
+                Address attractionAddress = getFirstThreeAddressLines(add, address);
                 address.setSubLocality(neighbourhood);
                 address.setPhone(phone);
 
-                attractionsList.add(new Attraction(context, name, address, website, description,
+                attractionsList.add(new Attraction(context, name, attractionAddress, website, description,
                         imageFileName, rating, price, openingHours, wheelchairAccess));
+                c.moveToNext();
+
+                String s = cityID + "|" + name + "|" +add + "|" + description + "|" +neighbourhood + "|" + openingHours + "|" +rating + "|" + price + "|" + imageFileName + "|" +website + "|" + phone;
+
+                Log.d(name, s);
             }
             c.close();
             return attractionsList;
@@ -563,8 +612,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
                 String name = c.getString(c.getColumnIndex(TOUR_NAME));
-                String addressStart = c.getString(c.getColumnIndex(TOUR_START_ADDRESS));
-                String addressEnd = c.getString(c.getColumnIndex(TOUR_START_ADDRESS));
+                String add = c.getString(c.getColumnIndex(TOUR_ADDRESS));
                 String description = c.getString(c.getColumnIndex(TOUR_DESCRIPTION));
                 String operator = c.getString(c.getColumnIndex(TOUR_OPERATOR));
                 String operatingTimes = c.getString(c.getColumnIndex(TOUR_OPERATING_TIMES));
@@ -585,14 +633,17 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 // Creating new address objects and setting them to have the same Locale as the
                 // city Address object and then setting the first three lines of the addresses by
                 // taking the first three lines of the address strings from the DB.
-                Address startLocation = new Address(address.getLocale());
-                Address endLocation = new Address(address.getLocale());
-                getFirstThreeAddressLines(addressStart, startLocation);
-                getFirstThreeAddressLines(addressEnd, endLocation);
-                address.setPhone(phone);
+                Address tourAddress = getFirstThreeAddressLines(add, address);
+                tourAddress.setPhone(phone);
 
                 toursList.add(new Tour(context, name, operator, imageFileName, rating, price, description,
-                        operatingTimes, startLocation, endLocation, wheelchairAccess, website, phone));
+                        operatingTimes, tourAddress, wheelchairAccess, website, phone));
+                c.moveToNext();
+
+                String s = cityID + "|" + name + "|" +add + "|" + description + "|" +operator + "|" + operatingTimes + "|" +rating + "|" + price + "|" + imageFileName + "|" +website + "|" + phone;
+
+                Log.d(name, s);
+
             }
             c.close();
             return toursList;
@@ -620,8 +671,13 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
                 String name = c.getString(c.getColumnIndex(TRANSPORT_TYPE));
-                String icon = c.getString(c.getColumnIndex(TRANSPORT_ICON));
-                transportList.add(new Transport(context, name, icon));
+                String iconFileName = c.getString(c.getColumnIndex(TRANSPORT_ICON));
+                transportList.add(new Transport(context, name, iconFileName));
+                c.moveToNext();
+
+                String s = cityID + "|" + name + "|" + iconFileName;
+
+                Log.d(name, s);
             }
             c.close();
             return transportList;
@@ -649,6 +705,11 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String iataCode = c.getString(c.getColumnIndex(AIRPORT_IATA));
 
                 airportsList.add(new Airport(name, iataCode, address));
+                c.moveToNext();
+
+                String s = cityID + "|" + name + "|" +iataCode;
+
+                Log.d(name, s);
             }
             c.close();
             return airportsList;
@@ -667,11 +728,16 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
      * @param stringAddress The first 3 lines of the address in string form
      * @param address       The Address object.
      */
-    private void getFirstThreeAddressLines(String stringAddress, Address address){
+    private Address getFirstThreeAddressLines(String stringAddress, Address address){
         String [] addressLines = stringAddress.split(", ");
-        address.setAddressLine(0, addressLines[0]);
-        address.setAddressLine(1, addressLines[1]);
-        address.setAddressLine(2, addressLines[2]);
+        Address newAddress = new Address(address.getLocale());
+        newAddress.setCountryName(address.getCountryName());
+        newAddress.setLocality(address.getLocality());
+        newAddress.setAddressLine(0, addressLines[0]);
+        newAddress.setAddressLine(1, addressLines[1]);
+        newAddress.setAddressLine(2, addressLines[2]);
+
+        return newAddress;
     }
     //----------------------------------------------------------------------------------------------
     //endregion

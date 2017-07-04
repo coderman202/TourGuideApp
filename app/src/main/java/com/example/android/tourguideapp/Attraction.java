@@ -12,21 +12,12 @@ import java.net.URL;
 
 public class Attraction extends Hospitality{
 
-    // Adding an extra price constant to take into account that an attraction could be free.
-    // The remaining price constants are contained withing the superclass.
-    public static final int PRICE_FREE = 0;
-
     // An attribute to represent the opening hours for the attraction.
     private String openingHours;
 
     // A boolean attribute to represent whether the attraction has wheelchair accessibility.
     // Setting the default to true.
     private boolean wheelchairAccess = true;
-
-    // A variable to represent the price which will override the price variable in the superclass
-    // because I need to take into account the attraction being free.
-    private float price;
-
 
     /**
      * Instantiates a new Attraction with a rating and price, along with a check to make sure the
@@ -50,10 +41,6 @@ public class Attraction extends Hospitality{
         super(context, name, address, website, description, imageFileName, rating, price);
         this.openingHours = openingHours;
         this.wheelchairAccess = wheelchairAccess;
-        if(price < PRICE_FREE){
-            throw new IllegalArgumentException("Error. You must pass a valid price");
-        }
-        this.price = price;
     }
 
     /**
@@ -92,18 +79,11 @@ public class Attraction extends Hospitality{
         this.wheelchairAccess = wheelchairAccess;
     }
 
-    /**
-     * Set price. Ensure it is a valid price.
-     */
-    public void setPrice(float price){
-        if(price < PRICE_FREE || price > PRICE_HIGH) {
-            throw new IllegalArgumentException("Error. You must pass a valid price");
-        }
-        this.price = price;
-    }
-
     @Override
-    public float getPrice() {
-        return price;
+    public String toString() {
+        return "Attraction{" +
+                "openingHours='" + openingHours + '\'' +
+                ", wheelchairAccess=" + wheelchairAccess +
+                '}';
     }
 }

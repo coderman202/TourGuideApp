@@ -41,8 +41,7 @@ public class Tour {
     private String operatingTimes;
 
     // A start and end location for the tour
-    private Address startLocation;
-    private Address endLocation;
+    private Address address;
 
     // Attribute to tell user whether tour is wheelchair accessible
     private boolean wheelchairAccess;
@@ -67,28 +66,29 @@ public class Tour {
      * @param price            the price
      * @param description      the description
      * @param operatingTimes   the operating times
-     * @param startLocation    the start location
-     * @param endLocation      the end location
+     * @param address    the start location
      * @param wheelchairAccess the wheelchair access
      * @param website          the website
      * @param phoneNumber      the phone number
      */
     public Tour(Context context, String name, String operator, String imageFileName, float rating, float price,
-                String description, String operatingTimes, Address startLocation,
-                Address endLocation, boolean wheelchairAccess, URL website, String phoneNumber) {
+                String description, String operatingTimes, Address address,
+                boolean wheelchairAccess, URL website, String phoneNumber) {
         if(price < PRICE_FREE || price > PRICE_HIGH){
             throw new IllegalArgumentException("Error. You must pass a valid price");
+        }
+        if(rating < RATING_MIN || rating > RATING_MAX){
+            throw new IllegalArgumentException("Error. You must pass a valid rating");
         }
         this.context = context;
         this.name = name;
         this.operator = operator;
-        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());this.description = description;
+        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
         this.rating = rating;
         this.price = price;
         this.description = description;
         this.operatingTimes = operatingTimes;
-        this.startLocation = startLocation;
-        this.endLocation = endLocation;
+        this.address = address;
         this.wheelchairAccess = wheelchairAccess;
         this.website = website;
         this.phoneNumber = phoneNumber;
@@ -169,11 +169,14 @@ public class Tour {
     }
 
     /**
-     * Sets rating.
+     * Sets rating. Checks it is valid.
      *
      * @param rating the rating
      */
     public void setRating(float rating) {
+        if(rating < RATING_MIN || rating > RATING_MAX){
+            throw new IllegalArgumentException("Error. You must pass a valid rating");
+        }
         this.rating = rating;
     }
 
@@ -239,35 +242,17 @@ public class Tour {
      *
      * @return the start location
      */
-    public Address getStartLocation() {
-        return startLocation;
+    public Address getAddress() {
+        return address;
     }
 
     /**
      * Sets start location.
      *
-     * @param startLocation the start location
+     * @param address the start location
      */
-    public void setStartLocation(Address startLocation) {
-        this.startLocation = startLocation;
-    }
-
-    /**
-     * Gets end location.
-     *
-     * @return the end location
-     */
-    public Address getEndLocation() {
-        return endLocation;
-    }
-
-    /**
-     * Sets end location.
-     *
-     * @param endLocation the end location
-     */
-    public void setEndLocation(Address endLocation) {
-        this.endLocation = endLocation;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     /**
@@ -322,5 +307,23 @@ public class Tour {
      */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Tour{" +
+                "name='" + name + '\'' +
+                ", operator='" + operator + '\'' +
+                ", imageResourceID=" + imageResourceID +
+                ", rating=" + rating +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", operatingTimes='" + operatingTimes + '\'' +
+                ", address=" + address +
+                ", wheelchairAccess=" + wheelchairAccess +
+                ", website=" + website +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", context=" + context +
+                '}';
     }
 }

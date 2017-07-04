@@ -70,4 +70,13 @@ public class Transport {
     public void setIconResourceID(String iconFileName) {
         this.iconResourceID = context.getResources().getIdentifier(iconFileName, "drawable", context.getPackageName());
     }
+
+    @Override
+    public String toString() {
+        return "Transport{" +
+                "name='" + name + '\'' +
+                ", iconResourceID=" + iconResourceID +
+                ", context=" + context +
+                '}';
+    }
 }

@@ -70,4 +70,13 @@ public class Amenity {
     public void setIconResourceID(String iconFileName) {
         this.iconResourceID = context.getResources().getIdentifier(iconFileName, "drawable", context.getPackageName());
     }
+
+    @Override
+    public String toString() {
+        return "Amenity{" +
+                "name='" + name + '\'' +
+                ", iconResourceID=" + iconResourceID +
+                ", context=" + context +
+                '}';
+    }
 }
