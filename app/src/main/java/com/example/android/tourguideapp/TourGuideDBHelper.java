@@ -278,10 +278,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 address.setLocality(name);
                 address.setCountryName(country);
 
-                String s = cityID + "|" + name + "|" +country + "|" + description + "|" +history + "|" +population + "|" +imageFileName + "|" +language;
-
-                Log.d(name, s);
-
                 List<Airport> airportsList = getAllAirportsByCity(cityID, address);
                 List<RestaurantBar> restaurantBarList = getAllRestaurantBarsByCity(cityID, address);
                 List<Hotel> hotelsList = getAllHotelsByCity(cityID, address);
@@ -293,12 +289,9 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 address.setLocality(name);
                 address.setCountryName(country);
 
-                Log.d("Context", context.toString());
-
                 City city = new City(context, address, airportsList, population, description, history,
                         hotelsList, restaurantBarList, attractionsList, eventsList, toursList,
                         imageFileName, transportList);
-
                 cityList.add(city);
                 c.moveToNext();
             }
@@ -346,10 +339,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 hotelAddress.setSubLocality(neighbourhood);
                 hotelAddress.setPhone(phone);
 
-                String s = cityID + "|" + name + "|" +add + "|" + description + "|" +neighbourhood + "|" +rating + "|" + price + "|" + hotelClass + "|" + imageFileName + "|" +website + "|" + phone;
-
-                Log.d(name, s);
-
                 List<Amenity> amenityList = getAllAmenitiesByHotel(hotelID);
 
                 hotelList.add(new Hotel(context, name, hotelAddress, website, description, imageFileName,
@@ -386,10 +375,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
 
                 amenityList.add(new Amenity(context, name, iconFileName));
                 c.moveToNext();
-
-                String s = hotelID + "|" + name + "|" + iconFileName;
-
-                Log.d(name, s);
             }
             c.close();
             return amenityList;
@@ -445,10 +430,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                         imageFileName, rating, price, openingHours, diningHours, michelinStars,
                         cuisines, wheelchairAccess));
                 c.moveToNext();
-
-                String s = cityID + "|" + name + "|" +add + "|" + description + "|" +neighbourhood + "|" + openingHours +"|" + diningHours + "|" +rating + "|" + price + "|" + michelinStars + "|" + imageFileName + "|" +website + "|" + phone + "|" + wheelchairAccess;
-
-                Log.d(name, s);
             }
             c.close();
             return restaurantBarList;
@@ -478,10 +459,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String name = c.getString(c.getColumnIndex(CUISINE_NAME));
                 cuisineList.add(name);
                 c.moveToNext();
-
-                String s = restaurantBarID + "|" + name;
-
-                Log.d(name, s);
             }
             c.close();
             return cuisineList;
@@ -530,10 +507,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 eventList.add(new Event(context, name, startDate, endDate, eventAddress, description, theme,
                         imageFileName, website, wheelchairAccess));
                 c.moveToNext();
-
-                String s = cityID + "|" + name + "|" +add + "|" + description + "|" + theme + "|" + dateStart + "|" + dateEnd + "|" + imageFileName + "|" +website + "|" + wheelchairAccess;
-
-                Log.d(name, s);
             }
             c.close();
             return eventList;
@@ -584,10 +557,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 attractionsList.add(new Attraction(context, name, attractionAddress, website, description,
                         imageFileName, rating, price, openingHours, wheelchairAccess));
                 c.moveToNext();
-
-                String s = cityID + "|" + name + "|" +add + "|" + description + "|" +neighbourhood + "|" + openingHours + "|" +rating + "|" + price + "|" + imageFileName + "|" +website + "|" + phone;
-
-                Log.d(name, s);
             }
             c.close();
             return attractionsList;
@@ -639,11 +608,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 toursList.add(new Tour(context, name, operator, imageFileName, rating, price, description,
                         operatingTimes, tourAddress, wheelchairAccess, website, phone));
                 c.moveToNext();
-
-                String s = cityID + "|" + name + "|" +add + "|" + description + "|" +operator + "|" + operatingTimes + "|" +rating + "|" + price + "|" + imageFileName + "|" +website + "|" + phone;
-
-                Log.d(name, s);
-
             }
             c.close();
             return toursList;
@@ -674,10 +638,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String iconFileName = c.getString(c.getColumnIndex(TRANSPORT_ICON));
                 transportList.add(new Transport(context, name, iconFileName));
                 c.moveToNext();
-
-                String s = cityID + "|" + name + "|" + iconFileName;
-
-                Log.d(name, s);
             }
             c.close();
             return transportList;
@@ -706,10 +666,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
 
                 airportsList.add(new Airport(name, iataCode, address));
                 c.moveToNext();
-
-                String s = cityID + "|" + name + "|" +iataCode;
-
-                Log.d(name, s);
             }
             c.close();
             return airportsList;

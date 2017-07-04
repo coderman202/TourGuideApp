@@ -8,6 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--Style for the header text in the activity_main.xml-->
+    <style name="MainHeaderTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/main_header_text_size</item>
+        <item name="android:padding">@dimen/main_header_margin</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/background_color</item>
+    </style>
+
 
     <!--Styles for list item views on the home screen-->
     <style name="CityImageStyle">
@@ -31,6 +43,7 @@
         <item name="android:layout_gravity">end</item>
         <item name="android:background">@color/colorPrimaryDark</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginEnd">@dimen/text_item_drawable_padding</item>
     </style>
 
 </resources>

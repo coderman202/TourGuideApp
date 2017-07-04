@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
+    <!--Header text in activity_main dimens-->
+    <dimen name="main_header_text_size">18sp</dimen>
+    <dimen name="main_header_margin">8dp</dimen>
 
     <!--ALL DIMENS BELOW USED IN MAIN SCREEN LISTVIEW-->
     <dimen name="list_view_margin">4dp</dimen>
+    <dimen name="list_view_divider_height">0.5dp</dimen>
 
     <!--City Image List Item Defaults-->
     <dimen name="city_image_width">216dp</dimen>

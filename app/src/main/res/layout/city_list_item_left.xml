@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/list_item_left_background_color">
+
+    <ImageView
+        style="@style/CityImageStyle"
+        android:id="@+id/city_image"
+        android:contentDescription="@string/city_images"
+        tools:src="@drawable/bsas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/city_info"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/city_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintDimensionRatio="7.9:6.5"
+        android:layout_marginStart="@dimen/text_item_drawable_padding"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/city_image"
+        app:layout_constraintVertical_chainStyle="spread_inside">
+
+        <TextView
+            style="@style/TextItemStyle"
+            android:id="@+id/country"
+            android:drawableStart="@drawable/earth"
+            tools:text="@string/placeholder_country_name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            style="@style/TextItemStyle"
+            android:id="@+id/population"
+            android:drawableStart="@drawable/people"
+            tools:text="@string/placeholder_population"
+            app:layout_constraintTop_toBottomOf="@id/country"/>
+
+        <TextView
+            style="@style/TextItemStyle"
+            android:id="@+id/language"
+            android:drawableStart="@drawable/language"
+            tools:text="@string/placeholder_language"
+            app:layout_constraintTop_toBottomOf="@id/population"/>
+
+        <TextView
+            style="@style/TextItemMoreStyle"
+            android:id="@+id/more"
+            android:drawableEnd="@drawable/more"
+            android:text="@string/more"
+            app:layout_constraintTop_toBottomOf="@id/language"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

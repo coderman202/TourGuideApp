@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -52,9 +53,18 @@ public class CityAdapter extends ArrayAdapter<City> {
         ViewHolder holder;
 
         View listItemView = convertView;
-        if (listItemView == null) {
+
+        // Choose alternative layouts for list item to position the image to the left or right in
+        // the list item.
+        if (listItemView == null && (position % 2) == 0) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.city_list_item, parent, false);
+                    R.layout.city_list_item_left, parent, false);
+            holder = new ViewHolder(listItemView);
+            listItemView.setTag(holder);
+        }
+        else if(listItemView == null && (position % 2) != 0){
+            listItemView = LayoutInflater.from(getContext()).inflate(
+                    R.layout.city_list_item_right, parent, false);
             holder = new ViewHolder(listItemView);
             listItemView.setTag(holder);
         }
@@ -67,7 +77,7 @@ public class CityAdapter extends ArrayAdapter<City> {
         final City currentCity = getItem(position);
 
         holder.countryView.setText(currentCity.getCountry());
-        holder.populationView.setText(currentCity.getPopulation());
+        holder.populationView.setText(NumberFormat.getIntegerInstance().format(currentCity.getPopulation()));
         holder.languageView.setText(currentCity.getLanguage());
         holder.cityImage.setImageResource(currentCity.getImageResourceID());
 
