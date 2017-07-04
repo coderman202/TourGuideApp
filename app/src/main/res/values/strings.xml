@@ -13,11 +13,20 @@
     <string name="placeholder_country_name">Argentina</string>
     <string name="placeholder_population">14,902,908</string>
     <string name="placeholder_language">Spanish</string>
+    <string name="placeholder_airports">Ezeiza International Airport</string>
 
     <!--Content descriptions for all images-->
     <string name="city_images">
-        An image of <xliff:g id="city_name" example="London">%d</xliff:g>
+        An image of <xliff:g example="London" id="city_name">%s</xliff:g>
     </string>
+    <string name="transport_icon">A <xliff:g example="bus" id="transport_type">%s</xliff:g> icon</string>
+
+    <string name="title_activity_city_guide">CityGuideActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

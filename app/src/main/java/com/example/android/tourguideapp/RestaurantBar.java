@@ -2,6 +2,7 @@ package com.example.android.tourguideapp;
 
 import android.content.Context;
 import android.location.Address;
+import android.os.Parcel;
 
 import java.net.URL;
 import java.util.List;
@@ -34,6 +35,7 @@ public class RestaurantBar extends Hospitality {
     private boolean wheelchairAccess;
 
 
+    //region Constructor(s)
     /**
      * Instantiates a new RestaurantBar with a michelin star, along with a check to make sure the
      * values passed to the constructor were valid.
@@ -66,7 +68,9 @@ public class RestaurantBar extends Hospitality {
         this.cuisines = cuisines;
         this.wheelchairAccess = wheelchairAccess;
     }
+    //endregion
 
+    //region Getters & setters
     /**
      * Gets opening hours.
      *
@@ -177,6 +181,7 @@ public class RestaurantBar extends Hospitality {
     public void setWheelchairAccess(boolean wheelchairAccess) {
         this.wheelchairAccess = wheelchairAccess;
     }
+    //endregion
 
     @Override
     public String toString() {
@@ -188,4 +193,42 @@ public class RestaurantBar extends Hospitality {
                 ", wheelchairAccess=" + wheelchairAccess +
                 '}';
     }
+
+    //region Parcelable code
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(this.openingHours);
+        dest.writeString(this.diningHours);
+        dest.writeInt(this.michelinStars);
+        dest.writeStringList(this.cuisines);
+        dest.writeByte(this.wheelchairAccess ? (byte) 1 : (byte) 0);
+    }
+
+    protected RestaurantBar(Parcel in) {
+        super(in);
+        this.openingHours = in.readString();
+        this.diningHours = in.readString();
+        this.michelinStars = in.readInt();
+        this.cuisines = in.createStringArrayList();
+        this.wheelchairAccess = in.readByte() != 0;
+    }
+
+    public static final Creator<RestaurantBar> CREATOR = new Creator<RestaurantBar>() {
+        @Override
+        public RestaurantBar createFromParcel(Parcel source) {
+            return new RestaurantBar(source);
+        }
+
+        @Override
+        public RestaurantBar[] newArray(int size) {
+            return new RestaurantBar[size];
+        }
+    };
+    //endregion
 }

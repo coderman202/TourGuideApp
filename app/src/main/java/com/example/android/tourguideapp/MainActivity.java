@@ -1,7 +1,10 @@
 package com.example.android.tourguideapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.List;
@@ -18,14 +21,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ContextHolder.init(getApplicationContext());
 
         ButterKnife.bind(this);
 
         TourGuideDBHelper tourGuideDBHelper = new TourGuideDBHelper(this);
-        List<City> cityList = tourGuideDBHelper.getAllCities();
+        final List<City> cityList = tourGuideDBHelper.getAllCities();
 
         CityAdapter cityAdapter = new CityAdapter(this, cityList);
         cityListView.setAdapter(cityAdapter);
+
+        cityListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("City", cityList.get(position));
+                Intent intent = new Intent(MainActivity.this, CityGuideActivity.class);
+                intent.putExtra("City", bundle);
+                startActivity(intent);
+            }
+        });
 
     }
 }

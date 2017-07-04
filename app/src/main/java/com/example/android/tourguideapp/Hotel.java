@@ -2,6 +2,7 @@ package com.example.android.tourguideapp;
 
 import android.content.Context;
 import android.location.Address;
+import android.os.Parcel;
 
 import java.net.URL;
 import java.util.List;
@@ -25,6 +26,7 @@ public class Hotel extends Hospitality {
     // A list of the amenities that the hotel offers
     private List<Amenity> amenities;
 
+    //region Constructors
     /**
      * Instantiates a new Hotel object without a rating, price  or amenities. A check to ensure a
      * valid hotel class is passed is in place too.
@@ -73,7 +75,9 @@ public class Hotel extends Hospitality {
         this.hotelClass = hotelClass;
         this.amenities = amenities;
     }
+    //endregion
 
+    //region Getters & Setters
     /**
      * Gets hotel class.
      *
@@ -112,4 +116,37 @@ public class Hotel extends Hospitality {
     public void setAmenities(List<Amenity> amenities) {
         this.amenities = amenities;
     }
+    //endregion
+
+    //region Parcelable methods
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(this.hotelClass);
+        dest.writeTypedList(this.amenities);
+    }
+
+    protected Hotel(Parcel in) {
+        super(in);
+        this.hotelClass = in.readInt();
+        this.amenities = in.createTypedArrayList(Amenity.CREATOR);
+    }
+
+    public static final Creator<Hotel> CREATOR = new Creator<Hotel>() {
+        @Override
+        public Hotel createFromParcel(Parcel source) {
+            return new Hotel(source);
+        }
+
+        @Override
+        public Hotel[] newArray(int size) {
+            return new Hotel[size];
+        }
+    };
+    //endregion
 }

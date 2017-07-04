@@ -2,6 +2,8 @@ package com.example.android.tourguideapp;
 
 import android.content.Context;
 import android.location.Address;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.net.URL;
 
@@ -9,7 +11,7 @@ import java.net.URL;
  * A custom class to represent all the city tours.
  */
 
-public class Tour {
+public class Tour implements Parcelable {
 
     // The consumer rating constants
     public static final int RATING_MAX = 5;
@@ -55,6 +57,7 @@ public class Tour {
     // The context which will be needed to get the correct resource id of the tour image.
     private Context context;
 
+    //region Constructor(s)
     /**
      * Instantiates a new Tour. Checks that the price set is valid.
      *
@@ -93,7 +96,9 @@ public class Tour {
         this.website = website;
         this.phoneNumber = phoneNumber;
     }
+    //endregion
 
+    //region Getters & setters
     /**
      * Gets name.
      *
@@ -308,6 +313,7 @@ public class Tour {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+    //endregion
 
     @Override
     public String toString() {
@@ -326,4 +332,53 @@ public class Tour {
                 ", context=" + context +
                 '}';
     }
+
+    //region Parcelable code
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.operator);
+        dest.writeInt(this.imageResourceID);
+        dest.writeFloat(this.rating);
+        dest.writeFloat(this.price);
+        dest.writeString(this.description);
+        dest.writeString(this.operatingTimes);
+        dest.writeParcelable(this.address, flags);
+        dest.writeByte(this.wheelchairAccess ? (byte) 1 : (byte) 0);
+        dest.writeSerializable(this.website);
+        dest.writeString(this.phoneNumber);
+    }
+
+    protected Tour(Parcel in) {
+        this.name = in.readString();
+        this.operator = in.readString();
+        this.imageResourceID = in.readInt();
+        this.rating = in.readFloat();
+        this.price = in.readFloat();
+        this.description = in.readString();
+        this.operatingTimes = in.readString();
+        this.address = in.readParcelable(Address.class.getClassLoader());
+        this.wheelchairAccess = in.readByte() != 0;
+        this.website = (URL) in.readSerializable();
+        this.phoneNumber = in.readString();
+        this.context = ContextHolder.getInstance().getApplicationContext();
+    }
+
+    public static final Parcelable.Creator<Tour> CREATOR = new Parcelable.Creator<Tour>() {
+        @Override
+        public Tour createFromParcel(Parcel source) {
+            return new Tour(source);
+        }
+
+        @Override
+        public Tour[] newArray(int size) {
+            return new Tour[size];
+        }
+    };
+    //endregion
 }

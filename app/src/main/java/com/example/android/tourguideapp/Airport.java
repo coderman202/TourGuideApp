@@ -1,11 +1,13 @@
 package com.example.android.tourguideapp;
 
 import android.location.Address;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * A custom class to represent the airport(s) of a city/country
  */
-public class Airport {
+public class Airport implements Parcelable {
 
     // The name of the airport
     private String name;
@@ -19,6 +21,7 @@ public class Airport {
     // This attribute will be derived using the Address.getLocality() method.
     private String city;
 
+    //region Constructor(s)
     /**
      * Instantiates a new Airport object.
      * I use the Address object to generate the city and country attributes
@@ -33,7 +36,9 @@ public class Airport {
         this.city = address.getLocality();
         this.country = address.getCountryName();
     }
+    //endregion
 
+    //region Getters & setters
     /**
      * Gets name.
      *
@@ -87,6 +92,7 @@ public class Airport {
     public void setIata(String iata) {
         this.iata = iata;
     }
+    //endregion
 
     @Override
     public String toString() {
@@ -97,4 +103,38 @@ public class Airport {
                 ", city='" + city + '\'' +
                 '}';
     }
+
+    //region Parcelable code
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.iata);
+        dest.writeString(this.country);
+        dest.writeString(this.city);
+    }
+
+    protected Airport(Parcel in) {
+        this.name = in.readString();
+        this.iata = in.readString();
+        this.country = in.readString();
+        this.city = in.readString();
+    }
+
+    public static final Parcelable.Creator<Airport> CREATOR = new Parcelable.Creator<Airport>() {
+        @Override
+        public Airport createFromParcel(Parcel source) {
+            return new Airport(source);
+        }
+
+        @Override
+        public Airport[] newArray(int size) {
+            return new Airport[size];
+        }
+    };
+    //endregion
 }

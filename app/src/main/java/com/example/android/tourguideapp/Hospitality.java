@@ -2,13 +2,15 @@ package com.example.android.tourguideapp;
 
 import android.content.Context;
 import android.location.Address;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.net.URL;
 
 /**
  * The base class for which Attraction, Restaurant, Bar and Hotel will be an extension
  */
-public class Hospitality {
+public class Hospitality implements Parcelable {
 
 
     // The consumer rating constants to track the min and max rating values
@@ -58,7 +60,7 @@ public class Hospitality {
     // The context which will be needed to get the correct resource id of the hospitality image.
     private Context context;
 
-
+    //region Constructor(s)
     /**
      * Instantiates a new Hospitality without a rating and price.
      *
@@ -82,7 +84,6 @@ public class Hospitality {
         this.phoneNumber = address.getPhone();
         this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
     }
-
 
     /**
      * Instantiates a new Hospitality with a rating and price, along with a check to make sure the
@@ -115,7 +116,9 @@ public class Hospitality {
         this.rating = rating;
         this.price = price;
     }
+    //endregion
 
+    //region Getters & setters
     /**
      * Gets name.
      *
@@ -292,6 +295,7 @@ public class Hospitality {
         }
         this.price = price;
     }
+    //endregion
 
     @Override
     public String toString() {
@@ -310,4 +314,53 @@ public class Hospitality {
                 ", context=" + context +
                 '}';
     }
+
+    //region Parcelable methods
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeParcelable(this.address, flags);
+        dest.writeInt(this.imageResourceID);
+        dest.writeString(this.neighbourhood);
+        dest.writeSerializable(this.website);
+        dest.writeString(this.description);
+        dest.writeString(this.city);
+        dest.writeString(this.country);
+        dest.writeString(this.phoneNumber);
+        dest.writeFloat(this.rating);
+        dest.writeFloat(this.price);
+    }
+
+    protected Hospitality(Parcel in) {
+        this.name = in.readString();
+        this.address = in.readParcelable(Address.class.getClassLoader());
+        this.imageResourceID = in.readInt();
+        this.neighbourhood = in.readString();
+        this.website = (URL) in.readSerializable();
+        this.description = in.readString();
+        this.city = in.readString();
+        this.country = in.readString();
+        this.phoneNumber = in.readString();
+        this.rating = in.readFloat();
+        this.price = in.readFloat();
+        this.context = ContextHolder.getInstance().getApplicationContext();
+    }
+
+    public static final Creator<Hospitality> CREATOR = new Creator<Hospitality>() {
+        @Override
+        public Hospitality createFromParcel(Parcel source) {
+            return new Hospitality(source);
+        }
+
+        @Override
+        public Hospitality[] newArray(int size) {
+            return new Hospitality[size];
+        }
+    };
+    //endregion
 }

@@ -2,6 +2,8 @@ package com.example.android.tourguideapp;
 
 import android.content.Context;
 import android.location.Address;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.net.URL;
 
@@ -10,7 +12,7 @@ import java.net.URL;
  * Hospitality.
  */
 
-public class Attraction extends Hospitality{
+public class Attraction extends Hospitality implements Parcelable {
 
     // An attribute to represent the opening hours for the attraction.
     private String openingHours;
@@ -19,6 +21,7 @@ public class Attraction extends Hospitality{
     // Setting the default to true.
     private boolean wheelchairAccess = true;
 
+    //region Constructor(s)
     /**
      * Instantiates a new Attraction with a rating and price, along with a check to make sure the
      * price and rating values passed to the constructor were valid.
@@ -42,7 +45,9 @@ public class Attraction extends Hospitality{
         this.openingHours = openingHours;
         this.wheelchairAccess = wheelchairAccess;
     }
+    //endregion
 
+    //region Getters & setters
     /**
      * Gets opening hours.
      *
@@ -86,4 +91,37 @@ public class Attraction extends Hospitality{
                 ", wheelchairAccess=" + wheelchairAccess +
                 '}';
     }
+    //endregion
+
+    //region Parcelable code
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(this.openingHours);
+        dest.writeByte(this.wheelchairAccess ? (byte) 1 : (byte) 0);
+    }
+
+    protected Attraction(Parcel in) {
+        super(in);
+        this.openingHours = in.readString();
+        this.wheelchairAccess = in.readByte() != 0;
+    }
+
+    public static final Creator<Attraction> CREATOR = new Creator<Attraction>() {
+        @Override
+        public Attraction createFromParcel(Parcel source) {
+            return new Attraction(source);
+        }
+
+        @Override
+        public Attraction[] newArray(int size) {
+            return new Attraction[size];
+        }
+    };
+    //endregion
 }

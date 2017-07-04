@@ -1,11 +1,13 @@
 package com.example.android.tourguideapp;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * A custom class for transport types
  */
-public class Transport {
+public class Transport implements Parcelable {
 
     private String name;
     private int iconResourceID;
@@ -26,6 +28,7 @@ public class Transport {
         this.iconResourceID = context.getResources().getIdentifier(iconFileName, "drawable", context.getPackageName());
     }
 
+    //region Getters & setters
     /**
      * Gets name.
      *
@@ -70,6 +73,7 @@ public class Transport {
     public void setIconResourceID(String iconFileName) {
         this.iconResourceID = context.getResources().getIdentifier(iconFileName, "drawable", context.getPackageName());
     }
+    //endregion
 
     @Override
     public String toString() {
@@ -79,4 +83,35 @@ public class Transport {
                 ", context=" + context +
                 '}';
     }
+
+    //region Parcelable code
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeInt(this.iconResourceID);
+    }
+
+    protected Transport(Parcel in) {
+        this.name = in.readString();
+        this.iconResourceID = in.readInt();
+        this.context = ContextHolder.getInstance().getApplicationContext();
+    }
+
+    public static final Parcelable.Creator<Transport> CREATOR = new Parcelable.Creator<Transport>() {
+        @Override
+        public Transport createFromParcel(Parcel source) {
+            return new Transport(source);
+        }
+
+        @Override
+        public Transport[] newArray(int size) {
+            return new Transport[size];
+        }
+    };
+    //endregion
 }

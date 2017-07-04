@@ -2,6 +2,8 @@ package com.example.android.tourguideapp;
 
 import android.content.Context;
 import android.location.Address;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.net.URL;
 import java.util.Date;
@@ -9,7 +11,7 @@ import java.util.Date;
 /**
  * A custom class to represent events in the city
  */
-public class Event {
+public class Event implements Parcelable {
 
     // The name of the event.
     private String name;
@@ -269,4 +271,50 @@ public class Event {
                 ", context=" + context +
                 '}';
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeLong(this.startDateTime != null ? this.startDateTime.getTime() : -1);
+        dest.writeLong(this.endDateTime != null ? this.endDateTime.getTime() : -1);
+        dest.writeParcelable(this.address, flags);
+        dest.writeString(this.description);
+        dest.writeString(this.theme);
+        dest.writeInt(this.imageResourceID);
+        dest.writeSerializable(this.website);
+        dest.writeByte(this.wheelchairAccess ? (byte) 1 : (byte) 0);
+    }
+
+    protected Event(Parcel in) {
+        this.name = in.readString();
+        long tmpStartDateTime = in.readLong();
+        this.startDateTime = tmpStartDateTime == -1 ? null : new Date(tmpStartDateTime);
+        long tmpEndDateTime = in.readLong();
+        this.endDateTime = tmpEndDateTime == -1 ? null : new Date(tmpEndDateTime);
+        this.address = in.readParcelable(Address.class.getClassLoader());
+        this.description = in.readString();
+        this.theme = in.readString();
+        this.imageResourceID = in.readInt();
+        this.website = (URL) in.readSerializable();
+        this.wheelchairAccess = in.readByte() != 0;
+        this.context = ContextHolder.getInstance().getApplicationContext();
+    }
+
+    public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>() {
+        @Override
+        public Event createFromParcel(Parcel source) {
+            return new Event(source);
+        }
+
+        @Override
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
 }

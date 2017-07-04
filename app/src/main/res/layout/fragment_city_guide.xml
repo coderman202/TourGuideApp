@@ -1,0 +1,80 @@
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <ImageView
+        style="@style/CityImageStyle"
+        android:id="@+id/city_guide_image"
+        android:contentDescription="@string/city_images"
+        tools:src="@drawable/bsas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/city_info"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/city_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintDimensionRatio="5:6.4"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/city_guide_image"
+        app:layout_constraintVertical_chainStyle="spread_inside">
+
+        <TextView
+            style="@style/CityGuideTextStyle"
+            android:id="@+id/city_guide_country"
+            android:drawableStart="@drawable/earth"
+            tools:text="@string/placeholder_country_name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            style="@style/CityGuideTextStyle"
+            android:id="@+id/city_guide_population"
+            android:drawableStart="@drawable/people"
+            tools:text="@string/placeholder_population"
+            app:layout_constraintTop_toBottomOf="@+id/city_guide_country"/>
+
+        <TextView
+            style="@style/CityGuideTextStyle"
+            android:id="@+id/city_guide_language"
+            android:drawableStart="@drawable/language"
+            tools:text="@string/placeholder_language"
+            app:layout_constraintTop_toBottomOf="@+id/city_guide_population"/>
+
+        <TextView
+            style="@style/CityGuideTextStyle"
+            android:id="@+id/city_guide_airport"
+            android:drawableStart="@drawable/airport"
+            tools:text="@string/placeholder_airports"
+            app:layout_constraintTop_toBottomOf="@+id/city_guide_language"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ListView
+        android:id="@+id/transport_icons"
+        android:layout_width="204dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/list_view_margin"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/city_guide_image"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </ListView>
+
+
+
+
+
+</android.support.constraint.ConstraintLayout>

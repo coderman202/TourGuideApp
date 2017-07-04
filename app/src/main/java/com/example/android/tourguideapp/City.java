@@ -2,13 +2,16 @@ package com.example.android.tourguideapp;
 
 import android.content.Context;
 import android.location.Address;
+import android.os.Parcel;
+import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A custom class to represent a city
  */
-public class City {
+public class City implements Parcelable {
 
     // An Address object to store the location of the city
     private Address address;
@@ -61,6 +64,7 @@ public class City {
     // The context which will be needed to get the correct resource id of the city image.
     private Context context;
 
+    //region Constructor(s)
     /**
      * Instantiates a new City.
      *
@@ -100,8 +104,9 @@ public class City {
         String lang = address.getLocale().getLanguage();
         this.language = lang.substring(0,1).toUpperCase() + lang.substring(1);
     }
+    //endregion
 
-
+    //region Getters & Setters
     /**
      * Gets address.
      *
@@ -358,10 +363,9 @@ public class City {
         this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
 
     }
+    //endregion
 
-
-    // The following methods allow the user to add places to the city.
-
+    //region Methods to add places to the city
     /**
      * Add hotel.
      *
@@ -424,6 +428,7 @@ public class City {
     public void addTransport(Transport transport){
         this.transport.add(transport);
     }
+    //endregion
 
     @Override
     public String toString() {
@@ -446,4 +451,68 @@ public class City {
                 ", context=" + context +
                 '}';
     }
+
+    //region Parcelable methods
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.address, flags);
+        dest.writeString(this.country);
+        dest.writeString(this.name);
+        dest.writeList(this.airports);
+        dest.writeList(this.transport);
+        dest.writeInt(this.population);
+        dest.writeInt(this.imageResourceID);
+        dest.writeString(this.description);
+        dest.writeString(this.history);
+        dest.writeString(this.language);
+        dest.writeList(this.hotels);
+        dest.writeList(this.restaurantBars);
+        dest.writeList(this.attractions);
+        dest.writeList(this.events);
+        dest.writeList(this.tours);
+    }
+
+    protected City(Parcel in) {
+        this.address = in.readParcelable(Address.class.getClassLoader());
+        this.country = in.readString();
+        this.name = in.readString();
+        this.airports = new ArrayList<Airport>();
+        in.readList(this.airports, Airport.class.getClassLoader());
+        this.transport = new ArrayList<Transport>();
+        in.readList(this.transport, Transport.class.getClassLoader());
+        this.population = in.readInt();
+        this.imageResourceID = in.readInt();
+        this.description = in.readString();
+        this.history = in.readString();
+        this.language = in.readString();
+        this.hotels = new ArrayList<Hotel>();
+        in.readList(this.hotels, Hotel.class.getClassLoader());
+        this.restaurantBars = new ArrayList<RestaurantBar>();
+        in.readList(this.restaurantBars, RestaurantBar.class.getClassLoader());
+        this.attractions = new ArrayList<Attraction>();
+        in.readList(this.attractions, Attraction.class.getClassLoader());
+        this.events = new ArrayList<Event>();
+        in.readList(this.events, Event.class.getClassLoader());
+        this.tours = new ArrayList<Tour>();
+        in.readList(this.tours, Tour.class.getClassLoader());
+        this.context = in.readParcelable(Context.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<City> CREATOR = new Parcelable.Creator<City>() {
+        @Override
+        public City createFromParcel(Parcel source) {
+            return new City(source);
+        }
+
+        @Override
+        public City[] newArray(int size) {
+            return new City[size];
+        }
+    };
+    //endregion
 }
