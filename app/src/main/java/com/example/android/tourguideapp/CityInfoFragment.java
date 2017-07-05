@@ -2,11 +2,14 @@ package com.example.android.tourguideapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +36,7 @@ public class CityInfoFragment extends Fragment {
     }
 
     @BindView(R.id.city_guide_image) ImageView cityImage;
+    @BindView(R.id.transport_icons) RecyclerView transportIconsList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,10 +45,14 @@ public class CityInfoFragment extends Fragment {
 
         ButterKnife.bind(this, rootView);
 
-        int resid = city.getImageResourceID();
-        Log.d("" + resid, "it");
-
         cityImage.setImageResource(city.getImageResourceID());
+
+        List<Transport> transportList = city.getTransport();
+        TransportAdapter transportAdapter = new TransportAdapter(transportList);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        transportIconsList.setLayoutManager(layoutManager);
+        transportIconsList.setAdapter(transportAdapter);
 
         return rootView;
     }
