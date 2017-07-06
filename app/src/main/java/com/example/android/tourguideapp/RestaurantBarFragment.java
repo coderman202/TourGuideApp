@@ -5,6 +5,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -20,6 +26,9 @@ public class RestaurantBarFragment extends Fragment {
     // which the info will be gleaned for display in the onCreateView() method.
     private City city;
 
+    @BindView(R.id.restaurant_bar_list_view)
+    ListView restaurantBarListView;
+
     public RestaurantBarFragment() {
     }
 
@@ -30,7 +39,14 @@ public class RestaurantBarFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_city_guide, container, false);
+        View rootView = inflater.inflate(R.layout.restaurant_bar_list, container, false);
+
+        ButterKnife.bind(this, rootView);
+
+        final List<RestaurantBar> restaurantBarList = city.getRestaurantBars();
+        RestaurantBarAdapter restaurantBarAdapter = new RestaurantBarAdapter(getContext(), restaurantBarList);
+
+        restaurantBarListView.setAdapter(restaurantBarAdapter);
 
         return rootView;
     }

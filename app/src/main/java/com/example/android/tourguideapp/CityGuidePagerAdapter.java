@@ -31,7 +31,7 @@ public class CityGuidePagerAdapter extends FragmentPagerAdapter {
                 return cityInfoFragment;
             case 1:
                 RestaurantBarFragment restaurantBarFragment = new RestaurantBarFragment();
-                restaurantBarFragment.setArguments(bundle);
+                restaurantBarFragment.setCity(chosenCity);
                 return restaurantBarFragment;
             case 2:
                 HotelFragment hotelFragment = new HotelFragment();

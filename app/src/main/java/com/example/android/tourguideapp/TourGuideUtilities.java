@@ -40,9 +40,32 @@ public final class TourGuideUtilities {
         }
     }
 
-    public static void readAndWriteAllStringsToDB(){
+    public static Integer[] getRatingStars(float rating){
+        Integer[] ratingStars = new Integer[(int)rating + 1];
+        for (int i = 0; i < ratingStars.length; i++) {
+            ratingStars[i] = R.drawable.star_full;
+        }
+        if(rating <= ((int) rating) + 0.35){
+            ratingStars[ratingStars.length-1] = R.drawable.star_quarter;
+        }
+        else if(rating <= ((int) rating) + 0.65){
+            ratingStars[ratingStars.length-1] = R.drawable.star_half;
+        }
+        else if(rating <= ((int) rating) + 0.85){
+            ratingStars[ratingStars.length-1] = R.drawable.star_three_quarter;
+        }
+        else{
+            ratingStars[ratingStars.length-1] = R.drawable.star_full;
+        }
+        return ratingStars;
+    }
 
-
+    public static Integer[] getPriceIcons(float price){
+        Integer[] priceIcons = new Integer[Math.round(price)];
+        for (int i = 0; i < priceIcons.length; i++) {
+            priceIcons[i] = R.drawable.price;
+        }
+        return priceIcons;
     }
 
 }
