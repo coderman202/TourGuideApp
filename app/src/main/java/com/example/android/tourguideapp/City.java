@@ -46,6 +46,9 @@ public class City implements Parcelable {
     // method.
     private String language;
 
+    // The time zone of the city to allow for the display of the correct time
+    private String timeZone;
+
     // A list of all the hotels in the city
     private List<Hotel> hotels;
 
@@ -65,6 +68,7 @@ public class City implements Parcelable {
     private Context context;
 
     //region Constructor(s)
+
     /**
      * Instantiates a new City.
      *
@@ -74,6 +78,7 @@ public class City implements Parcelable {
      * @param population     the population
      * @param description    the description
      * @param history        the history
+     * @param timeZone       the time zone
      * @param hotels         the hotels
      * @param restaurantBars the restaurant bars
      * @param attractions    the attractions
@@ -83,7 +88,7 @@ public class City implements Parcelable {
      * @param transport      the transport
      */
     public City(Context context, Address address, List<Airport> airports, int population,
-                String description, String history, List<Hotel> hotels,
+                String description, String history, String timeZone, List<Hotel> hotels,
                 List<RestaurantBar> restaurantBars, List<Attraction> attractions,
                 List<Event> events, List<Tour> tours, String imageFileName, List<Transport> transport) {
         this.context = context;
@@ -93,6 +98,7 @@ public class City implements Parcelable {
         this.description = description;
         this.history = history;
         this.hotels = hotels;
+        this.timeZone = timeZone;
         this.restaurantBars = restaurantBars;
         this.attractions = attractions;
         this.events = events;
@@ -177,6 +183,24 @@ public class City implements Parcelable {
      */
     public String getLanguage() {
         return language;
+    }
+
+    /**
+     * Gets time zone.
+     *
+     * @return the time zone
+     */
+    public String getTimeZone() {
+        return timeZone;
+    }
+
+    /**
+     * Sets time zone.
+     *
+     * @param timeZone the time zone
+     */
+    public void setTimeZone(String timeZone) {
+        this.timeZone = timeZone;
     }
 
     /**
@@ -443,6 +467,7 @@ public class City implements Parcelable {
                 ", description='" + description + '\'' +
                 ", history='" + history + '\'' +
                 ", language='" + language + '\'' +
+                ", time zone =' " + timeZone + '\'' +
                 ", hotels=" + hotels.toString() +
                 ", restaurantBars=" + restaurantBars.toString() +
                 ", attractions=" + attractions.toString() +
@@ -470,6 +495,7 @@ public class City implements Parcelable {
         dest.writeString(this.description);
         dest.writeString(this.history);
         dest.writeString(this.language);
+        dest.writeString(this.timeZone);
         dest.writeList(this.hotels);
         dest.writeList(this.restaurantBars);
         dest.writeList(this.attractions);
@@ -490,6 +516,7 @@ public class City implements Parcelable {
         this.description = in.readString();
         this.history = in.readString();
         this.language = in.readString();
+        this.timeZone = in.readString();
         this.hotels = new ArrayList<Hotel>();
         in.readList(this.hotels, Hotel.class.getClassLoader());
         this.restaurantBars = new ArrayList<RestaurantBar>();

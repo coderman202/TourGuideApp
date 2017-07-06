@@ -54,7 +54,37 @@
         <item name="android:textSize">@dimen/city_guide_text_size</item>
         <item name="android:padding">@dimen/text_item_padding</item>
         <item name="android:drawablePadding">@dimen/text_item_drawable_padding</item>
-        <item name="android:gravity">center_vertical</item>
+        <item name="android:gravity">end|center_vertical</item>
+    </style>
+
+    <style name="CityTimeTextStyle" parent="CityGuideTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">@dimen/city_time_text_size</item>
+        <item name="android:textColor">@color/icon_text_more_color</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="CityAirportTextStyle" parent="CityGuideTextStyle">
+        <item name="android:gravity">start</item>
+        <item name="android:padding">@dimen/city_airport_text_item_padding</item>
+    </style>
+
+    <style name="CityGuideImageStyle" parent="CityImageStyle">
+        <item name="android:layout_height">@dimen/city_guide_image_height</item>
+        <item name="android:layout_width">@dimen/city_guide_image_width</item>
+        <item name="android:gravity">top</item>
+        <item name="android:layout_gravity">top</item>
+    </style>
+
+    <style name="CityPlacesTextStyle" parent="CityGuideTextStyle">
+        <item name="android:gravity">start</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:drawablePadding">0dp</item>
+    </style>
+
+    <style name="CityPlacesHeaderStyle" parent="CityGuideTextStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorSecondary</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

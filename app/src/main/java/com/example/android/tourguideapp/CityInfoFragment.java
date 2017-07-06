@@ -2,13 +2,19 @@ package com.example.android.tourguideapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextClock;
+import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,7 +42,16 @@ public class CityInfoFragment extends Fragment {
     }
 
     @BindView(R.id.city_guide_image) ImageView cityImage;
-    @BindView(R.id.transport_icons) RecyclerView transportIconsList;
+    @BindView(R.id.transport_icons_recycler_view) RecyclerView transportIconsList;
+    @BindView(R.id.city_time) TextClock cityTime;
+    @BindView(R.id.city_airport_list) LinearLayout cityAirportsList;
+    @BindView(R.id.city_guide_population) TextView cityPopulation;
+    @BindView(R.id.city_guide_language) TextView cityLanguage;
+    @BindView(R.id.city_guide_country) TextView cityCountry;
+    @BindView(R.id.city_description_header) TextView cityDescriptionHeader;
+    @BindView(R.id.city_history_header) TextView cityHistoryHeader;
+    @BindView(R.id.city_description) ExpandableTextView cityDescription;
+    @BindView(R.id.city_history) ExpandableTextView cityHistory;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +68,28 @@ public class CityInfoFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         transportIconsList.setLayoutManager(layoutManager);
         transportIconsList.setAdapter(transportAdapter);
+
+        cityTime.setTimeZone(city.getTimeZone());
+        cityPopulation.setText(NumberFormat.getIntegerInstance().format(city.getPopulation()));
+        cityLanguage.setText(city.getLanguage());
+        cityCountry.setText(city.getCountry());
+
+        ContextThemeWrapper airportItemStyle = new ContextThemeWrapper(getActivity(), R.style.CityAirportTextStyle);
+
+        List<Airport> airportList = city.getAirports();
+        for (Airport airport:airportList) {
+            TextView airportView = new TextView(airportItemStyle);
+            airportView.setText(airport.getName());
+            airportView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.airport, 0, 0, 0);
+            cityAirportsList.addView(airportView);
+        }
+
+        cityDescriptionHeader.setText(getString(R.string.description_header, city.getName()));
+        cityHistoryHeader.setText(getString(R.string.history_header, city.getName()));
+        cityDescription.setText(city.getDescription());
+        cityHistory.setText(city.getHistory());
+
+        Log.d(city.getDescription().length() + "", city.getDescription());
 
         return rootView;
     }

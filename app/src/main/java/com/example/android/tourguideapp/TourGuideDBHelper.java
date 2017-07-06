@@ -38,7 +38,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
     //----------------------------------------------------------------------------------------------
     // DB name, version and log_tag
     private static final String LOG_TAG = "TourGuideDBHelper";
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 11;
     private static final String DATABASE_NAME = "TourGuideDB";
 
     // Table names in DB
@@ -65,6 +65,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
     private static final String CITY_HISTORY = "CityHistory";
     private static final String CITY_LANGUAGE = "CityLanguage";
     private static final String CITY_IMAGE = "CityImage";
+    private static final String CITY_TIME_ZONE = "CityTimeZone";
 
     // Column names for the Airport table
     private static final String AIRPORT_ID = "AirportID";
@@ -272,6 +273,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 int population = c.getInt(c.getColumnIndex(CITY_POP));
                 String imageFileName = c.getString(c.getColumnIndex(CITY_IMAGE));
                 String language = c.getString(c.getColumnIndex(CITY_LANGUAGE));
+                String timeZone = c.getString(c.getColumnIndex(CITY_TIME_ZONE));
 
                 Locale locale = new Locale(language, country);
                 Address address = new Address(locale);
@@ -290,7 +292,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 address.setCountryName(country);
 
                 City city = new City(context, address, airportsList, population, description, history,
-                        hotelsList, restaurantBarList, attractionsList, eventsList, toursList,
+                        timeZone, hotelsList, restaurantBarList, attractionsList, eventsList, toursList,
                         imageFileName, transportList);
                 cityList.add(city);
                 c.moveToNext();

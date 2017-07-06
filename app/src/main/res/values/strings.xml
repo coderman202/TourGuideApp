@@ -8,12 +8,28 @@
     <!--The view more textview in the listview of cities on the main screen-->
     <string name="more">View more</string>
 
+    <!--Text for textviews in the city guide screen-->
+    <string name="transport">Transport Modes:</string>
+    <string name="time_header">Local Time</string>
+    <string name="weather_header">Local Weather</string>
+    <string name="description_header">About <xliff:g example="London" id="city_name">%s</xliff:g></string>
+    <string name="history_header"><xliff:g example="London" id="city_name">%s</xliff:g> History</string>
+
+
     <!--Placeholder texts for the design preview-->
     <string name="placeholder_city_name">Buenos Aires</string>
     <string name="placeholder_country_name">Argentina</string>
     <string name="placeholder_population">14,902,908</string>
     <string name="placeholder_language">Spanish</string>
     <string name="placeholder_airports">Ezeiza International Airport</string>
+    <string name="placeholder_time">13:54</string>
+    <string name="placeholder_currency">Argentine Peso(ARS)</string>
+    <string name="placeholder_description">This is just some text to test the layout. Nothing more
+        than that really. If you wanted something more, I\'m afraid you\'ll be disappointed. I
+        could go on and on you know but I think this will be sufficient to be honest.</string>
+    <string name="placeholder_name">Nice Restaurant Hotel Event</string>
+    <string name="placeholder_rating">Rating:</string>
+    <string name="placeholder_price">Price:</string>
 
     <!--Content descriptions for all images-->
     <string name="city_images">

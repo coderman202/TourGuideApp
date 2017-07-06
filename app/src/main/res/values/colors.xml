@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#4CAF50</color>
+    <color name="colorPrimaryDark">#388E3C</color>
+    <color name="colorAccent">#FFC107</color>
+    <color name="colorPrimaryLight">#C8E6C9</color>
+
+    <color name="colorSecondary">#D50000</color>
 
     <!--Background colour for the app-->
-    <color name="background_color">#E3F2FD</color>
+    <color name="background_color">@color/colorPrimaryLight</color>
 
     <!--city_list ListView colors-->
     <color name="icon_text_more_color">#ffffff</color>
     <color name="list_item_left_background_color">#BBDEFB</color>
     <color name="list_item_right_background_color">#E8EAF6</color>
+
+    <!--Colors for icons-->
+    <color name="transport_icon_color">#D50000</color>
+    <color name="city_info_icons">@color/colorPrimaryDark</color>
+    <color name="city_time_icon_color">#FFFFFF</color>
+    <color name="star_icon_color">	#FFD700</color>
+
+    <!--Background color for the tablayout-->
+    <color name="tab_layout_background">@color/colorPrimaryDark</color>
 
 
 </resources>
