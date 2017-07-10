@@ -77,14 +77,19 @@
     </style>
 
     <style name="CityPlacesTextStyle" parent="CityGuideTextStyle">
-        <item name="android:gravity">start</item>
-        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">start|center</item>
+        <item name="android:layout_gravity">bottom</item>
         <item name="android:padding">5dp</item>
     </style>
 
     <style name="CityPlacesHeaderStyle" parent="CityGuideTextStyle">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorSecondary</item>
+    </style>
+
+    <style name="WebsiteButtonStyle" parent="CityPlacesTextStyle">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/icon_text_more_color</item>
     </style>
 
     <style name="RatingPriceIconStyle">

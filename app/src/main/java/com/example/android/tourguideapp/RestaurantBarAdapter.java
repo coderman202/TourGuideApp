@@ -1,9 +1,10 @@
 package com.example.android.tourguideapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.android.tourguideapp.TourGuideUtilities.addressToString;
 import static com.example.android.tourguideapp.TourGuideUtilities.getPriceIcons;
 import static com.example.android.tourguideapp.TourGuideUtilities.getRatingStars;
 
@@ -27,7 +29,7 @@ import static com.example.android.tourguideapp.TourGuideUtilities.getRatingStars
 public class RestaurantBarAdapter extends ArrayAdapter<RestaurantBar> {
 
     static class ViewHolder{
-        // Get the restauraqnt info text views to set their text to the values from the current
+        // Get the restaurant info text views to set their text to the values from the current
         // restaurant in the list. Also get the restaurant image view to set the correct image
         // below in the getView method.
         @BindView(R.id.restaurant_bar_name) TextView nameView;
@@ -35,6 +37,10 @@ public class RestaurantBarAdapter extends ArrayAdapter<RestaurantBar> {
         @BindView(R.id.restaurant_bar_price_layout) LinearLayout priceLayout;
         @BindView(R.id.restaurant_bar_rating_layout) LinearLayout ratingLayout;
         @BindView(R.id.restaurant_bar_image) ImageView imageView;
+        @BindView(R.id.restaurant_bar_phone) TextView phoneView;
+        @BindView(R.id.restaurant_bar_website) TextView websiteView;
+        @BindView(R.id.restaurant_bar_neighbourhood) TextView neighbourhoodView;
+        @BindView(R.id.restaurant_bar_address) TextView addressView;
 
         public ViewHolder(View view){
             ButterKnife.bind(this, view);
@@ -56,12 +62,10 @@ public class RestaurantBarAdapter extends ArrayAdapter<RestaurantBar> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        ViewHolder holder;
+        final ViewHolder holder;
 
         View listItemView = convertView;
 
-        // Choose alternative layouts for list item to position the image to the left or right in
-        // the list item.
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.restaurant_bar_list_item, parent, false);
@@ -77,7 +81,12 @@ public class RestaurantBarAdapter extends ArrayAdapter<RestaurantBar> {
         holder.nameView.setText(currentRestaurantBar.getName());
         holder.descriptionView.setText(currentRestaurantBar.getDescription());
         holder.imageView.setImageResource(currentRestaurantBar.getImageResourceID());
+        holder.imageView.setContentDescription(getContext().getString(R.string.city_images, currentRestaurantBar.getName()));
+        holder.phoneView.setText(currentRestaurantBar.getPhoneNumber());
+        holder.neighbourhoodView.setText(currentRestaurantBar.getNeighbourhood());
+        holder.addressView.setText(addressToString(currentRestaurantBar.getAddress()));
 
+        // Set the number of stars and price icons appropriate for each place
         Integer[] ratingStars = getRatingStars(currentRestaurantBar.getRating());
         Integer[] priceIcons = getPriceIcons(currentRestaurantBar.getPrice());
 
@@ -86,13 +95,34 @@ public class RestaurantBarAdapter extends ArrayAdapter<RestaurantBar> {
             ratingStar.setImageResource(i);
             holder.ratingLayout.addView(ratingStar);
         }
-        Log.d("" + currentRestaurantBar.getRating(), "" + ratingStars[1]);
 
         for (Integer i:priceIcons) {
             ImageView priceIcon = new ImageView(getContext());
             priceIcon.setImageResource(i);
             holder.priceLayout.addView(priceIcon);
         }
+
+        // Use the neighbourhood view which contains the map pin to toggle the visibility of the
+        // address.
+        holder.neighbourhoodView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.addressView.getVisibility() == View.VISIBLE) {
+                    holder.addressView.setVisibility(View.INVISIBLE);
+                }
+                else{
+                    holder.addressView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        holder.websiteView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(currentRestaurantBar.getWebsite()));
+                getContext().startActivity(intent);
+            }
+        });
 
         return listItemView;
     }

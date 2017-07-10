@@ -12,7 +12,6 @@ import android.util.Log;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -328,12 +327,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 float price = c.getFloat(c.getColumnIndex(HOTEL_PRICE));
                 int hotelClass = c.getInt(c.getColumnIndex(HOTEL_CLASS));
                 String imageFileName = c.getString(c.getColumnIndex(HOTEL_IMAGE));
-                URL website;
-                try{
-                    website = new URL((c.getString(c.getColumnIndex(HOTEL_WEBSITE))));
-                }catch (IOException e){
-                    throw new RuntimeException(e);
-                }
+                String website = c.getString(c.getColumnIndex(HOTEL_WEBSITE));
                 String phone = c.getString(c.getColumnIndex(HOTEL_PHONE));
 
                 // Updating the address object by converting the String to an address
@@ -411,12 +405,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 float price = c.getFloat(c.getColumnIndex(RESTAURANT_BAR_PRICE));
                 int michelinStars = c.getInt(c.getColumnIndex(RESTAURANT_BAR_MICHELIN_STARS));
                 String imageFileName = c.getString(c.getColumnIndex(RESTAURANT_BAR_IMAGE));
-                URL website;
-                try{
-                    website = new URL((c.getString(c.getColumnIndex(RESTAURANT_BAR_WEBSITE))));
-                }catch (IOException e){
-                    throw new RuntimeException(e);
-                }
+                String website = c.getString(c.getColumnIndex(RESTAURANT_BAR_WEBSITE));
                 String phone = c.getString(c.getColumnIndex(RESTAURANT_BAR_PHONE));
                 int access = c.getInt(c.getColumnIndex(RESTAURANT_BAR_WHEELCHAIR_ACCESS));
                 boolean wheelchairAccess = (access == 1);
@@ -491,12 +480,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String dateEnd = c.getString(c.getColumnIndex(EVENT_END_DATE_TIME));
                 String dateStart = c.getString(c.getColumnIndex(EVENT_START_DATE_TIME));
                 String imageFileName = c.getString(c.getColumnIndex(EVENT_IMAGE));
-                URL website;
-                try{
-                    website = new URL((c.getString(c.getColumnIndex(EVENT_WEBSITE))));
-                }catch (IOException e){
-                    throw new RuntimeException(e);
-                }
+                String website = c.getString(c.getColumnIndex(EVENT_WEBSITE));
                 int access = c.getInt(c.getColumnIndex(EVENT_WHEELCHAIR_ACCESS));
                 boolean wheelchairAccess = (access == 1);
 
@@ -541,12 +525,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String imageFileName = c.getString(c.getColumnIndex(ATTRACTION_IMAGE));
                 float rating = c.getFloat(c.getColumnIndex(ATTRACTION_RATING));
                 float price = c.getFloat(c.getColumnIndex(ATTRACTION_PRICE));
-                URL website;
-                try{
-                    website = new URL((c.getString(c.getColumnIndex(ATTRACTION_WEBSITE))));
-                }catch (IOException e){
-                    throw new RuntimeException(e);
-                }
+                String website = c.getString(c.getColumnIndex(ATTRACTION_WEBSITE));
                 int access = c.getInt(c.getColumnIndex(ATTRACTION_WHEELCHAIR_ACCESS));
                 boolean wheelchairAccess = (access == 1);
 
@@ -591,13 +570,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String imageFileName = c.getString(c.getColumnIndex(TOUR_IMAGE));
                 float rating = c.getFloat(c.getColumnIndex(TOUR_RATING));
                 float price = c.getFloat(c.getColumnIndex(TOUR_PRICE));
-
-                URL website;
-                try{
-                    website = new URL((c.getString(c.getColumnIndex(TOUR_WEBSITE))));
-                }catch (IOException e){
-                    throw new RuntimeException(e);
-                }
+                String website = c.getString(c.getColumnIndex(TOUR_WEBSITE));
                 int access = c.getInt(c.getColumnIndex(TOUR_WHEELCHAIR_ACCESS));
                 boolean wheelchairAccess = (access == 1);
 

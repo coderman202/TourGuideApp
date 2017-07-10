@@ -5,7 +5,6 @@ import android.location.Address;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.net.URL;
 import java.util.Date;
 
 /**
@@ -35,7 +34,7 @@ public class Event implements Parcelable {
     private int imageResourceID;
 
     // The address of the website
-    private URL website;
+    private String website;
 
     // A boolean value to represent whether or not the event is wheelchair accessible.
     private boolean wheelchairAccess;
@@ -58,7 +57,7 @@ public class Event implements Parcelable {
      * @param wheelchairAccess the wheelchair access
      */
     public Event(Context context, String name, Date startDateTime, Date endDateTime, Address address,
-                 String description, String theme, String imageFileName, URL website,
+                 String description, String theme, String imageFileName, String website,
                  boolean wheelchairAccess) {
         if(startDateTime.after(endDateTime)){
             throw new IllegalArgumentException("Error. Ensure the dates are correct. " +
@@ -225,7 +224,7 @@ public class Event implements Parcelable {
      *
      * @return the website
      */
-    public URL getWebsite() {
+    public String getWebsite() {
         return website;
     }
 
@@ -234,7 +233,7 @@ public class Event implements Parcelable {
      *
      * @param website the website
      */
-    public void setWebsite(URL website) {
+    public void setWebsite(String website) {
         this.website = website;
     }
 
@@ -301,7 +300,7 @@ public class Event implements Parcelable {
         this.description = in.readString();
         this.theme = in.readString();
         this.imageResourceID = in.readInt();
-        this.website = (URL) in.readSerializable();
+        this.website = in.readString();
         this.wheelchairAccess = in.readByte() != 0;
         this.context = ContextHolder.getInstance().getApplicationContext();
     }

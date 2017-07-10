@@ -25,10 +25,9 @@ import butterknife.ButterKnife;
  */
 public class CityInfoFragment extends Fragment {
     /**
-     * The fragment argument representing the section number for this
-     * fragment.
+     * Saving the city on screen rotation
      */
-    private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final String SAVED_CITY = "Saved City Object";
 
     // This variable is the city that will be passed in to the fragment via the setCity() method by
     // which the info will be gleaned for display in the onCreateView() method.
@@ -57,6 +56,10 @@ public class CityInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_city_guide, container, false);
+
+        if(savedInstanceState != null){
+            city = savedInstanceState.getParcelable(SAVED_CITY);
+        }
 
         ButterKnife.bind(this, rootView);
 
@@ -92,5 +95,11 @@ public class CityInfoFragment extends Fragment {
         Log.d(city.getDescription().length() + "", city.getDescription());
 
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle saveState){
+        super.onSaveInstanceState(saveState);
+        saveState.putParcelable(SAVED_CITY, city);
     }
 }

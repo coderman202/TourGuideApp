@@ -5,8 +5,6 @@ import android.location.Address;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.net.URL;
-
 /**
  * A custom class to represent all the city tours.
  */
@@ -49,7 +47,7 @@ public class Tour implements Parcelable {
     private boolean wheelchairAccess;
 
     // The address of the website
-    private URL website;
+    private String website;
 
     // The phone number of the tour company
     private String phoneNumber;
@@ -69,14 +67,14 @@ public class Tour implements Parcelable {
      * @param price            the price
      * @param description      the description
      * @param operatingTimes   the operating times
-     * @param address    the start location
+     * @param address          the start location
      * @param wheelchairAccess the wheelchair access
      * @param website          the website
      * @param phoneNumber      the phone number
      */
     public Tour(Context context, String name, String operator, String imageFileName, float rating, float price,
                 String description, String operatingTimes, Address address,
-                boolean wheelchairAccess, URL website, String phoneNumber) {
+                boolean wheelchairAccess, String website, String phoneNumber) {
         if(price < PRICE_FREE || price > PRICE_HIGH){
             throw new IllegalArgumentException("Error. You must pass a valid price");
         }
@@ -283,7 +281,7 @@ public class Tour implements Parcelable {
      *
      * @return the website
      */
-    public URL getWebsite() {
+    public String getWebsite() {
         return website;
     }
 
@@ -292,7 +290,7 @@ public class Tour implements Parcelable {
      *
      * @param website the website
      */
-    public void setWebsite(URL website) {
+    public void setWebsite(String website) {
         this.website = website;
     }
 
@@ -364,7 +362,7 @@ public class Tour implements Parcelable {
         this.operatingTimes = in.readString();
         this.address = in.readParcelable(Address.class.getClassLoader());
         this.wheelchairAccess = in.readByte() != 0;
-        this.website = (URL) in.readSerializable();
+        this.website = in.readString();
         this.phoneNumber = in.readString();
         this.context = ContextHolder.getInstance().getApplicationContext();
     }

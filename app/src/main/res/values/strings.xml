@@ -14,6 +14,7 @@
     <string name="weather_header">Local Weather</string>
     <string name="description_header">About <xliff:g example="London" id="city_name">%s</xliff:g></string>
     <string name="history_header"><xliff:g example="London" id="city_name">%s</xliff:g> History</string>
+    <string name="website">Website</string>
 
 
     <!--Placeholder texts for the design preview-->
@@ -30,6 +31,11 @@
     <string name="placeholder_name">Nice Restaurant Hotel Event</string>
     <string name="placeholder_rating">Rating:</string>
     <string name="placeholder_price">Price:</string>
+    <string name="placeholder_phone_number">+353&#8211;1&#8211;777&#8211;2658</string>
+    <string name="placeholder_neighbourhood">Palermo Soho</string>
+    <string name="placeholder_address">Thames 1101, 1414 Villa Crespo, Distrito Federal</string>
+    <string name="placeholder_start_end_date_time">09/07/2015 19:30 &#8211; 09/06/2015 21:30</string>
+    <string name="placeholder_opening_hours">Mon&#8211;Sat 09:30&#8211;20:00\nSun 12:00&#8211;19:00</string>
 
     <!--Content descriptions for all images-->
     <string name="city_images">

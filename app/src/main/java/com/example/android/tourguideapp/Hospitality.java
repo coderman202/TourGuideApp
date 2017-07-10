@@ -5,8 +5,6 @@ import android.location.Address;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.net.URL;
-
 /**
  * The base class for which Attraction, Restaurant, Bar and Hotel will be an extension
  */
@@ -36,7 +34,7 @@ public class Hospitality implements Parcelable {
     private String neighbourhood;
 
     // The address of the website
-    private URL website;
+    private String website;
 
     // A short textual description of the hospitality.
     private String description;
@@ -71,7 +69,7 @@ public class Hospitality implements Parcelable {
      * @param description   the description
      * @param imageFileName the image file name
      */
-    public Hospitality(Context context, String name, Address address, URL website,
+    public Hospitality(Context context, String name, Address address, String website,
                        String description, String imageFileName) {
         this.context = context;
         this.name = name;
@@ -98,7 +96,7 @@ public class Hospitality implements Parcelable {
      * @param rating        the rating
      * @param price         the price
      */
-    public Hospitality(Context context, String name, Address address, URL website, String description,
+    public Hospitality(Context context, String name, Address address, String website, String description,
                        String imageFileName, float rating, float price) {
         if(rating < RATING_MIN || rating > RATING_MAX || price < PRICE_LOW || price > PRICE_HIGH){
             throw new IllegalArgumentException("Error. You must pass a valid rating and price");
@@ -187,7 +185,7 @@ public class Hospitality implements Parcelable {
      *
      * @return the website
      */
-    public URL getWebsite() {
+    public String getWebsite() {
         return website;
     }
 
@@ -196,7 +194,7 @@ public class Hospitality implements Parcelable {
      *
      * @param website the website
      */
-    public void setWebsite(URL website) {
+    public void setWebsite(String website) {
         this.website = website;
     }
 
@@ -341,7 +339,7 @@ public class Hospitality implements Parcelable {
         this.address = in.readParcelable(Address.class.getClassLoader());
         this.imageResourceID = in.readInt();
         this.neighbourhood = in.readString();
-        this.website = (URL) in.readSerializable();
+        this.website = in.readString();
         this.description = in.readString();
         this.city = in.readString();
         this.country = in.readString();

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.location.Address;
 import android.os.Parcel;
 
-import java.net.URL;
 import java.util.List;
 
 /**
@@ -39,7 +38,7 @@ public class Hotel extends Hospitality {
      * @param imageFileName the image file name
      * @param hotelClass    the hotel class
      */
-    public Hotel(Context context, String name, Address address, URL website, String description,
+    public Hotel(Context context, String name, Address address, String website, String description,
                  String imageFileName, int hotelClass) {
         super(context, name, address, website, description, imageFileName);
         if(hotelClass < CLASS_ONE_STAR || hotelClass > CLASS_FIVE_STAR){
@@ -65,7 +64,7 @@ public class Hotel extends Hospitality {
      * @param hotelClass    the hotel class
      * @param amenities     the amenities
      */
-    public Hotel(Context context, String name, Address address, URL website, String description,
+    public Hotel(Context context, String name, Address address, String website, String description,
                  String imageFileName, float rating, float price, int hotelClass,
                  List<Amenity> amenities) {
         super(context, name, address, website, description, imageFileName, rating, price);

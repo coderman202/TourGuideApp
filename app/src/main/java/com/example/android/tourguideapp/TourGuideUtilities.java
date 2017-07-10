@@ -1,5 +1,7 @@
 package com.example.android.tourguideapp;
 
+import android.location.Address;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -40,6 +42,13 @@ public final class TourGuideUtilities {
         }
     }
 
+    /**
+     * A method which takes the float rating of a place and returns an array of resource ids of
+     * drawable stars to be added to a layout.
+     *
+     * @param rating the rating
+     * @return the integer []
+     */
     public static Integer[] getRatingStars(float rating){
         Integer[] ratingStars = new Integer[(int)rating + 1];
         for (int i = 0; i < ratingStars.length; i++) {
@@ -60,12 +69,24 @@ public final class TourGuideUtilities {
         return ratingStars;
     }
 
+    /**
+     * A method to take the float price of the place and again return an array of resource ids for
+     * the number of price drawable objects will be shown.
+     *
+     * @param price the price
+     * @return the integer []
+     */
     public static Integer[] getPriceIcons(float price){
         Integer[] priceIcons = new Integer[Math.round(price)];
         for (int i = 0; i < priceIcons.length; i++) {
             priceIcons[i] = R.drawable.price;
         }
         return priceIcons;
+    }
+
+    public static String addressToString(Address address){
+        return address.getAddressLine(0) + ", " + address.getAddressLine(1) +
+                ", " + address.getAddressLine(2) + ".";
     }
 
 }

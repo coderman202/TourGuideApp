@@ -5,8 +5,6 @@ import android.location.Address;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.net.URL;
-
 /**
  * A custom class to represent attractions and sights in the city which is a child class of
  * Hospitality.
@@ -39,7 +37,7 @@ public class Attraction extends Hospitality implements Parcelable {
      * @param openingHours     the opening hours
      * @param wheelchairAccess the wheelchair access
      */
-    public Attraction(Context context, String name, Address address, URL website, String description, String imageFileName,
+    public Attraction(Context context, String name, Address address, String website, String description, String imageFileName,
                       float rating, float price, String openingHours, boolean wheelchairAccess) {
         super(context, name, address, website, description, imageFileName, rating, price);
         this.openingHours = openingHours;

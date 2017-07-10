@@ -4,7 +4,6 @@ import android.content.Context;
 import android.location.Address;
 import android.os.Parcel;
 
-import java.net.URL;
 import java.util.List;
 
 /**
@@ -54,7 +53,7 @@ public class RestaurantBar extends Hospitality {
      * @param cuisines         the cuisines
      * @param wheelchairAccess the wheelchair access
      */
-    public RestaurantBar(Context context, String name, Address address, URL website,
+    public RestaurantBar(Context context, String name, Address address, String website,
                          String description, String imageFileName, float rating, float price,
                          String openingHours, String diningHours, int michelinStars,
                          List<String> cuisines, boolean wheelchairAccess) {
