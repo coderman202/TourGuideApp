@@ -35,19 +35,19 @@ public class CityGuidePagerAdapter extends FragmentPagerAdapter {
                 return restaurantBarFragment;
             case 2:
                 HotelFragment hotelFragment = new HotelFragment();
-                hotelFragment.setArguments(bundle);
+                hotelFragment.setCity(chosenCity);
                 return hotelFragment;
             case 3:
                 AttractionFragment attractionFragment = new AttractionFragment();
-                attractionFragment.setArguments(bundle);
+                attractionFragment.setCity(chosenCity);
                 return attractionFragment;
             case 4:
                 TourFragment tourFragment = new TourFragment();
-                tourFragment.setArguments(bundle);
+                tourFragment.setCity(chosenCity);
                 return tourFragment;
             case 5:
                 EventFragment eventFragment = new EventFragment();
-                eventFragment.setArguments(bundle);
+                eventFragment.setCity(chosenCity);
                 return eventFragment;
         }
         return null;
@@ -56,7 +56,7 @@ public class CityGuidePagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 3 total pages.
+        // Show 6 total pages.
         return 6;
     }
 

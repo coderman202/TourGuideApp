@@ -5,22 +5,28 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class EventFragment extends Fragment {
     /**
-     * The fragment argument representing the section number for this
-     * fragment.
+     * Saving the city on screen rotation
      */
-    private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final String SAVED_CITY = "Saved City Object";
 
     // This variable is the city that will be passed in to the fragment via the setCity() method by
     // which the info will be gleaned for display in the onCreateView() method.
     private City city;
 
-    // The city passed through to the constructor
+    @BindView(R.id.event_list_view)
+    ListView eventListView;
 
     public EventFragment() {
     }
@@ -32,8 +38,24 @@ public class EventFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_city_guide, container, false);
+        View rootView = inflater.inflate(R.layout.event_list, container, false);
 
+        if(savedInstanceState != null){
+            city = savedInstanceState.getParcelable(SAVED_CITY);
+        }
+
+        ButterKnife.bind(this, rootView);
+
+        final List<Event> eventList = city.getEvents();
+        EventAdapter eventAdapter = new EventAdapter(getContext(), eventList);
+
+        eventListView.setAdapter(eventAdapter);
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle saveState){
+        super.onSaveInstanceState(saveState);
+        saveState.putParcelable(SAVED_CITY, city);
     }
 }

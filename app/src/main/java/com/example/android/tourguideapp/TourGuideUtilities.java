@@ -84,6 +84,21 @@ public final class TourGuideUtilities {
         return priceIcons;
     }
 
+    /**
+     * A method which takes the int class of a hotel and returns an array of resource ids of
+     * drawable stars to be added to a layout.
+     *
+     * @param hotelClass    the rating
+     * @return              the integer []
+     */
+    public static Integer[] getClassStars(int hotelClass){
+        Integer[] classStars = new Integer[hotelClass];
+        for (int i = 0; i < classStars.length; i++) {
+            classStars[i] = R.drawable.star_full;
+        }
+        return classStars;
+    }
+
     public static String addressToString(Address address){
         return address.getAddressLine(0) + ", " + address.getAddressLine(1) +
                 ", " + address.getAddressLine(2) + ".";

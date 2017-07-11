@@ -255,6 +255,12 @@ public class Event implements Parcelable {
         this.wheelchairAccess = wheelchairAccess;
     }
 
+    public String getStartEndString(){
+        return TourGuideUtilities.dateToString(this.getStartDateTime()) + " - " +
+                TourGuideUtilities.dateToString(this.getEndDateTime());
+
+    }
+
     @Override
     public String toString() {
         return "Event{" +
