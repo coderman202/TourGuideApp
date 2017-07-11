@@ -1,4 +1,4 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -108,11 +108,11 @@ public class Weather {
     }
 
     /**
-     * Get temperature in farenheit by converting the celsius temperature.
+     * Get temperature in fahrenheit by converting the celsius temperature.
      *
      * @return the string
      */
-    public String getTemperatureFarenheit(){
+    public String getTemperatureFahrenheit() {
         return (((9/5) * this.temperature) + 32) + "°F";
     }
 

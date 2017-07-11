@@ -1,4 +1,4 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.model;
 
 import android.content.Context;
 import android.location.Address;
@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class City implements Parcelable {
 
+    //region Attribute variable declarations
     // An Address object to store the location of the city
     private Address address;
 
@@ -66,6 +67,7 @@ public class City implements Parcelable {
 
     // The context which will be needed to get the correct resource id of the city image.
     private Context context;
+    //endregion
 
     //region Constructor(s)
 
@@ -112,7 +114,7 @@ public class City implements Parcelable {
     }
     //endregion
 
-    //region Getters & Setters
+    //region Getters & Setters & toStrings
     /**
      * Gets address.
      *
@@ -452,7 +454,6 @@ public class City implements Parcelable {
     public void addTransport(Transport transport){
         this.transport.add(transport);
     }
-    //endregion
 
     @Override
     public String toString() {
@@ -476,6 +477,7 @@ public class City implements Parcelable {
                 ", context=" + context +
                 '}';
     }
+    //endregion
 
     //region Parcelable methods
     @Override
@@ -507,9 +509,9 @@ public class City implements Parcelable {
         this.address = in.readParcelable(Address.class.getClassLoader());
         this.country = in.readString();
         this.name = in.readString();
-        this.airports = new ArrayList<Airport>();
+        this.airports = new ArrayList<>();
         in.readList(this.airports, Airport.class.getClassLoader());
-        this.transport = new ArrayList<Transport>();
+        this.transport = new ArrayList<>();
         in.readList(this.transport, Transport.class.getClassLoader());
         this.population = in.readInt();
         this.imageResourceID = in.readInt();
@@ -517,15 +519,15 @@ public class City implements Parcelable {
         this.history = in.readString();
         this.language = in.readString();
         this.timeZone = in.readString();
-        this.hotels = new ArrayList<Hotel>();
+        this.hotels = new ArrayList<>();
         in.readList(this.hotels, Hotel.class.getClassLoader());
-        this.restaurantBars = new ArrayList<RestaurantBar>();
+        this.restaurantBars = new ArrayList<>();
         in.readList(this.restaurantBars, RestaurantBar.class.getClassLoader());
-        this.attractions = new ArrayList<Attraction>();
+        this.attractions = new ArrayList<>();
         in.readList(this.attractions, Attraction.class.getClassLoader());
-        this.events = new ArrayList<Event>();
+        this.events = new ArrayList<>();
         in.readList(this.events, Event.class.getClassLoader());
-        this.tours = new ArrayList<Tour>();
+        this.tours = new ArrayList<>();
         in.readList(this.tours, Tour.class.getClassLoader());
         this.context = in.readParcelable(Context.class.getClassLoader());
     }

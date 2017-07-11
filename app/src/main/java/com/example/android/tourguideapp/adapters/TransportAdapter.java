@@ -1,10 +1,13 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.example.android.tourguideapp.R;
+import com.example.android.tourguideapp.model.Transport;
 
 import java.util.List;
 
@@ -37,7 +40,7 @@ public class TransportAdapter extends RecyclerView.Adapter<TransportAdapter.View
      *
      * @param transportList     the transport list
      */
-    TransportAdapter(List<Transport> transportList) {
+    public TransportAdapter(List<Transport> transportList) {
         this.transportList = transportList;
     }
 

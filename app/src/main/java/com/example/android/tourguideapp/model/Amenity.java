@@ -1,19 +1,22 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.model;
 
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.android.tourguideapp.ContextHolder;
+
 /**
- * A custom class for transport types
+ * A custom class for Amenities
  */
-public class Transport implements Parcelable {
+public class Amenity implements Parcelable {
 
     private String name;
     private int iconResourceID;
     private Context context;
 
 
+    //region Constructor(s)
     /**
      * Instantiates a new Transport object passing a context to allow for the icon resource id to
      * be found via the getIdentifier method.
@@ -22,13 +25,14 @@ public class Transport implements Parcelable {
      * @param name         the name
      * @param iconFileName the icon file name
      */
-    public Transport(Context context, String name, String iconFileName) {
+    public Amenity(Context context, String name, String iconFileName) {
         this.name = name;
         this.context = context;
         this.iconResourceID = context.getResources().getIdentifier(iconFileName, "drawable", context.getPackageName());
     }
+    //endregion
 
-    //region Getters & setters
+    //region Getters & setters & toStrings
     /**
      * Gets name.
      *
@@ -73,16 +77,16 @@ public class Transport implements Parcelable {
     public void setIconResourceID(String iconFileName) {
         this.iconResourceID = context.getResources().getIdentifier(iconFileName, "drawable", context.getPackageName());
     }
-    //endregion
 
     @Override
     public String toString() {
-        return "Transport{" +
+        return "Amenity{" +
                 "name='" + name + '\'' +
                 ", iconResourceID=" + iconResourceID +
                 ", context=" + context +
                 '}';
     }
+    //endregion
 
     //region Parcelable code
     @Override
@@ -96,21 +100,21 @@ public class Transport implements Parcelable {
         dest.writeInt(this.iconResourceID);
     }
 
-    protected Transport(Parcel in) {
+    protected Amenity(Parcel in) {
         this.name = in.readString();
         this.iconResourceID = in.readInt();
         this.context = ContextHolder.getInstance().getApplicationContext();
     }
 
-    public static final Parcelable.Creator<Transport> CREATOR = new Parcelable.Creator<Transport>() {
+    public static final Parcelable.Creator<Amenity> CREATOR = new Parcelable.Creator<Amenity>() {
         @Override
-        public Transport createFromParcel(Parcel source) {
-            return new Transport(source);
+        public Amenity createFromParcel(Parcel source) {
+            return new Amenity(source);
         }
 
         @Override
-        public Transport[] newArray(int size) {
-            return new Transport[size];
+        public Amenity[] newArray(int size) {
+            return new Amenity[size];
         }
     };
     //endregion

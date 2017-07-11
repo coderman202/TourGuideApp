@@ -1,25 +1,25 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.model;
 
 import android.content.Context;
 import android.location.Address;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.android.tourguideapp.ContextHolder;
+
 /**
  * The base class for which Attraction, Restaurant, Bar and Hotel will be an extension
  */
 public class Hospitality implements Parcelable {
 
-
+    //region Attribute variables and constant declarations
     // The consumer rating constants to track the min and max rating values
     public static final int RATING_MAX = 5;
     public static final int RATING_MIN = 0;
 
-
     // The price constants representing the price levels of the hospitality
     public static final int PRICE_HIGH = 5;
     public static final int PRICE_LOW = 0;
-
 
     //The name of the place
     private String name;
@@ -57,6 +57,7 @@ public class Hospitality implements Parcelable {
 
     // The context which will be needed to get the correct resource id of the hospitality image.
     private Context context;
+    //endregion
 
     //region Constructor(s)
     /**
@@ -116,7 +117,7 @@ public class Hospitality implements Parcelable {
     }
     //endregion
 
-    //region Getters & setters
+    //region Getters & setters & toStrings
     /**
      * Gets name.
      *
@@ -293,7 +294,6 @@ public class Hospitality implements Parcelable {
         }
         this.price = price;
     }
-    //endregion
 
     @Override
     public String toString() {
@@ -312,6 +312,7 @@ public class Hospitality implements Parcelable {
                 ", context=" + context +
                 '}';
     }
+    //endregion
 
     //region Parcelable methods
     @Override

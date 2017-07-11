@@ -1,4 +1,4 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.dbhelper;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -9,6 +9,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Address;
 import android.util.Log;
 
+import com.example.android.tourguideapp.model.Airport;
+import com.example.android.tourguideapp.model.Amenity;
+import com.example.android.tourguideapp.model.Attraction;
+import com.example.android.tourguideapp.model.City;
+import com.example.android.tourguideapp.model.Event;
+import com.example.android.tourguideapp.model.Hotel;
+import com.example.android.tourguideapp.model.RestaurantBar;
+import com.example.android.tourguideapp.model.Tour;
+import com.example.android.tourguideapp.model.Transport;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +27,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static com.example.android.tourguideapp.TourGuideUtilities.stringToDate;
+import static com.example.android.tourguideapp.utils.TourGuideUtilities.stringToDate;
 
 /**
  * My custom class for handling all db queries

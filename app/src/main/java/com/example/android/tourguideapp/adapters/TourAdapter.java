@@ -1,4 +1,4 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,13 +13,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.android.tourguideapp.R;
+import com.example.android.tourguideapp.model.Tour;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.android.tourguideapp.TourGuideUtilities.getPriceIcons;
-import static com.example.android.tourguideapp.TourGuideUtilities.getRatingStars;
+import static com.example.android.tourguideapp.utils.TourGuideUtilities.getPriceIcons;
+import static com.example.android.tourguideapp.utils.TourGuideUtilities.getRatingStars;
 
 /**
  * A custom class to produce lists of restaurants and bars.
@@ -50,7 +53,7 @@ public class TourAdapter extends ArrayAdapter<Tour> {
      * @param context               the context
      * @param tourList             the hotel list
      */
-    TourAdapter(Context context, List<Tour> tourList) {
+    public TourAdapter(Context context, List<Tour> tourList) {
         super(context, 0, tourList);
 
     }

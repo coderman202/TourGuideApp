@@ -1,6 +1,8 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.utils;
 
 import android.location.Address;
+
+import com.example.android.tourguideapp.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

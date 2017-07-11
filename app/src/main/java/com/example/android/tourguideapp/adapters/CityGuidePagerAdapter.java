@@ -1,9 +1,17 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.adapters;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.example.android.tourguideapp.AttractionFragment;
+import com.example.android.tourguideapp.model.City;
+import com.example.android.tourguideapp.CityInfoFragment;
+import com.example.android.tourguideapp.EventFragment;
+import com.example.android.tourguideapp.HotelFragment;
+import com.example.android.tourguideapp.RestaurantBarFragment;
+import com.example.android.tourguideapp.TourFragment;
 
 /**
  * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

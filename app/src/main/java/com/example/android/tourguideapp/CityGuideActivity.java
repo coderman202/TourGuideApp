@@ -8,6 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.android.tourguideapp.adapters.CityGuidePagerAdapter;
+import com.example.android.tourguideapp.model.City;
+
 public class CityGuideActivity extends AppCompatActivity {
 
 

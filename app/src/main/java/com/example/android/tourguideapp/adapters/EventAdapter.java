@@ -1,4 +1,4 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.android.tourguideapp.model.Event;
+import com.example.android.tourguideapp.R;
 
 import java.util.List;
 
@@ -44,7 +47,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
      * @param context          the context
      * @param eventList        the event list
      */
-    EventAdapter(Context context, List<Event> eventList) {
+    public EventAdapter(Context context, List<Event> eventList) {
         super(context, 0, eventList);
 
     }

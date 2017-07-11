@@ -7,6 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.example.android.tourguideapp.adapters.AttractionAdapter;
+import com.example.android.tourguideapp.model.Attraction;
+import com.example.android.tourguideapp.model.City;
+
 import java.util.List;
 
 import butterknife.BindView;

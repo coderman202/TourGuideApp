@@ -156,7 +156,7 @@
                 android:text="@string/description_header"
                 android:background="@color/colorPrimaryDark"/>
 
-            <com.example.android.tourguideapp.ExpandableTextView
+            <com.example.android.tourguideapp.views.ExpandableTextView
                 style="@style/CityGuideTextStyle"
                 android:id="@+id/city_description"
                 android:layout_width="wrap_content"
@@ -179,7 +179,7 @@
                 android:background="@color/colorPrimaryDark"
                 android:text="@string/history_header"/>
 
-            <com.example.android.tourguideapp.ExpandableTextView
+            <com.example.android.tourguideapp.views.ExpandableTextView
                 style="@style/CityGuideTextStyle"
                 android:id="@+id/city_history"
                 android:layout_width="wrap_content"

@@ -1,10 +1,12 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.example.android.tourguideapp.R;
 
 
 /**

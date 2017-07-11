@@ -1,4 +1,4 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.model;
 
 import android.content.Context;
 import android.location.Address;
@@ -76,7 +76,7 @@ public class Hotel extends Hospitality {
     }
     //endregion
 
-    //region Getters & Setters
+    //region Getters & Setters & toStrings
     /**
      * Gets hotel class.
      *
@@ -114,6 +114,14 @@ public class Hotel extends Hospitality {
      */
     public void setAmenities(List<Amenity> amenities) {
         this.amenities = amenities;
+    }
+
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "hotelClass=" + hotelClass +
+                ", amenities=" + amenities +
+                "} " + super.toString();
     }
     //endregion
 

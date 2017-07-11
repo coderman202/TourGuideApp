@@ -1,9 +1,11 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.model;
 
 import android.content.Context;
 import android.location.Address;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.example.android.tourguideapp.ContextHolder;
 
 /**
  * A custom class to represent all the city tours.
@@ -11,6 +13,7 @@ import android.os.Parcelable;
 
 public class Tour implements Parcelable {
 
+    //region Attribute variable and constant declarations
     // The consumer rating constants
     public static final int RATING_MAX = 5;
     public static final int RATING_MIN = 0;
@@ -54,6 +57,7 @@ public class Tour implements Parcelable {
 
     // The context which will be needed to get the correct resource id of the tour image.
     private Context context;
+    //endregion
 
     //region Constructor(s)
     /**
@@ -96,7 +100,7 @@ public class Tour implements Parcelable {
     }
     //endregion
 
-    //region Getters & setters
+    //region Getters & setters & toStrings
     /**
      * Gets name.
      *
@@ -311,7 +315,6 @@ public class Tour implements Parcelable {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    //endregion
 
     @Override
     public String toString() {
@@ -325,11 +328,12 @@ public class Tour implements Parcelable {
                 ", operatingTimes='" + operatingTimes + '\'' +
                 ", address=" + address +
                 ", wheelchairAccess=" + wheelchairAccess +
-                ", website=" + website +
+                ", website='" + website + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", context=" + context +
                 '}';
     }
+    //endregion
 
     //region Parcelable code
     @Override

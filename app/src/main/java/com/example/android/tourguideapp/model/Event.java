@@ -1,9 +1,12 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.model;
 
 import android.content.Context;
 import android.location.Address;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.example.android.tourguideapp.ContextHolder;
+import com.example.android.tourguideapp.utils.TourGuideUtilities;
 
 import java.util.Date;
 
@@ -42,6 +45,7 @@ public class Event implements Parcelable {
     // The context which will be needed to get the correct resource id of the event image.
     private Context context;
 
+    //region Constructor(s)
     /**
      * Instantiates a new Event with a check to ensure the dates are set correctly.
      *
@@ -74,7 +78,9 @@ public class Event implements Parcelable {
         this.website = website;
         this.wheelchairAccess = wheelchairAccess;
     }
+    //endregion
 
+    //region Getters & Setters & toStrings
     /**
      * Gets name.
      *
@@ -276,8 +282,9 @@ public class Event implements Parcelable {
                 ", context=" + context +
                 '}';
     }
+    //endregion
 
-
+    //region Parcelable code
     @Override
     public int describeContents() {
         return 0;
@@ -322,4 +329,5 @@ public class Event implements Parcelable {
             return new Event[size];
         }
     };
+    //endregion
 }

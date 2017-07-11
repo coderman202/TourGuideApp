@@ -1,4 +1,4 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.android.tourguideapp.model.City;
+import com.example.android.tourguideapp.R;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -41,7 +44,7 @@ public class CityAdapter extends ArrayAdapter<City> {
      * @param context       the context
      * @param cityList      the city list
      */
-    CityAdapter(Context context, List<City> cityList) {
+    public CityAdapter(Context context, List<City> cityList) {
         super(context, 0, cityList);
 
     }

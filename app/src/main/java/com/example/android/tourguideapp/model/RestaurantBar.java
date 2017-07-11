@@ -1,4 +1,4 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.model;
 
 import android.content.Context;
 import android.location.Address;
@@ -69,7 +69,7 @@ public class RestaurantBar extends Hospitality {
     }
     //endregion
 
-    //region Getters & setters
+    //region Getters & setters & toStrings
     /**
      * Gets opening hours.
      *
@@ -180,7 +180,6 @@ public class RestaurantBar extends Hospitality {
     public void setWheelchairAccess(boolean wheelchairAccess) {
         this.wheelchairAccess = wheelchairAccess;
     }
-    //endregion
 
     @Override
     public String toString() {
@@ -190,8 +189,9 @@ public class RestaurantBar extends Hospitality {
                 ", michelinStars=" + michelinStars +
                 ", cuisines=" + cuisines +
                 ", wheelchairAccess=" + wheelchairAccess +
-                '}';
+                "} " + super.toString();
     }
+    //endregion
 
     //region Parcelable code
     @Override

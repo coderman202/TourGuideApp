@@ -14,6 +14,12 @@ import android.widget.LinearLayout;
 import android.widget.TextClock;
 import android.widget.TextView;
 
+import com.example.android.tourguideapp.adapters.TransportAdapter;
+import com.example.android.tourguideapp.model.Airport;
+import com.example.android.tourguideapp.model.City;
+import com.example.android.tourguideapp.model.Transport;
+import com.example.android.tourguideapp.views.ExpandableTextView;
+
 import java.text.NumberFormat;
 import java.util.List;
 
@@ -50,7 +56,8 @@ public class CityInfoFragment extends Fragment {
     @BindView(R.id.city_description_header) TextView cityDescriptionHeader;
     @BindView(R.id.city_history_header) TextView cityHistoryHeader;
     @BindView(R.id.city_description) ExpandableTextView cityDescription;
-    @BindView(R.id.city_history) ExpandableTextView cityHistory;
+    @BindView(R.id.city_history)
+    ExpandableTextView cityHistory;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

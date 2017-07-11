@@ -1,4 +1,4 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.model;
 
 import android.content.Context;
 import android.location.Address;
@@ -45,7 +45,7 @@ public class Attraction extends Hospitality implements Parcelable {
     }
     //endregion
 
-    //region Getters & setters
+    //region Getters & setters & toStrings
     /**
      * Gets opening hours.
      *

@@ -1,4 +1,4 @@
-package com.example.android.tourguideapp;
+package com.example.android.tourguideapp.model;
 
 import android.location.Address;
 import android.os.Parcel;
@@ -38,7 +38,7 @@ public class Airport implements Parcelable {
     }
     //endregion
 
-    //region Getters & setters
+    //region Getters & setters & toStrings
     /**
      * Gets name.
      *
@@ -92,7 +92,6 @@ public class Airport implements Parcelable {
     public void setIata(String iata) {
         this.iata = iata;
     }
-    //endregion
 
     @Override
     public String toString() {
@@ -103,6 +102,7 @@ public class Airport implements Parcelable {
                 ", city='" + city + '\'' +
                 '}';
     }
+    //endregion
 
     //region Parcelable code
     @Override
