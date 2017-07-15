@@ -1,17 +1,16 @@
 package com.example.android.tourguideapp.adapters;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.android.tourguideapp.AttractionFragment;
-import com.example.android.tourguideapp.model.City;
 import com.example.android.tourguideapp.CityInfoFragment;
 import com.example.android.tourguideapp.EventFragment;
 import com.example.android.tourguideapp.HotelFragment;
 import com.example.android.tourguideapp.RestaurantBarFragment;
 import com.example.android.tourguideapp.TourFragment;
+import com.example.android.tourguideapp.model.City;
 
 /**
  * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -28,9 +27,6 @@ public class CityGuidePagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("City", chosenCity);
 
         switch (position){
             case 0:
@@ -59,7 +55,6 @@ public class CityGuidePagerAdapter extends FragmentPagerAdapter {
                 return eventFragment;
         }
         return null;
-
     }
 
     @Override

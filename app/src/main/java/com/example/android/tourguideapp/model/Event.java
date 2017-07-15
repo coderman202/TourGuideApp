@@ -33,9 +33,6 @@ public class Event implements Parcelable {
     //A text for the theme, eg Food, Music, Arts & Crafts, etc...
     private String theme;
 
-    // A resource id to an image to represent the event.
-    private int imageResourceID;
-
     // The address of the website
     private String website;
 
@@ -56,12 +53,11 @@ public class Event implements Parcelable {
      * @param address          the address
      * @param description      the description
      * @param theme            the theme
-     * @param imageFileName    the image file name
      * @param website          the website
      * @param wheelchairAccess the wheelchair access
      */
     public Event(Context context, String name, Date startDateTime, Date endDateTime, Address address,
-                 String description, String theme, String imageFileName, String website,
+                 String description, String theme, String website,
                  boolean wheelchairAccess) {
         if(startDateTime.after(endDateTime)){
             throw new IllegalArgumentException("Error. Ensure the dates are correct. " +
@@ -74,7 +70,6 @@ public class Event implements Parcelable {
         this.address = address;
         this.description = description;
         this.theme = theme;
-        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
         this.website = website;
         this.wheelchairAccess = wheelchairAccess;
     }
@@ -198,34 +193,6 @@ public class Event implements Parcelable {
     }
 
     /**
-     * Gets image resource id.
-     *
-     * @return the image resource id
-     */
-    public int getImageResourceID() {
-        return imageResourceID;
-    }
-
-    /**
-     * Sets image resource id.
-     *
-     * @param imageResourceID the image resource id
-     */
-    public void setImageResourceID(int imageResourceID) {
-        this.imageResourceID = imageResourceID;
-    }
-
-    /**
-     * Sets image resource id from the string file name.
-     *
-     * @param imageFileName the image file name
-     */
-    public void setImageResourceID(String imageFileName) {
-        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
-
-    }
-
-    /**
      * Gets website.
      *
      * @return the website
@@ -276,7 +243,6 @@ public class Event implements Parcelable {
                 ", address=" + address +
                 ", description='" + description + '\'' +
                 ", theme='" + theme + '\'' +
-                ", imageResourceID=" + imageResourceID +
                 ", website=" + website +
                 ", wheelchairAccess=" + wheelchairAccess +
                 ", context=" + context +
@@ -298,7 +264,6 @@ public class Event implements Parcelable {
         dest.writeParcelable(this.address, flags);
         dest.writeString(this.description);
         dest.writeString(this.theme);
-        dest.writeInt(this.imageResourceID);
         dest.writeSerializable(this.website);
         dest.writeByte(this.wheelchairAccess ? (byte) 1 : (byte) 0);
     }
@@ -312,7 +277,6 @@ public class Event implements Parcelable {
         this.address = in.readParcelable(Address.class.getClassLoader());
         this.description = in.readString();
         this.theme = in.readString();
-        this.imageResourceID = in.readInt();
         this.website = in.readString();
         this.wheelchairAccess = in.readByte() != 0;
         this.context = ContextHolder.getInstance().getApplicationContext();

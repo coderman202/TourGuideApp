@@ -78,7 +78,6 @@
 
     <style name="CityPlacesTextStyle" parent="CityGuideTextStyle">
         <item name="android:gravity">start|center</item>
-        <item name="android:layout_gravity">bottom</item>
         <item name="android:padding">5dp</item>
     </style>
 

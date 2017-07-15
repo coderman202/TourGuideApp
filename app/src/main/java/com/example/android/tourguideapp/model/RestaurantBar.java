@@ -44,7 +44,6 @@ public class RestaurantBar extends Hospitality {
      * @param address          the address
      * @param website          the website
      * @param description      the description
-     * @param imageFileName    the image file name
      * @param rating           the rating
      * @param price            the price
      * @param openingHours     the opening hours
@@ -54,10 +53,10 @@ public class RestaurantBar extends Hospitality {
      * @param wheelchairAccess the wheelchair access
      */
     public RestaurantBar(Context context, String name, Address address, String website,
-                         String description, String imageFileName, float rating, float price,
+                         String description, float rating, float price,
                          String openingHours, String diningHours, int michelinStars,
                          List<String> cuisines, boolean wheelchairAccess) {
-        super(context, name, address, website, description, imageFileName, rating, price);
+        super(context, name, address, website, description, rating, price);
         if(michelinStars < MICHELIN_STARS_MIN || michelinStars > MICHELIN_STARS_MAX){
             throw new IllegalArgumentException("Error. You must pass a valid number of michelin stars");
         }

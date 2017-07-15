@@ -35,12 +35,11 @@ public class Hotel extends Hospitality {
      * @param address       the address
      * @param website       the website
      * @param description   the description
-     * @param imageFileName the image file name
      * @param hotelClass    the hotel class
      */
     public Hotel(Context context, String name, Address address, String website, String description,
-                 String imageFileName, int hotelClass) {
-        super(context, name, address, website, description, imageFileName);
+                 int hotelClass) {
+        super(context, name, address, website, description);
         if(hotelClass < CLASS_ONE_STAR || hotelClass > CLASS_FIVE_STAR){
             throw new IllegalArgumentException("Error. You must pass a valid value for hotel class");
         }
@@ -58,16 +57,15 @@ public class Hotel extends Hospitality {
      * @param address       the address
      * @param website       the website
      * @param description   the description
-     * @param imageFileName the image file name
      * @param rating        the rating
      * @param price         the price
      * @param hotelClass    the hotel class
      * @param amenities     the amenities
      */
     public Hotel(Context context, String name, Address address, String website, String description,
-                 String imageFileName, float rating, float price, int hotelClass,
+                 float rating, float price, int hotelClass,
                  List<Amenity> amenities) {
-        super(context, name, address, website, description, imageFileName, rating, price);
+        super(context, name, address, website, description, rating, price);
         if(hotelClass < CLASS_ONE_STAR || hotelClass > CLASS_FIVE_STAR){
             throw new IllegalArgumentException("Error. You must pass a valid value for hotel class");
         }

@@ -2,6 +2,7 @@ package com.example.android.tourguideapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class HotelFragment extends Fragment {
         final List<Hotel> hotelList = city.getHotels();
         HotelAdapter hotelAdapter = new HotelAdapter(getContext(), hotelList);
 
+        Log.d("hotfrag", hotelList.toString());
         hotelListView.setAdapter(hotelAdapter);
 
         return rootView;

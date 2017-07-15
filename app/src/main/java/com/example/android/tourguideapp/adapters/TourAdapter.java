@@ -38,7 +38,6 @@ public class TourAdapter extends ArrayAdapter<Tour> {
         @BindView(R.id.tour_description) TextView descriptionView;
         @BindView(R.id.tour_price_layout) LinearLayout priceLayout;
         @BindView(R.id.tour_rating_layout) LinearLayout ratingLayout;
-        @BindView(R.id.tour_image) ImageView imageView;
         @BindView(R.id.tour_website) TextView websiteView;
         @BindView(R.id.tour_operating_times) TextView operatingTimesView;
 
@@ -80,8 +79,6 @@ public class TourAdapter extends ArrayAdapter<Tour> {
 
         holder.nameView.setText(currentTour.getName());
         holder.descriptionView.setText(currentTour.getDescription());
-        holder.imageView.setImageResource(currentTour.getImageResourceID());
-        holder.imageView.setContentDescription(getContext().getString(R.string.city_images, currentTour.getName()));
         holder.operatingTimesView.setText(currentTour.getOperatingTimes());
 
         // Set the number of stars and price icons appropriate for each place.

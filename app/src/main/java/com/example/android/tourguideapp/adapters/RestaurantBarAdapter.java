@@ -39,10 +39,8 @@ public class RestaurantBarAdapter extends ArrayAdapter<RestaurantBar> {
         @BindView(R.id.restaurant_bar_description) TextView descriptionView;
         @BindView(R.id.restaurant_bar_price_layout) LinearLayout priceLayout;
         @BindView(R.id.restaurant_bar_rating_layout) LinearLayout ratingLayout;
-        @BindView(R.id.restaurant_bar_image) ImageView imageView;
         @BindView(R.id.restaurant_bar_phone) TextView phoneView;
         @BindView(R.id.restaurant_bar_website) TextView websiteView;
-        @BindView(R.id.restaurant_bar_neighbourhood) TextView neighbourhoodView;
         @BindView(R.id.restaurant_bar_address) TextView addressView;
 
         public ViewHolder(View view){
@@ -83,10 +81,7 @@ public class RestaurantBarAdapter extends ArrayAdapter<RestaurantBar> {
 
         holder.nameView.setText(currentRestaurantBar.getName());
         holder.descriptionView.setText(currentRestaurantBar.getDescription());
-        //holder.imageView.setImageResource(currentRestaurantBar.getImageResourceID());
-        holder.imageView.setContentDescription(getContext().getString(R.string.city_images, currentRestaurantBar.getName()));
         holder.phoneView.setText(currentRestaurantBar.getPhoneNumber());
-        holder.neighbourhoodView.setText(currentRestaurantBar.getNeighbourhood());
         holder.addressView.setText(addressToString(currentRestaurantBar.getAddress()));
 
         // Set the number of stars and price icons appropriate for each place
@@ -104,20 +99,6 @@ public class RestaurantBarAdapter extends ArrayAdapter<RestaurantBar> {
             priceIcon.setImageResource(i);
             holder.priceLayout.addView(priceIcon);
         }
-
-        // Use the neighbourhood view which contains the map pin to toggle the visibility of the
-        // address.
-        holder.neighbourhoodView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(holder.addressView.getVisibility() == View.VISIBLE) {
-                    holder.addressView.setVisibility(View.INVISIBLE);
-                }
-                else{
-                    holder.addressView.setVisibility(View.VISIBLE);
-                }
-            }
-        });
 
         holder.websiteView.setOnClickListener(new View.OnClickListener() {
             @Override

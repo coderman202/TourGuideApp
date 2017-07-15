@@ -47,7 +47,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
     //----------------------------------------------------------------------------------------------
     // DB name, version and log_tag
     private static final String LOG_TAG = "TourGuideDBHelper";
-    private static final int DATABASE_VERSION = 11;
+    private static final int DATABASE_VERSION = 14;
     private static final String DATABASE_NAME = "TourGuideDB";
 
     // Table names in DB
@@ -102,7 +102,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
     private static final String HOTEL_CLASS = "HotelClass";
     private static final String HOTEL_RATING = "HotelRating";
     private static final String HOTEL_PRICE = "HotelPrice";
-    private static final String HOTEL_IMAGE = "HotelImage";
     private static final String HOTEL_WEBSITE = "HotelWebsite";
     private static final String HOTEL_NEIGHBOURHOOD = "HotelNeighbourhood";
     private static final String HOTEL_PHONE = "HotelPhone";
@@ -128,7 +127,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
     private static final String RESTAURANT_BAR_ADDRESS = "RestaurantBarAddress";
     private static final String RESTAURANT_BAR_RATING = "RestaurantBarRating";
     private static final String RESTAURANT_BAR_PRICE = "RestaurantBarPrice";
-    private static final String RESTAURANT_BAR_IMAGE = "RestaurantBarImage";
     private static final String RESTAURANT_BAR_WEBSITE = "RestaurantBarWebsite";
     private static final String RESTAURANT_BAR_NEIGHBOURHOOD = "RestaurantBarNeighbourhood";
     private static final String RESTAURANT_BAR_PHONE = "RestaurantBarPhone";
@@ -153,7 +151,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
     private static final String EVENT_DESCRIPTION = "EventDescription";
     private static final String EVENT_WEBSITE = "EventWebsite";
     private static final String EVENT_THEME = "EventTheme";
-    private static final String EVENT_IMAGE = "EventImage";
     private static final String EVENT_WHEELCHAIR_ACCESS = "EventWheelchairAccess";
 
     // Column names for the Attraction table
@@ -166,7 +163,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
     private static final String ATTRACTION_RATING = "AttractionRating";
     private static final String ATTRACTION_PRICE = "AttractionPrice";
     private static final String ATTRACTION_WEBSITE = "AttractionWebsite";
-    private static final String ATTRACTION_IMAGE = "AttractionImage";
     private static final String ATTRACTION_WHEELCHAIR_ACCESS = "AttractionWheelchairAccess";
     private static final String ATTRACTION_NEIGHBOURHOOD = "AttractionNeighbourhood";
     private static final String ATTRACTION_PHONE = "AttractionPhone";
@@ -180,7 +176,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
     private static final String TOUR_DESCRIPTION = "TourDescription";
     private static final String TOUR_WEBSITE = "TourWebsite";
     private static final String TOUR_OPERATOR = "TourOperator";
-    private static final String TOUR_IMAGE = "TourImage";
     private static final String TOUR_WHEELCHAIR_ACCESS = "TourWheelchairAccess";
     private static final String TOUR_PHONE = "TourPhone";
     private static final String TOUR_PRICE = "TourPrice";
@@ -336,7 +331,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 float rating = c.getFloat(c.getColumnIndex(HOTEL_RATING));
                 float price = c.getFloat(c.getColumnIndex(HOTEL_PRICE));
                 int hotelClass = c.getInt(c.getColumnIndex(HOTEL_CLASS));
-                String imageFileName = c.getString(c.getColumnIndex(HOTEL_IMAGE));
                 String website = c.getString(c.getColumnIndex(HOTEL_WEBSITE));
                 String phone = c.getString(c.getColumnIndex(HOTEL_PHONE));
 
@@ -345,9 +339,11 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 hotelAddress.setSubLocality(neighbourhood);
                 hotelAddress.setPhone(phone);
 
+                Log.d(LOG_TAG, "Hotel name: " + name);
+
                 List<Amenity> amenityList = getAllAmenitiesByHotel(hotelID);
 
-                hotelList.add(new Hotel(context, name, hotelAddress, website, description, imageFileName,
+                hotelList.add(new Hotel(context, name, hotelAddress, website, description,
                         rating, price, hotelClass, amenityList));
                 c.moveToNext();
             }
@@ -398,7 +394,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
     public List<RestaurantBar> getAllRestaurantBarsByCity(int cityID, Address address){
         SQLiteDatabase db = this.getReadableDatabase();
         List<RestaurantBar> restaurantBarList = new ArrayList<>();
-        String query = "SELECT * FROM " + TABLE_RESTAURANT_BAR + " WHERE " + HOTEL_CITY + " = " + cityID;
+        String query = "SELECT * FROM " + TABLE_RESTAURANT_BAR + " WHERE " + RESTAURANT_BAR_CITY + " = " + cityID;
         Cursor c = db.rawQuery(query, null);
 
         if(c != null && c.moveToFirst()) {
@@ -414,7 +410,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 float rating = c.getFloat(c.getColumnIndex(RESTAURANT_BAR_RATING));
                 float price = c.getFloat(c.getColumnIndex(RESTAURANT_BAR_PRICE));
                 int michelinStars = c.getInt(c.getColumnIndex(RESTAURANT_BAR_MICHELIN_STARS));
-                String imageFileName = c.getString(c.getColumnIndex(RESTAURANT_BAR_IMAGE));
                 String website = c.getString(c.getColumnIndex(RESTAURANT_BAR_WEBSITE));
                 String phone = c.getString(c.getColumnIndex(RESTAURANT_BAR_PHONE));
                 int access = c.getInt(c.getColumnIndex(RESTAURANT_BAR_WHEELCHAIR_ACCESS));
@@ -427,8 +422,8 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
 
                 List<String> cuisines = getAllCuisinesByRestaurantBar(restaurantBarID);
 
-                restaurantBarList.add(new RestaurantBar(context, name, restaurantBarAddress, website, description,
-                        imageFileName, rating, price, openingHours, diningHours, michelinStars,
+                restaurantBarList.add(new RestaurantBar(context, name, restaurantBarAddress, website,
+                        description, rating, price, openingHours, diningHours, michelinStars,
                         cuisines, wheelchairAccess));
                 c.moveToNext();
             }
@@ -489,7 +484,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String theme = c.getString(c.getColumnIndex(EVENT_THEME));
                 String dateEnd = c.getString(c.getColumnIndex(EVENT_END_DATE_TIME));
                 String dateStart = c.getString(c.getColumnIndex(EVENT_START_DATE_TIME));
-                String imageFileName = c.getString(c.getColumnIndex(EVENT_IMAGE));
                 String website = c.getString(c.getColumnIndex(EVENT_WEBSITE));
                 int access = c.getInt(c.getColumnIndex(EVENT_WHEELCHAIR_ACCESS));
                 boolean wheelchairAccess = (access == 1);
@@ -500,8 +494,8 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 Date startDate = stringToDate(dateStart);
                 Date endDate = stringToDate(dateEnd);
 
-                eventList.add(new Event(context, name, startDate, endDate, eventAddress, description, theme,
-                        imageFileName, website, wheelchairAccess));
+                eventList.add(new Event(context, name, startDate, endDate, eventAddress,
+                        description, theme, website, wheelchairAccess));
                 c.moveToNext();
             }
             c.close();
@@ -532,7 +526,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String neighbourhood = c.getString(c.getColumnIndex(ATTRACTION_NEIGHBOURHOOD));
                 String openingHours = c.getString(c.getColumnIndex(ATTRACTION_OPENING_HOURS));
                 String phone = c.getString(c.getColumnIndex(ATTRACTION_PHONE));
-                String imageFileName = c.getString(c.getColumnIndex(ATTRACTION_IMAGE));
                 float rating = c.getFloat(c.getColumnIndex(ATTRACTION_RATING));
                 float price = c.getFloat(c.getColumnIndex(ATTRACTION_PRICE));
                 String website = c.getString(c.getColumnIndex(ATTRACTION_WEBSITE));
@@ -545,8 +538,8 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 address.setSubLocality(neighbourhood);
                 address.setPhone(phone);
 
-                attractionsList.add(new Attraction(context, name, attractionAddress, website, description,
-                        imageFileName, rating, price, openingHours, wheelchairAccess));
+                attractionsList.add(new Attraction(context, name, attractionAddress, website,
+                        description, rating, price, openingHours, wheelchairAccess));
                 c.moveToNext();
             }
             c.close();
@@ -577,7 +570,6 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 String operator = c.getString(c.getColumnIndex(TOUR_OPERATOR));
                 String operatingTimes = c.getString(c.getColumnIndex(TOUR_OPERATING_TIMES));
                 String phone = c.getString(c.getColumnIndex(TOUR_PHONE));
-                String imageFileName = c.getString(c.getColumnIndex(TOUR_IMAGE));
                 float rating = c.getFloat(c.getColumnIndex(TOUR_RATING));
                 float price = c.getFloat(c.getColumnIndex(TOUR_PRICE));
                 String website = c.getString(c.getColumnIndex(TOUR_WEBSITE));
@@ -590,7 +582,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 Address tourAddress = getFirstThreeAddressLines(add, address);
                 tourAddress.setPhone(phone);
 
-                toursList.add(new Tour(context, name, operator, imageFileName, rating, price, description,
+                toursList.add(new Tour(context, name, operator, rating, price, description,
                         operatingTimes, tourAddress, wheelchairAccess, website, phone));
                 c.moveToNext();
             }

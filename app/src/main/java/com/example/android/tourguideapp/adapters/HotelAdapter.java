@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.android.tourguideapp.model.Hotel;
 import com.example.android.tourguideapp.R;
+import com.example.android.tourguideapp.model.Hotel;
 
 import java.util.List;
 
@@ -41,10 +41,8 @@ public class HotelAdapter extends ArrayAdapter<Hotel> {
         @BindView(R.id.hotel_price_layout) LinearLayout priceLayout;
         @BindView(R.id.hotel_rating_layout) LinearLayout ratingLayout;
         @BindView(R.id.hotel_class) LinearLayout classLayout;
-        @BindView(R.id.hotel_image) ImageView imageView;
         @BindView(R.id.hotel_phone) TextView phoneView;
         @BindView(R.id.hotel_website) TextView websiteView;
-        @BindView(R.id.hotel_neighbourhood) TextView neighbourhoodView;
         @BindView(R.id.hotel_address) TextView addressView;
 
         public ViewHolder(View view){
@@ -85,10 +83,7 @@ public class HotelAdapter extends ArrayAdapter<Hotel> {
 
         holder.nameView.setText(currentHotel.getName());
         holder.descriptionView.setText(currentHotel.getDescription());
-        holder.imageView.setImageResource(currentHotel.getImageResourceID());
-        holder.imageView.setContentDescription(getContext().getString(R.string.city_images, currentHotel.getName()));
         holder.phoneView.setText(currentHotel.getPhoneNumber());
-        holder.neighbourhoodView.setText(currentHotel.getNeighbourhood());
         holder.addressView.setText(addressToString(currentHotel.getAddress()));
 
         // Set the number of stars and price icons appropriate for each place and the number of
@@ -114,20 +109,6 @@ public class HotelAdapter extends ArrayAdapter<Hotel> {
             classStar.setImageResource(i);
             holder.classLayout.addView(classStar);
         }
-
-        // Use the neighbourhood view which contains the map pin to toggle the visibility of the
-        // address.
-        holder.neighbourhoodView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(holder.addressView.getVisibility() == View.VISIBLE) {
-                    holder.addressView.setVisibility(View.INVISIBLE);
-                }
-                else{
-                    holder.addressView.setVisibility(View.VISIBLE);
-                }
-            }
-        });
 
         holder.websiteView.setOnClickListener(new View.OnClickListener() {
             @Override

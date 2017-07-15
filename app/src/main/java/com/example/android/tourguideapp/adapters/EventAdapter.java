@@ -9,11 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.tourguideapp.model.Event;
 import com.example.android.tourguideapp.R;
+import com.example.android.tourguideapp.model.Event;
 
 import java.util.List;
 
@@ -32,7 +31,6 @@ public class EventAdapter extends ArrayAdapter<Event> {
         // below in the getView method.
         @BindView(R.id.event_name) TextView nameView;
         @BindView(R.id.event_description) TextView descriptionView;
-        @BindView(R.id.event_image) ImageView imageView;
         @BindView(R.id.event_start_end) TextView startEndView;
         @BindView(R.id.event_website) TextView websiteView;
 
@@ -74,8 +72,6 @@ public class EventAdapter extends ArrayAdapter<Event> {
 
         holder.nameView.setText(currentEvent.getName());
         holder.descriptionView.setText(currentEvent.getDescription());
-        holder.imageView.setImageResource(currentEvent.getImageResourceID());
-        holder.imageView.setContentDescription(getContext().getString(R.string.city_images, currentEvent.getName()));
         holder.startEndView.setText(currentEvent.getStartEndString());
 
 

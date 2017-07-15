@@ -28,7 +28,6 @@ HotelRating INTEGER NOT NULL,
 HotelPrice INTEGER NOT NULL,
 HotelClass INTEGER NOT NULL,
 HotelPhone TEXT NOT NULL,
-HotelImage TEXT NOT NULL,
 FOREIGN KEY(CityID) REFERENCES City(CityID) ON DELETE SET NULL );
 
 CREATE TABLE IF NOT EXISTS Amenity (
@@ -56,7 +55,6 @@ RestaurantBarDiningHours TEXT NOT NULL,
 RestaurantBarRating INTEGER NOT NULL,
 RestaurantBarPrice INTEGER NOT NULL,
 RestaurantBarMichelinStars INTEGER NOT NULL,
-RestaurantBarImage TEXT NOT NULL,
 RestaurantBarPhone TEXT NOT NULL,
 RestaurantBarWheelchairAccess INTEGER,
 FOREIGN KEY(CityID) REFERENCES City(CityID) ON DELETE SET NULL );
@@ -82,7 +80,6 @@ EventWebsite TEXT NOT NULL,
 EventStartDateTime TEXT NOT NULL,
 EventEndDateTime TEXT NOT NULL,
 EventTheme TEXT NOT NULL,
-EventImage TEXT NOT NULL,
 EventWheelchairAccess INTEGER,
 FOREIGN KEY(CityID) REFERENCES City(CityID) ON DELETE SET NULL );
 
@@ -97,7 +94,6 @@ AttractionNeighbourhood TEXT NOT NULL,
 AttractionPrice INTEGER NOT NULL,
 AttractionRating INTEGER NOT NULL,
 AttractionOpeningHours TEXT NOT NULL,
-AttractionImage TEXT NOT NULL,
 AttractionPhone TEXT NOT NULL,
 AttractionWheelchairAccess INTEGER,
 FOREIGN KEY(CityID) REFERENCES City(CityID) ON DELETE SET NULL);
@@ -113,7 +109,6 @@ TourOperator TEXT NOT NULL,
 TourPrice INTEGER NOT NULL,
 TourRating INTEGER NOT NULL,
 TourOperatingTimes TEXT NOT NULL,
-TourImage TEXT NOT NULL,
 TourPhone TEXT NOT NULL,
 TourWheelchairAccess INTEGER,
 FOREIGN KEY(CityID) REFERENCES City(CityID) ON DELETE SET NULL);

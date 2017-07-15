@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.android.tourguideapp.model.Attraction;
 import com.example.android.tourguideapp.R;
+import com.example.android.tourguideapp.model.Attraction;
 
 import java.util.List;
 
@@ -38,7 +38,6 @@ public class AttractionAdapter extends ArrayAdapter<Attraction> {
         @BindView(R.id.attraction_description) TextView descriptionView;
         @BindView(R.id.attraction_price_layout) LinearLayout priceLayout;
         @BindView(R.id.attraction_rating_layout) LinearLayout ratingLayout;
-        @BindView(R.id.attraction_image) ImageView imageView;
         @BindView(R.id.attraction_opening_hours) TextView openingHoursView;
         @BindView(R.id.attraction_website) TextView websiteView;
 
@@ -80,8 +79,6 @@ public class AttractionAdapter extends ArrayAdapter<Attraction> {
 
         holder.nameView.setText(currentAttraction.getName());
         holder.descriptionView.setText(currentAttraction.getDescription());
-        holder.imageView.setImageResource(currentAttraction.getImageResourceID());
-        holder.imageView.setContentDescription(getContext().getString(R.string.city_images, currentAttraction.getName()));
         holder.openingHoursView.setText(currentAttraction.getOpeningHours());
 
         // Set the number of stars and price icons appropriate for each place.

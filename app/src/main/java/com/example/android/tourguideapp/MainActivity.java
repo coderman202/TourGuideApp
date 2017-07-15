@@ -3,6 +3,7 @@ package com.example.android.tourguideapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -32,16 +33,16 @@ public class MainActivity extends AppCompatActivity {
         TourGuideDBHelper tourGuideDBHelper = new TourGuideDBHelper(this);
         final List<City> cityList = tourGuideDBHelper.getAllCities();
 
+        Log.d("mainact", cityList.get(0).getHotels().get(0).getName());
+
         CityAdapter cityAdapter = new CityAdapter(this, cityList);
         cityListView.setAdapter(cityAdapter);
 
         cityListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("City", cityList.get(position));
                 Intent intent = new Intent(MainActivity.this, CityGuideActivity.class);
-                intent.putExtra("City", bundle);
+                intent.putExtra("City", cityList.get(position));
                 startActivity(intent);
             }
         });

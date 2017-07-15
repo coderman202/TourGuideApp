@@ -28,9 +28,6 @@ public class Tour implements Parcelable {
     // A variable for the tour operator
     private String operator;
 
-    // An attribute which is a resource id for an image to represent the tour
-    private int imageResourceID;
-
     // An attribute for the rating
     private float rating;
 
@@ -66,7 +63,6 @@ public class Tour implements Parcelable {
      * @param context          the context
      * @param name             the name
      * @param operator         the operator
-     * @param imageFileName    the image file name
      * @param rating           the rating
      * @param price            the price
      * @param description      the description
@@ -76,7 +72,7 @@ public class Tour implements Parcelable {
      * @param website          the website
      * @param phoneNumber      the phone number
      */
-    public Tour(Context context, String name, String operator, String imageFileName, float rating, float price,
+    public Tour(Context context, String name, String operator, float rating, float price,
                 String description, String operatingTimes, Address address,
                 boolean wheelchairAccess, String website, String phoneNumber) {
         if(price < PRICE_FREE || price > PRICE_HIGH){
@@ -88,7 +84,6 @@ public class Tour implements Parcelable {
         this.context = context;
         this.name = name;
         this.operator = operator;
-        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
         this.rating = rating;
         this.price = price;
         this.description = description;
@@ -136,35 +131,6 @@ public class Tour implements Parcelable {
     public void setOperator(String operator) {
         this.operator = operator;
     }
-
-    /**
-     * Gets image resource id.
-     *
-     * @return the image resource id
-     */
-    public int getImageResourceID() {
-        return imageResourceID;
-    }
-
-    /**
-     * Sets image resource id.
-     *
-     * @param imageResourceID the image resource id
-     */
-    public void setImageResourceID(int imageResourceID) {
-        this.imageResourceID = imageResourceID;
-    }
-
-    /**
-     * Sets image resource id.
-     *
-     * @param imageFileName the image file name
-     */
-    public void setImageResourceID(String imageFileName) {
-        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
-
-    }
-
 
     /**
      * Gets rating.
@@ -321,7 +287,6 @@ public class Tour implements Parcelable {
         return "Tour{" +
                 "name='" + name + '\'' +
                 ", operator='" + operator + '\'' +
-                ", imageResourceID=" + imageResourceID +
                 ", rating=" + rating +
                 ", price=" + price +
                 ", description='" + description + '\'' +
@@ -345,7 +310,6 @@ public class Tour implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
         dest.writeString(this.operator);
-        dest.writeInt(this.imageResourceID);
         dest.writeFloat(this.rating);
         dest.writeFloat(this.price);
         dest.writeString(this.description);
@@ -359,7 +323,6 @@ public class Tour implements Parcelable {
     protected Tour(Parcel in) {
         this.name = in.readString();
         this.operator = in.readString();
-        this.imageResourceID = in.readInt();
         this.rating = in.readFloat();
         this.price = in.readFloat();
         this.description = in.readString();

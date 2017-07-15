@@ -20,6 +20,7 @@ public class Attraction extends Hospitality implements Parcelable {
     private boolean wheelchairAccess = true;
 
     //region Constructor(s)
+
     /**
      * Instantiates a new Attraction with a rating and price, along with a check to make sure the
      * price and rating values passed to the constructor were valid.
@@ -31,15 +32,14 @@ public class Attraction extends Hospitality implements Parcelable {
      * @param address          the address
      * @param website          the website
      * @param description      the description
-     * @param imageFileName    the image file name
      * @param rating           the rating
      * @param price            the price
      * @param openingHours     the opening hours
      * @param wheelchairAccess the wheelchair access
      */
-    public Attraction(Context context, String name, Address address, String website, String description, String imageFileName,
+    public Attraction(Context context, String name, Address address, String website, String description,
                       float rating, float price, String openingHours, boolean wheelchairAccess) {
-        super(context, name, address, website, description, imageFileName, rating, price);
+        super(context, name, address, website, description, rating, price);
         this.openingHours = openingHours;
         this.wheelchairAccess = wheelchairAccess;
     }

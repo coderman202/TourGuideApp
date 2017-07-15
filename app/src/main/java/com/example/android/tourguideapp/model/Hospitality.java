@@ -27,9 +27,6 @@ public class Hospitality implements Parcelable {
     // The address of the place, which will be used to get the country, location and neighbourhood.
     private Address address;
 
-    // A resource id for an image which will be used to represent this hospitality object.
-    private int imageResourceID;
-
     // The neighbourhood which will be derived from the address using the getSubLocality() method.
     private String neighbourhood;
 
@@ -60,18 +57,18 @@ public class Hospitality implements Parcelable {
     //endregion
 
     //region Constructor(s)
+
     /**
      * Instantiates a new Hospitality without a rating and price.
      *
-     * @param context       the context
-     * @param name          the name
-     * @param address       the address
-     * @param website       the website
-     * @param description   the description
-     * @param imageFileName the image file name
+     * @param context     the context
+     * @param name        the name
+     * @param address     the address
+     * @param website     the website
+     * @param description the description
      */
     public Hospitality(Context context, String name, Address address, String website,
-                       String description, String imageFileName) {
+                       String description) {
         this.context = context;
         this.name = name;
         this.address = address;
@@ -81,24 +78,22 @@ public class Hospitality implements Parcelable {
         this.city = address.getLocality();
         this.neighbourhood = address.getSubLocality();
         this.phoneNumber = address.getPhone();
-        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
     }
 
     /**
      * Instantiates a new Hospitality with a rating and price, along with a check to make sure the
      * price and rating values passed to the constructor were valid.
      *
-     * @param context       the context
-     * @param name          the name
-     * @param address       the address
-     * @param website       the website
-     * @param description   the description
-     * @param imageFileName the image file name
-     * @param rating        the rating
-     * @param price         the price
+     * @param context     the context
+     * @param name        the name
+     * @param address     the address
+     * @param website     the website
+     * @param description the description
+     * @param rating      the rating
+     * @param price       the price
      */
-    public Hospitality(Context context, String name, Address address, String website, String description,
-                       String imageFileName, float rating, float price) {
+    public Hospitality(Context context, String name, Address address, String website,
+                       String description, float rating, float price) {
         if(rating < RATING_MIN || rating > RATING_MAX || price < PRICE_LOW || price > PRICE_HIGH){
             throw new IllegalArgumentException("Error. You must pass a valid rating and price");
         }
@@ -111,7 +106,6 @@ public class Hospitality implements Parcelable {
         this.city = address.getLocality();
         this.neighbourhood = address.getSubLocality();
         this.phoneNumber = address.getPhone();
-        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
         this.rating = rating;
         this.price = price;
     }
@@ -152,33 +146,6 @@ public class Hospitality implements Parcelable {
      */
     public void setAddress(Address address) {
         this.address = address;
-    }
-
-    /**
-     * Gets image resource id.
-     *
-     * @return the image resource id
-     */
-    public int getImageResourceID() {
-        return imageResourceID;
-    }
-
-    /**
-     * Sets image resource id.
-     *
-     * @param imageResourceID the image resource id
-     */
-    public void setImageResourceID(int imageResourceID) {
-        this.imageResourceID = imageResourceID;
-    }
-
-    /**
-     * Sets image resource id from the name of the image drawable.
-     *
-     * @param imageFileName the image file name
-     */
-    public void setImageResourceID(String imageFileName) {
-        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
     }
 
     /**
@@ -300,7 +267,6 @@ public class Hospitality implements Parcelable {
         return "Hospitality{" +
                 "name='" + name + '\'' +
                 ", address=" + address +
-                ", imageResourceID=" + imageResourceID +
                 ", neighbourhood='" + neighbourhood + '\'' +
                 ", website=" + website +
                 ", description='" + description + '\'' +
@@ -324,7 +290,6 @@ public class Hospitality implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
         dest.writeParcelable(this.address, flags);
-        dest.writeInt(this.imageResourceID);
         dest.writeString(this.neighbourhood);
         dest.writeSerializable(this.website);
         dest.writeString(this.description);
@@ -338,7 +303,6 @@ public class Hospitality implements Parcelable {
     protected Hospitality(Parcel in) {
         this.name = in.readString();
         this.address = in.readParcelable(Address.class.getClassLoader());
-        this.imageResourceID = in.readInt();
         this.neighbourhood = in.readString();
         this.website = in.readString();
         this.description = in.readString();
