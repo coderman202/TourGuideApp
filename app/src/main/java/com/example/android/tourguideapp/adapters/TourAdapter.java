@@ -9,20 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.android.tourguideapp.R;
 import com.example.android.tourguideapp.model.Tour;
+import com.example.android.tourguideapp.views.PriceBar;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.example.android.tourguideapp.utils.TourGuideUtilities.getPriceIcons;
-import static com.example.android.tourguideapp.utils.TourGuideUtilities.getRatingStars;
 
 /**
  * A custom class to produce lists of restaurants and bars.
@@ -36,8 +33,10 @@ public class TourAdapter extends ArrayAdapter<Tour> {
         // below in the getView method.
         @BindView(R.id.tour_name) TextView nameView;
         @BindView(R.id.tour_description) TextView descriptionView;
-        @BindView(R.id.tour_price_layout) LinearLayout priceLayout;
-        @BindView(R.id.tour_rating_layout) LinearLayout ratingLayout;
+        @BindView(R.id.tour_price)
+        PriceBar priceBar;
+        @BindView(R.id.tour_rating)
+        RatingBar ratingBar;
         @BindView(R.id.tour_website) TextView websiteView;
         @BindView(R.id.tour_operating_times) TextView operatingTimesView;
 
@@ -80,22 +79,10 @@ public class TourAdapter extends ArrayAdapter<Tour> {
         holder.nameView.setText(currentTour.getName());
         holder.descriptionView.setText(currentTour.getDescription());
         holder.operatingTimesView.setText(currentTour.getOperatingTimes());
-
-        // Set the number of stars and price icons appropriate for each place.
-        Integer[] ratingStars = getRatingStars(currentTour.getRating());
-        Integer[] priceIcons = getPriceIcons(currentTour.getPrice());
-
-        for (Integer i:ratingStars) {
-            ImageView ratingStar = new ImageView(getContext());
-            ratingStar.setImageResource(i);
-            holder.ratingLayout.addView(ratingStar);
-        }
-
-        for (Integer i:priceIcons) {
-            ImageView priceIcon = new ImageView(getContext());
-            priceIcon.setImageResource(i);
-            holder.priceLayout.addView(priceIcon);
-        }
+        holder.ratingBar.setStepSize(0.1F);
+        holder.ratingBar.setRating(currentTour.getRating());
+        holder.priceBar.setStepSize(0.1F);
+        holder.priceBar.setRating(currentTour.getRating());
 
         holder.websiteView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -119,7 +119,7 @@ public class Hotel extends Hospitality {
         return "Hotel{" +
                 "hotelClass=" + hotelClass +
                 ", amenities=" + amenities +
-                "} " + super.toString();
+                "} ";
     }
     //endregion
 

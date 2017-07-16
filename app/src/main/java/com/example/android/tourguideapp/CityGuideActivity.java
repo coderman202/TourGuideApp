@@ -10,7 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.android.tourguideapp.adapters.CityGuidePagerAdapter;
+import com.example.android.tourguideapp.dbhelper.TourGuideDBHelper;
 import com.example.android.tourguideapp.model.City;
+
+import java.util.List;
 
 public class CityGuideActivity extends AppCompatActivity {
 
@@ -29,8 +32,12 @@ public class CityGuideActivity extends AppCompatActivity {
         setContentView(R.layout.activity_city_guide);
         ContextHolder.init(getApplicationContext());
 
-        Bundle bundle = getIntent().getExtras();
-        chosenCity = bundle.getParcelable("City");
+        TourGuideDBHelper tourGuideDBHelper = new TourGuideDBHelper(this);
+        final List<City> cityList = tourGuideDBHelper.getAllCities();
+
+        int position = getIntent().getIntExtra("City", 0);
+
+        chosenCity = cityList.get(position);
 
         Log.d("City", chosenCity.getHotels().size() + "");
         Log.d("City", chosenCity.getHotels().get(0).getName() + "");

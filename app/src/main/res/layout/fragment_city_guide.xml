@@ -126,28 +126,13 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/city_weather_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:background="@color/colorPrimaryDark"
-            app:layout_constraintTop_toBottomOf="@id/city_info"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <TextView
-                style="@style/CityTimeTextStyle"
-                android:id="@+id/city_weather_header"
-                android:text="@string/weather_header"
-                android:textSize="@dimen/city_guide_text_size"/>
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/city_description_layout"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/city_weather_layout"
+            app:layout_constraintTop_toBottomOf="@id/city_info"
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView

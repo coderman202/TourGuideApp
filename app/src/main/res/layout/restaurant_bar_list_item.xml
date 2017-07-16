@@ -48,11 +48,17 @@
 
             <TextView
                 style="@style/CityPlacesTextStyle"
-                android:id="@+id/restaurant_bar_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/placeholder_rating"
                 tools:text="@string/placeholder_rating"/>
+
+            <RatingBar
+                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                android:id="@+id/restaurant_bar_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|end"/>
         </LinearLayout>
 
         <LinearLayout
@@ -64,11 +70,18 @@
 
             <TextView
                 style="@style/CityPlacesTextStyle"
-                android:id="@+id/restaurant_bar_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="@string/placeholder_price"
                 android:text="@string/placeholder_price"/>
+
+            <com.example.android.tourguideapp.views.PriceBar
+                style="@style/StarPriceBar"
+                android:id="@+id/restaurant_bar_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:layout_gravity="center|end"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -96,7 +109,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".8"
-            tools:text="@string/website"
+            android:text="@string/website"
             android:drawableEnd="@drawable/website"/>
     </LinearLayout>
 

@@ -60,7 +60,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
 
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.attraction_list_item, parent, false);
+                    R.layout.event_list_item, parent, false);
             holder = new ViewHolder(listItemView);
             listItemView.setTag(holder);
         }

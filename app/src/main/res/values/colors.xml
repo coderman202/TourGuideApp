@@ -20,6 +20,9 @@
     <color name="transport_icon_color">@color/colorSecondary</color>
     <color name="city_info_icons">@color/colorPrimaryDark</color>
     <color name="city_time_icon_color">@color/colorWhite</color>
+
+    <color name="price_icon_color">@color/city_info_icons</color>
+    <color name="price_icon_color_grey">#E0E0E0</color>
     <color name="star_icon_color">#FFD700</color>
 
     <!--Background color for the tablayout-->

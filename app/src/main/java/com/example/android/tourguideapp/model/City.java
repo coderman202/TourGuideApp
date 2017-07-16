@@ -50,6 +50,9 @@ public class City implements Parcelable {
     // The time zone of the city to allow for the display of the correct time
     private String timeZone;
 
+    // The currency used in the city
+    private String currency;
+
     // A list of all the hotels in the city
     private List<Hotel> hotels;
 
@@ -90,8 +93,8 @@ public class City implements Parcelable {
      * @param transport      the transport
      */
     public City(Context context, Address address, List<Airport> airports, int population,
-                String description, String history, String timeZone, List<Hotel> hotels,
-                List<RestaurantBar> restaurantBars, List<Attraction> attractions,
+                String description, String history, String timeZone, String currency,
+                List<Hotel> hotels, List<RestaurantBar> restaurantBars, List<Attraction> attractions,
                 List<Event> events, List<Tour> tours, String imageFileName, List<Transport> transport) {
         this.context = context;
         this.address = address;
@@ -101,6 +104,7 @@ public class City implements Parcelable {
         this.history = history;
         this.hotels = hotels;
         this.timeZone = timeZone;
+        this.currency = currency;
         this.restaurantBars = restaurantBars;
         this.attractions = attractions;
         this.events = events;
@@ -203,6 +207,14 @@ public class City implements Parcelable {
      */
     public void setTimeZone(String timeZone) {
         this.timeZone = timeZone;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     /**

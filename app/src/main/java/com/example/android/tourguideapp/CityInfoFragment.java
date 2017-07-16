@@ -53,6 +53,8 @@ public class CityInfoFragment extends Fragment {
     @BindView(R.id.city_guide_population) TextView cityPopulation;
     @BindView(R.id.city_guide_language) TextView cityLanguage;
     @BindView(R.id.city_guide_country) TextView cityCountry;
+    @BindView(R.id.city_guide_currency)
+    TextView currencyView;
     @BindView(R.id.city_description_header) TextView cityDescriptionHeader;
     @BindView(R.id.city_history_header) TextView cityHistoryHeader;
     @BindView(R.id.city_description) ExpandableTextView cityDescription;
@@ -83,6 +85,7 @@ public class CityInfoFragment extends Fragment {
         cityPopulation.setText(NumberFormat.getIntegerInstance().format(city.getPopulation()));
         cityLanguage.setText(city.getLanguage());
         cityCountry.setText(city.getCountry());
+        currencyView.setText(city.getCurrency());
 
         ContextThemeWrapper airportItemStyle = new ContextThemeWrapper(getActivity(), R.style.CityAirportTextStyle);
 

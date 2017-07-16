@@ -188,7 +188,7 @@ public class RestaurantBar extends Hospitality {
                 ", michelinStars=" + michelinStars +
                 ", cuisines=" + cuisines +
                 ", wheelchairAccess=" + wheelchairAccess +
-                "} " + super.toString();
+                "} ";
     }
     //endregion
 

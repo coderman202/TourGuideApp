@@ -9,20 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.android.tourguideapp.R;
 import com.example.android.tourguideapp.model.Attraction;
+import com.example.android.tourguideapp.views.PriceBar;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.example.android.tourguideapp.utils.TourGuideUtilities.getPriceIcons;
-import static com.example.android.tourguideapp.utils.TourGuideUtilities.getRatingStars;
 
 /**
  * A custom class to produce lists of restaurants and bars.
@@ -36,8 +33,10 @@ public class AttractionAdapter extends ArrayAdapter<Attraction> {
         // below in the getView method.
         @BindView(R.id.attraction_name) TextView nameView;
         @BindView(R.id.attraction_description) TextView descriptionView;
-        @BindView(R.id.attraction_price_layout) LinearLayout priceLayout;
-        @BindView(R.id.attraction_rating_layout) LinearLayout ratingLayout;
+        @BindView(R.id.attraction_price)
+        PriceBar priceBar;
+        @BindView(R.id.attraction_rating)
+        RatingBar ratingBar;
         @BindView(R.id.attraction_opening_hours) TextView openingHoursView;
         @BindView(R.id.attraction_website) TextView websiteView;
 
@@ -80,22 +79,11 @@ public class AttractionAdapter extends ArrayAdapter<Attraction> {
         holder.nameView.setText(currentAttraction.getName());
         holder.descriptionView.setText(currentAttraction.getDescription());
         holder.openingHoursView.setText(currentAttraction.getOpeningHours());
+        holder.ratingBar.setStepSize(0.1F);
+        holder.ratingBar.setRating(currentAttraction.getRating());
+        holder.priceBar.setStepSize(0.1F);
+        holder.priceBar.setRating(currentAttraction.getPrice());
 
-        // Set the number of stars and price icons appropriate for each place.
-        Integer[] ratingStars = getRatingStars(currentAttraction.getRating());
-        Integer[] priceIcons = getPriceIcons(currentAttraction.getPrice());
-
-        for (Integer i:ratingStars) {
-            ImageView ratingStar = new ImageView(getContext());
-            ratingStar.setImageResource(i);
-            holder.ratingLayout.addView(ratingStar);
-        }
-
-        for (Integer i:priceIcons) {
-            ImageView priceIcon = new ImageView(getContext());
-            priceIcon.setImageResource(i);
-            holder.priceLayout.addView(priceIcon);
-        }
 
         holder.websiteView.setOnClickListener(new View.OnClickListener() {
             @Override

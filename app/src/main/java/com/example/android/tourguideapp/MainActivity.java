@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, CityGuideActivity.class);
-                intent.putExtra("City", cityList.get(position));
+                intent.putExtra("City", position);
                 startActivity(intent);
             }
         });

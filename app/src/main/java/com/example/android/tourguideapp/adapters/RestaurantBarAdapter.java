@@ -9,12 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.android.tourguideapp.R;
 import com.example.android.tourguideapp.model.RestaurantBar;
+import com.example.android.tourguideapp.views.PriceBar;
 
 import java.util.List;
 
@@ -22,8 +22,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.android.tourguideapp.utils.TourGuideUtilities.addressToString;
-import static com.example.android.tourguideapp.utils.TourGuideUtilities.getPriceIcons;
-import static com.example.android.tourguideapp.utils.TourGuideUtilities.getRatingStars;
 
 /**
  * A custom class to produce lists of restaurants and bars.
@@ -37,8 +35,10 @@ public class RestaurantBarAdapter extends ArrayAdapter<RestaurantBar> {
         // below in the getView method.
         @BindView(R.id.restaurant_bar_name) TextView nameView;
         @BindView(R.id.restaurant_bar_description) TextView descriptionView;
-        @BindView(R.id.restaurant_bar_price_layout) LinearLayout priceLayout;
-        @BindView(R.id.restaurant_bar_rating_layout) LinearLayout ratingLayout;
+        @BindView(R.id.restaurant_bar_price)
+        PriceBar priceBar;
+        @BindView(R.id.restaurant_bar_rating)
+        RatingBar ratingBar;
         @BindView(R.id.restaurant_bar_phone) TextView phoneView;
         @BindView(R.id.restaurant_bar_website) TextView websiteView;
         @BindView(R.id.restaurant_bar_address) TextView addressView;
@@ -83,22 +83,10 @@ public class RestaurantBarAdapter extends ArrayAdapter<RestaurantBar> {
         holder.descriptionView.setText(currentRestaurantBar.getDescription());
         holder.phoneView.setText(currentRestaurantBar.getPhoneNumber());
         holder.addressView.setText(addressToString(currentRestaurantBar.getAddress()));
-
-        // Set the number of stars and price icons appropriate for each place
-        Integer[] ratingStars = getRatingStars(currentRestaurantBar.getRating());
-        Integer[] priceIcons = getPriceIcons(currentRestaurantBar.getPrice());
-
-        for (Integer i:ratingStars) {
-            ImageView ratingStar = new ImageView(getContext());
-            ratingStar.setImageResource(i);
-            holder.ratingLayout.addView(ratingStar);
-        }
-
-        for (Integer i:priceIcons) {
-            ImageView priceIcon = new ImageView(getContext());
-            priceIcon.setImageResource(i);
-            holder.priceLayout.addView(priceIcon);
-        }
+        holder.ratingBar.setStepSize(0.1F);
+        holder.ratingBar.setRating(currentRestaurantBar.getRating());
+        holder.priceBar.setStepSize(0.1F);
+        holder.priceBar.setRating(currentRestaurantBar.getRating());
 
         holder.websiteView.setOnClickListener(new View.OnClickListener() {
             @Override
