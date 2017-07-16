@@ -1,5 +1,6 @@
 package com.example.android.tourguideapp.adapters;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -8,6 +9,7 @@ import com.example.android.tourguideapp.AttractionFragment;
 import com.example.android.tourguideapp.CityInfoFragment;
 import com.example.android.tourguideapp.EventFragment;
 import com.example.android.tourguideapp.HotelFragment;
+import com.example.android.tourguideapp.R;
 import com.example.android.tourguideapp.RestaurantBarFragment;
 import com.example.android.tourguideapp.TourFragment;
 import com.example.android.tourguideapp.model.City;
@@ -19,10 +21,12 @@ import com.example.android.tourguideapp.model.City;
 public class CityGuidePagerAdapter extends FragmentPagerAdapter {
 
     private City chosenCity;
+    private Context context;
 
-    public CityGuidePagerAdapter(FragmentManager fm, City chosenCity) {
+    public CityGuidePagerAdapter(FragmentManager fm, City chosenCity, Context context) {
         super(fm);
         this.chosenCity = chosenCity;
+        this.context = context;
     }
 
     @Override
@@ -67,17 +71,17 @@ public class CityGuidePagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "City Info";
+                return context.getString(R.string.title_city_info);
             case 1:
-                return "Restaurant & Bars";
+                return context.getString(R.string.title_restaurant_bar);
             case 2:
-                return "Hotels";
+                return context.getString(R.string.title_hotel);
             case 3:
-                return "Attractions";
+                return context.getString(R.string.title_attraction);
             case 4:
-                return "Tours";
+                return context.getString(R.string.title_tour);
             case 5:
-                return "Events";
+                return context.getString(R.string.title_event);
         }
         return null;
     }

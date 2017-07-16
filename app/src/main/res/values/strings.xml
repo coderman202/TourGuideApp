@@ -15,7 +15,6 @@
     <string name="history_header"><xliff:g example="London" id="city_name">%s</xliff:g> History</string>
     <string name="website">Website</string>
 
-
     <!--Placeholder texts for the design preview-->
     <string name="placeholder_city_name">Buenos Aires</string>
     <string name="placeholder_country_name">Argentina</string>
@@ -42,8 +41,14 @@
     </string>
     <string name="transport_icon">A <xliff:g example="bus" id="transport_type">%s</xliff:g> icon</string>
 
+    <!--Tablayout tab titles.-->
     <string name="title_activity_city_guide">CityGuideActivity</string>
     <string name="action_settings">Settings</string>
-
+    <string name="title_city_info">City Info</string>
+    <string name="title_restaurant_bar"><![CDATA[Restaurant & Bars]]></string>
+    <string name="title_hotel">Hotels</string>
+    <string name="title_attraction">Attractions</string>
+    <string name="title_tour">Tours</string>
+    <string name="title_event">Events</string>
 
 </resources>

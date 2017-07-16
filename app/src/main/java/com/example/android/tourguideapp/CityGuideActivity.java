@@ -48,7 +48,7 @@ public class CityGuideActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter. Pass through the chosen city to the
         // adapter to allow extraction of info for display later.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(new CityGuidePagerAdapter(getSupportFragmentManager(), chosenCity));
+        mViewPager.setAdapter(new CityGuidePagerAdapter(getSupportFragmentManager(), chosenCity, this));
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.city_guide_tabs);
         tabLayout.setupWithViewPager(mViewPager);

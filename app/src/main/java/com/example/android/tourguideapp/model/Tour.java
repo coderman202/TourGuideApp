@@ -108,30 +108,12 @@ public class Tour implements Parcelable {
     }
 
     /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * Gets operator.
      *
      * @return the operator
      */
     public String getOperator() {
         return operator;
-    }
-
-    /**
-     * Sets operator.
-     *
-     * @param operator the operator
-     */
-    public void setOperator(String operator) {
-        this.operator = operator;
     }
 
     /**
@@ -144,36 +126,12 @@ public class Tour implements Parcelable {
     }
 
     /**
-     * Sets rating. Checks it is valid.
-     *
-     * @param rating the rating
-     */
-    public void setRating(float rating) {
-        if (rating < RATING_MIN || rating > RATING_MAX) {
-            throw new IllegalArgumentException("Error. You must pass a valid rating");
-        }
-        this.rating = rating;
-    }
-
-    /**
      * Gets price.
      *
      * @return the price
      */
     public float getPrice() {
         return price;
-    }
-
-    /**
-     * Sets price. Checks it is valid.
-     *
-     * @param price the price
-     */
-    public void setPrice(float price) {
-        if (price < PRICE_FREE || price > PRICE_HIGH) {
-            throw new IllegalArgumentException("Error. You must pass a valid price");
-        }
-        this.price = price;
     }
 
     /**
@@ -186,30 +144,12 @@ public class Tour implements Parcelable {
     }
 
     /**
-     * Sets description.
-     *
-     * @param description the description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
      * Gets operating times.
      *
      * @return the operating times
      */
     public String getOperatingTimes() {
         return operatingTimes;
-    }
-
-    /**
-     * Sets operating times.
-     *
-     * @param operatingTimes the operating times
-     */
-    public void setOperatingTimes(String operatingTimes) {
-        this.operatingTimes = operatingTimes;
     }
 
     /**
@@ -222,30 +162,12 @@ public class Tour implements Parcelable {
     }
 
     /**
-     * Sets start location.
-     *
-     * @param address the start location
-     */
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    /**
      * Is wheelchair access boolean.
      *
      * @return the boolean
      */
     public boolean hasWheelchairAccess() {
         return wheelchairAccess;
-    }
-
-    /**
-     * Sets wheelchair access.
-     *
-     * @param wheelchairAccess the wheelchair access
-     */
-    public void setWheelchairAccess(boolean wheelchairAccess) {
-        this.wheelchairAccess = wheelchairAccess;
     }
 
     /**
@@ -258,30 +180,12 @@ public class Tour implements Parcelable {
     }
 
     /**
-     * Sets website.
-     *
-     * @param website the website
-     */
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    /**
      * Gets phone number.
      *
      * @return the phone number
      */
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    /**
-     * Sets phone number.
-     *
-     * @param phoneNumber the phone number
-     */
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     @Override

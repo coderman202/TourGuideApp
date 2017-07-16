@@ -81,30 +81,12 @@ public class RestaurantBar extends Hospitality {
     }
 
     /**
-     * Sets opening hours.
-     *
-     * @param openingHours the opening hours
-     */
-    public void setOpeningHours(String openingHours) {
-        this.openingHours = openingHours;
-    }
-
-    /**
      * Gets dining hours.
      *
      * @return the dining hours
      */
     public String getDiningHours() {
         return diningHours;
-    }
-
-    /**
-     * Sets dining hours.
-     *
-     * @param diningHours the dining hours
-     */
-    public void setDiningHours(String diningHours) {
-        this.diningHours = diningHours;
     }
 
     /**
@@ -117,18 +99,6 @@ public class RestaurantBar extends Hospitality {
     }
 
     /**
-     * Sets michelin stars.
-     *
-     * @param michelinStars the michelin stars
-     */
-    public void setMichelinStars(int michelinStars) {
-        if (michelinStars < MICHELIN_STARS_MIN || michelinStars > MICHELIN_STARS_MAX) {
-            throw new IllegalArgumentException("Error. You must pass a valid number of michelin stars");
-        }
-        this.michelinStars = michelinStars;
-    }
-
-    /**
      * Get cuisines string [ ].
      *
      * @return the string [ ]
@@ -136,16 +106,6 @@ public class RestaurantBar extends Hospitality {
     public List<String> getCuisines() {
         return cuisines;
     }
-
-    /**
-     * Sets cuisines.
-     *
-     * @param cuisines the cuisines
-     */
-    public void setCuisines(List<String> cuisines) {
-        this.cuisines = cuisines;
-    }
-
     /**
      * Add cuisine.
      *
@@ -171,15 +131,6 @@ public class RestaurantBar extends Hospitality {
      */
     public boolean hasWheelchairAccess() {
         return wheelchairAccess;
-    }
-
-    /**
-     * Sets wheelchair access.
-     *
-     * @param wheelchairAccess the wheelchair access
-     */
-    public void setWheelchairAccess(boolean wheelchairAccess) {
-        this.wheelchairAccess = wheelchairAccess;
     }
 
     @Override

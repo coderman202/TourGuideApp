@@ -34,52 +34,6 @@ public class Amenity implements Parcelable {
     //endregion
 
     //region Getters & setters & toStrings
-
-    /**
-     * Gets name.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Gets icon resource id.
-     *
-     * @return the icon resource id
-     */
-    public int getIconResourceID() {
-        return iconResourceID;
-    }
-
-    /**
-     * Sets icon resource id.
-     *
-     * @param iconResourceID the icon resource id
-     */
-    public void setIconResourceID(int iconResourceID) {
-        this.iconResourceID = iconResourceID;
-    }
-
-    /**
-     * Sets icon resource id.
-     *
-     * @param iconFileName the icon file name
-     */
-    public void setIconResourceID(String iconFileName) {
-        this.iconResourceID = context.getResources().getIdentifier(iconFileName, "drawable", context.getPackageName());
-    }
-
     @Override
     public String toString() {
         return "Amenity{" +

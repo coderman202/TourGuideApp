@@ -56,33 +56,6 @@ public class Attraction extends Hospitality implements Parcelable {
         return openingHours;
     }
 
-    /**
-     * Sets opening hours.
-     *
-     * @param openingHours the opening hours
-     */
-    public void setOpeningHours(String openingHours) {
-        this.openingHours = openingHours;
-    }
-
-    /**
-     * Has wheelchair access boolean.
-     *
-     * @return the boolean
-     */
-    public boolean hasWheelchairAccess() {
-        return wheelchairAccess;
-    }
-
-    /**
-     * Sets wheelchair access.
-     *
-     * @param wheelchairAccess the wheelchair access
-     */
-    public void setWheelchairAccess(boolean wheelchairAccess) {
-        this.wheelchairAccess = wheelchairAccess;
-    }
-
     @Override
     public String toString() {
         return "Attraction{" +

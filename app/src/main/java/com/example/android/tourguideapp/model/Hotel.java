@@ -87,33 +87,12 @@ public class Hotel extends Hospitality {
     }
 
     /**
-     * Sets hotel class and checks to make sure it is valid also.
-     *
-     * @param hotelClass the hotel class
-     */
-    public void setHotelClass(int hotelClass) {
-        if (hotelClass < CLASS_ONE_STAR || hotelClass > CLASS_FIVE_STAR) {
-            throw new IllegalArgumentException("Error. You must pass a valid value for hotel class");
-        }
-        this.hotelClass = hotelClass;
-    }
-
-    /**
      * Get amenities list
      *
      * @return the list of hotel amenities
      */
     public List<Amenity> getAmenities() {
         return amenities;
-    }
-
-    /**
-     * Sets amenities list.
-     *
-     * @param amenities the amenities
-     */
-    public void setAmenities(List<Amenity> amenities) {
-        this.amenities = amenities;
     }
 
     @Override

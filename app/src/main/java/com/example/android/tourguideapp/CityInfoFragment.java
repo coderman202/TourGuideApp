@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 /**
  * A placeholder fragment containing a simple view.
  */
+@SuppressWarnings("ALL")
 public class CityInfoFragment extends Fragment {
     /**
      * Saving the city on screen rotation

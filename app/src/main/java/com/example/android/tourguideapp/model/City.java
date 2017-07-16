@@ -201,21 +201,8 @@ public class City implements Parcelable {
         return timeZone;
     }
 
-    /**
-     * Sets time zone.
-     *
-     * @param timeZone the time zone
-     */
-    public void setTimeZone(String timeZone) {
-        this.timeZone = timeZone;
-    }
-
     public String getCurrency() {
         return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
     }
 
     /**
@@ -230,16 +217,6 @@ public class City implements Parcelable {
         this.language = address.getLocale().getLanguage();
     }
 
-
-    /**
-     * Sets airports.
-     *
-     * @param airports the airports
-     */
-    public void setAirports(List<Airport> airports) {
-        this.airports = airports;
-    }
-
     /**
      * Gets transport.
      *
@@ -247,42 +224,6 @@ public class City implements Parcelable {
      */
     public List<Transport> getTransport() {
         return transport;
-    }
-
-    /**
-     * Sets transport.
-     *
-     * @param transport the transport
-     */
-    public void setTransport(List<Transport> transport) {
-        this.transport = transport;
-    }
-
-    /**
-     * Sets population.
-     *
-     * @param population the population
-     */
-    public void setPopulation(int population) {
-        this.population = population;
-    }
-
-    /**
-     * Sets description.
-     *
-     * @param description the description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * Sets history.
-     *
-     * @param history the history
-     */
-    public void setHistory(String history) {
-        this.history = history;
     }
 
     /**
@@ -295,30 +236,12 @@ public class City implements Parcelable {
     }
 
     /**
-     * Sets hotels.
-     *
-     * @param hotels the hotels
-     */
-    public void setHotels(List<Hotel> hotels) {
-        this.hotels = hotels;
-    }
-
-    /**
      * Gets restaurant bars.
      *
      * @return the restaurant bars
      */
     public List<RestaurantBar> getRestaurantBars() {
         return restaurantBars;
-    }
-
-    /**
-     * Sets restaurant bars.
-     *
-     * @param restaurantBars the restaurant bars
-     */
-    public void setRestaurantBars(List<RestaurantBar> restaurantBars) {
-        this.restaurantBars = restaurantBars;
     }
 
     /**
@@ -331,30 +254,12 @@ public class City implements Parcelable {
     }
 
     /**
-     * Sets attractions.
-     *
-     * @param attractions the attractions
-     */
-    public void setAttractions(List<Attraction> attractions) {
-        this.attractions = attractions;
-    }
-
-    /**
      * Gets events.
      *
      * @return the events
      */
     public List<Event> getEvents() {
         return events;
-    }
-
-    /**
-     * Sets events.
-     *
-     * @param events the events
-     */
-    public void setEvents(List<Event> events) {
-        this.events = events;
     }
 
     /**
@@ -367,40 +272,12 @@ public class City implements Parcelable {
     }
 
     /**
-     * Sets tours.
-     *
-     * @param tours the tours
-     */
-    public void setTours(List<Tour> tours) {
-        this.tours = tours;
-    }
-
-    /**
      * Gets image resource id.
      *
      * @return the image resource id
      */
     public int getImageResourceID() {
         return imageResourceID;
-    }
-
-    /**
-     * Sets image resource id.
-     *
-     * @param imageResourceID the image resource id
-     */
-    public void setImageResourceID(int imageResourceID) {
-        this.imageResourceID = imageResourceID;
-    }
-
-    /**
-     * Sets image resource id.
-     *
-     * @param imageFileName the image file name
-     */
-    public void setImageResourceID(String imageFileName) {
-        this.imageResourceID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
-
     }
     //endregion
 

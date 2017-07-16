@@ -123,15 +123,6 @@ public class Hospitality implements Parcelable {
     }
 
     /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * Gets address.
      *
      * @return the address
@@ -159,15 +150,6 @@ public class Hospitality implements Parcelable {
     }
 
     /**
-     * Sets website.
-     *
-     * @param website the website
-     */
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    /**
      * Gets description.
      *
      * @return the description
@@ -177,39 +159,12 @@ public class Hospitality implements Parcelable {
     }
 
     /**
-     * Sets description.
-     *
-     * @param description the description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * Gets neighbourhood.
-     *
-     * @return the neighbourhood
-     */
-    public String getNeighbourhood() {
-        return neighbourhood;
-    }
-
-    /**
      * Gets city.
      *
      * @return the city
      */
     public String getCity() {
         return city;
-    }
-
-    /**
-     * Gets country.
-     *
-     * @return the country
-     */
-    public String getCountry() {
-        return country;
     }
 
     /**
@@ -231,36 +186,12 @@ public class Hospitality implements Parcelable {
     }
 
     /**
-     * Sets rating.
-     *
-     * @param rating the rating
-     */
-    public void setRating(float rating) {
-        if (rating < RATING_MIN || rating > RATING_MAX) {
-            throw new IllegalArgumentException("Error. You must pass a valid rating");
-        }
-        this.rating = rating;
-    }
-
-    /**
      * Gets price.
      *
      * @return the price
      */
     public float getPrice() {
         return price;
-    }
-
-    /**
-     * Sets price.
-     *
-     * @param price the price
-     */
-    public void setPrice(float price) {
-        if (price < PRICE_LOW || price > PRICE_HIGH) {
-            throw new IllegalArgumentException("Error. You must pass a valid price");
-        }
-        this.price = price;
     }
 
     @Override

@@ -50,51 +50,6 @@ public class Airport implements Parcelable {
         return name;
     }
 
-    /**
-     * Gets IATA code.
-     *
-     * @return the IATA code
-     */
-    public String getIata() {
-        return iata;
-    }
-
-    /**
-     * Gets country.
-     *
-     * @return the country
-     */
-    public String getCountry() {
-        return country;
-    }
-
-    /**
-     * Gets city.
-     *
-     * @return the city
-     */
-    public String getCity() {
-        return city;
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Sets iata.
-     *
-     * @param iata the iata
-     */
-    public void setIata(String iata) {
-        this.iata = iata;
-    }
-
     @Override
     public String toString() {
         return "Airport{" +

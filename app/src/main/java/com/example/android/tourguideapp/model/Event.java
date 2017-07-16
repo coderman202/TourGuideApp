@@ -88,34 +88,12 @@ public class Event implements Parcelable {
     }
 
     /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * Gets start date time.
      *
      * @return the start date time
      */
     public Date getStartDateTime() {
         return startDateTime;
-    }
-
-    /**
-     * Sets start date time with a check to ensure the dates are set correctly.
-     *
-     * @param startDateTime the start date time
-     */
-    public void setStartDateTime(Date startDateTime) {
-        if (startDateTime.after(endDateTime)) {
-            throw new IllegalArgumentException("Error. Ensure the dates are correct. " +
-                    "The start date cannot come after the end date");
-        }
-        this.startDateTime = startDateTime;
     }
 
     /**
@@ -127,18 +105,6 @@ public class Event implements Parcelable {
         return endDateTime;
     }
 
-    /**
-     * Sets end date time with a check to ensure the dates are set correctly.
-     *
-     * @param endDateTime the end date time
-     */
-    public void setEndDateTime(Date endDateTime) {
-        if (startDateTime.after(endDateTime)) {
-            throw new IllegalArgumentException("Error. Ensure the dates are correct. " +
-                    "The start date cannot come after the end date");
-        }
-        this.endDateTime = endDateTime;
-    }
 
     /**
      * Gets address.
@@ -148,16 +114,6 @@ public class Event implements Parcelable {
     public Address getAddress() {
         return address;
     }
-
-    /**
-     * Sets address.
-     *
-     * @param address the address
-     */
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
     /**
      * Gets description.
      *
@@ -168,66 +124,12 @@ public class Event implements Parcelable {
     }
 
     /**
-     * Sets description.
-     *
-     * @param description the description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * Gets theme.
-     *
-     * @return the theme
-     */
-    public String getTheme() {
-        return theme;
-    }
-
-    /**
-     * Sets theme.
-     *
-     * @param theme the theme
-     */
-    public void setTheme(String theme) {
-        this.theme = theme;
-    }
-
-    /**
      * Gets website.
      *
      * @return the website
      */
     public String getWebsite() {
         return website;
-    }
-
-    /**
-     * Sets website.
-     *
-     * @param website the website
-     */
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    /**
-     * Is wheelchair access boolean.
-     *
-     * @return the boolean
-     */
-    public boolean hasWheelchairAccess() {
-        return wheelchairAccess;
-    }
-
-    /**
-     * Sets wheelchair access.
-     *
-     * @param wheelchairAccess the wheelchair access
-     */
-    public void setWheelchairAccess(boolean wheelchairAccess) {
-        this.wheelchairAccess = wheelchairAccess;
     }
 
     public String getStartEndString() {
