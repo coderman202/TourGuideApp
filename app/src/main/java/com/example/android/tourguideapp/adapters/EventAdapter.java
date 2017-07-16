@@ -25,16 +25,20 @@ import butterknife.ButterKnife;
 
 public class EventAdapter extends ArrayAdapter<Event> {
 
-    static class ViewHolder{
+    static class ViewHolder {
         // Get the restaurant info text views to set their text to the values from the current
         // restaurant in the list. Also get the restaurant image view to set the correct image
         // below in the getView method.
-        @BindView(R.id.event_name) TextView nameView;
-        @BindView(R.id.event_description) TextView descriptionView;
-        @BindView(R.id.event_start_end) TextView startEndView;
-        @BindView(R.id.event_website) TextView websiteView;
+        @BindView(R.id.event_name)
+        TextView nameView;
+        @BindView(R.id.event_description)
+        TextView descriptionView;
+        @BindView(R.id.event_start_end)
+        TextView startEndView;
+        @BindView(R.id.event_website)
+        TextView websiteView;
 
-        public ViewHolder(View view){
+        public ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }
@@ -42,8 +46,8 @@ public class EventAdapter extends ArrayAdapter<Event> {
     /**
      * Instantiates a new {@link EventAdapter}.
      *
-     * @param context          the context
-     * @param eventList        the event list
+     * @param context   the context
+     * @param eventList the event list
      */
     public EventAdapter(Context context, List<Event> eventList) {
         super(context, 0, eventList);
@@ -63,8 +67,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
                     R.layout.event_list_item, parent, false);
             holder = new ViewHolder(listItemView);
             listItemView.setTag(holder);
-        }
-        else{
+        } else {
             holder = (ViewHolder) listItemView.getTag();
         }
 

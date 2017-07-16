@@ -14,7 +14,7 @@ public class ContextHolder {
         return ourInstance;
     }
 
-    public static void init(Context context){
+    public static void init(Context context) {
         ourInstance = new ContextHolder(context);
     }
 
@@ -22,7 +22,7 @@ public class ContextHolder {
         this.context = context;
     }
 
-    public Context getApplicationContext(){
+    public Context getApplicationContext() {
         return context;
     }
 }

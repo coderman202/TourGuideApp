@@ -41,21 +41,30 @@ public class CityInfoFragment extends Fragment {
     public CityInfoFragment() {
     }
 
-    public void setCity(City chosenCity){
+    public void setCity(City chosenCity) {
         this.city = chosenCity;
     }
 
-    @BindView(R.id.city_guide_image) ImageView cityImage;
-    @BindView(R.id.transport_icons_recycler_view) RecyclerView transportIconsList;
-    @BindView(R.id.city_time) TextClock cityTime;
-    @BindView(R.id.city_airport_list) LinearLayout cityAirportsList;
-    @BindView(R.id.city_guide_population) TextView cityPopulation;
-    @BindView(R.id.city_guide_language) TextView cityLanguage;
-    @BindView(R.id.city_guide_country) TextView cityCountry;
+    @BindView(R.id.city_guide_image)
+    ImageView cityImage;
+    @BindView(R.id.transport_icons_recycler_view)
+    RecyclerView transportIconsList;
+    @BindView(R.id.city_time)
+    TextClock cityTime;
+    @BindView(R.id.city_airport_list)
+    LinearLayout cityAirportsList;
+    @BindView(R.id.city_guide_population)
+    TextView cityPopulation;
+    @BindView(R.id.city_guide_language)
+    TextView cityLanguage;
+    @BindView(R.id.city_guide_country)
+    TextView cityCountry;
     @BindView(R.id.city_guide_currency)
     TextView currencyView;
-    @BindView(R.id.city_description_header) TextView cityDescriptionHeader;
-    @BindView(R.id.city_history_header) TextView cityHistoryHeader;
+    @BindView(R.id.city_description_header)
+    TextView cityDescriptionHeader;
+    @BindView(R.id.city_history_header)
+    TextView cityHistoryHeader;
     @BindView(R.id.city_description)
     TextView cityDescription;
     @BindView(R.id.city_history)
@@ -66,7 +75,7 @@ public class CityInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_city_guide, container, false);
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             city = savedInstanceState.getParcelable(SAVED_CITY);
         }
 
@@ -90,7 +99,7 @@ public class CityInfoFragment extends Fragment {
         ContextThemeWrapper airportItemStyle = new ContextThemeWrapper(getActivity(), R.style.CityAirportTextStyle);
 
         List<Airport> airportList = city.getAirports();
-        for (Airport airport:airportList) {
+        for (Airport airport : airportList) {
             TextView airportView = new TextView(airportItemStyle);
             airportView.setText(airport.getName());
             airportView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.airport, 0, 0, 0);
@@ -108,7 +117,7 @@ public class CityInfoFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle saveState){
+    public void onSaveInstanceState(Bundle saveState) {
         super.onSaveInstanceState(saveState);
         saveState.putParcelable(SAVED_CITY, city);
     }

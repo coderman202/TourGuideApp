@@ -94,7 +94,7 @@ public class Hospitality implements Parcelable {
      */
     public Hospitality(Context context, String name, Address address, String website,
                        String description, float rating, float price) {
-        if(rating < RATING_MIN || rating > RATING_MAX || price < PRICE_LOW || price > PRICE_HIGH){
+        if (rating < RATING_MIN || rating > RATING_MAX || price < PRICE_LOW || price > PRICE_HIGH) {
             throw new IllegalArgumentException("Error. You must pass a valid rating and price");
         }
         this.context = context;
@@ -112,6 +112,7 @@ public class Hospitality implements Parcelable {
     //endregion
 
     //region Getters & setters & toStrings
+
     /**
      * Gets name.
      *
@@ -235,7 +236,7 @@ public class Hospitality implements Parcelable {
      * @param rating the rating
      */
     public void setRating(float rating) {
-        if(rating < RATING_MIN || rating > RATING_MAX){
+        if (rating < RATING_MIN || rating > RATING_MAX) {
             throw new IllegalArgumentException("Error. You must pass a valid rating");
         }
         this.rating = rating;
@@ -256,7 +257,7 @@ public class Hospitality implements Parcelable {
      * @param price the price
      */
     public void setPrice(float price) {
-        if(price < PRICE_LOW || price > PRICE_HIGH){
+        if (price < PRICE_LOW || price > PRICE_HIGH) {
             throw new IllegalArgumentException("Error. You must pass a valid price");
         }
         this.price = price;

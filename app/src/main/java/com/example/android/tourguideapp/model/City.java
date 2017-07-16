@@ -114,11 +114,12 @@ public class City implements Parcelable {
         this.name = address.getLocality();
         this.country = address.getCountryName();
         String lang = address.getLocale().getLanguage();
-        this.language = lang.substring(0,1).toUpperCase() + lang.substring(1);
+        this.language = lang.substring(0, 1).toUpperCase() + lang.substring(1);
     }
     //endregion
 
     //region Getters & Setters & toStrings
+
     /**
      * Gets address.
      *
@@ -404,12 +405,13 @@ public class City implements Parcelable {
     //endregion
 
     //region Methods to add places to the city
+
     /**
      * Add hotel.
      *
      * @param hotel the hotel
      */
-    public void addHotel(Hotel hotel){
+    public void addHotel(Hotel hotel) {
         this.hotels.add(hotel);
     }
 
@@ -418,7 +420,7 @@ public class City implements Parcelable {
      *
      * @param restaurantBar the restaurant bar
      */
-    public void addRestaurantBar(RestaurantBar restaurantBar){
+    public void addRestaurantBar(RestaurantBar restaurantBar) {
         this.restaurantBars.add(restaurantBar);
     }
 
@@ -427,7 +429,7 @@ public class City implements Parcelable {
      *
      * @param attraction the attraction
      */
-    public void addAttraction(Attraction attraction){
+    public void addAttraction(Attraction attraction) {
         this.attractions.add(attraction);
     }
 
@@ -436,7 +438,7 @@ public class City implements Parcelable {
      *
      * @param event the event
      */
-    public void addEvent(Event event){
+    public void addEvent(Event event) {
         this.events.add(event);
     }
 
@@ -445,7 +447,7 @@ public class City implements Parcelable {
      *
      * @param tour the tour
      */
-    public void addTour(Tour tour){
+    public void addTour(Tour tour) {
         this.tours.add(tour);
     }
 
@@ -454,7 +456,7 @@ public class City implements Parcelable {
      *
      * @param airport the airport
      */
-    public void addAirport(Airport airport){
+    public void addAirport(Airport airport) {
         this.airports.add(airport);
     }
 
@@ -463,7 +465,7 @@ public class City implements Parcelable {
      *
      * @param transport the transport
      */
-    public void addTransport(Transport transport){
+    public void addTransport(Transport transport) {
         this.transport.add(transport);
     }
 

@@ -19,7 +19,8 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.city_list_view) ListView cityListView;
+    @BindView(R.id.city_list_view)
+    ListView cityListView;
 
 
     @Override

@@ -26,21 +26,22 @@ public class Hotel extends Hospitality {
     private List<Amenity> amenities;
 
     //region Constructors
+
     /**
      * Instantiates a new Hotel object without a rating, price  or amenities. A check to ensure a
      * valid hotel class is passed is in place too.
      *
-     * @param context       the context
-     * @param name          the name
-     * @param address       the address
-     * @param website       the website
-     * @param description   the description
-     * @param hotelClass    the hotel class
+     * @param context     the context
+     * @param name        the name
+     * @param address     the address
+     * @param website     the website
+     * @param description the description
+     * @param hotelClass  the hotel class
      */
     public Hotel(Context context, String name, Address address, String website, String description,
                  int hotelClass) {
         super(context, name, address, website, description);
-        if(hotelClass < CLASS_ONE_STAR || hotelClass > CLASS_FIVE_STAR){
+        if (hotelClass < CLASS_ONE_STAR || hotelClass > CLASS_FIVE_STAR) {
             throw new IllegalArgumentException("Error. You must pass a valid value for hotel class");
         }
         this.hotelClass = hotelClass;
@@ -52,21 +53,21 @@ public class Hotel extends Hospitality {
      * A check to ensure a valid hotel class is
      * passed is in place too.
      *
-     * @param context       the context
-     * @param name          the name
-     * @param address       the address
-     * @param website       the website
-     * @param description   the description
-     * @param rating        the rating
-     * @param price         the price
-     * @param hotelClass    the hotel class
-     * @param amenities     the amenities
+     * @param context     the context
+     * @param name        the name
+     * @param address     the address
+     * @param website     the website
+     * @param description the description
+     * @param rating      the rating
+     * @param price       the price
+     * @param hotelClass  the hotel class
+     * @param amenities   the amenities
      */
     public Hotel(Context context, String name, Address address, String website, String description,
                  float rating, float price, int hotelClass,
                  List<Amenity> amenities) {
         super(context, name, address, website, description, rating, price);
-        if(hotelClass < CLASS_ONE_STAR || hotelClass > CLASS_FIVE_STAR){
+        if (hotelClass < CLASS_ONE_STAR || hotelClass > CLASS_FIVE_STAR) {
             throw new IllegalArgumentException("Error. You must pass a valid value for hotel class");
         }
         this.hotelClass = hotelClass;
@@ -75,6 +76,7 @@ public class Hotel extends Hospitality {
     //endregion
 
     //region Getters & Setters & toStrings
+
     /**
      * Gets hotel class.
      *
@@ -90,7 +92,7 @@ public class Hotel extends Hospitality {
      * @param hotelClass the hotel class
      */
     public void setHotelClass(int hotelClass) {
-        if(hotelClass < CLASS_ONE_STAR || hotelClass > CLASS_FIVE_STAR){
+        if (hotelClass < CLASS_ONE_STAR || hotelClass > CLASS_FIVE_STAR) {
             throw new IllegalArgumentException("Error. You must pass a valid value for hotel class");
         }
         this.hotelClass = hotelClass;

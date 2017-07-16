@@ -46,6 +46,7 @@ public class Attraction extends Hospitality implements Parcelable {
     //endregion
 
     //region Getters & setters & toStrings
+
     /**
      * Gets opening hours.
      *

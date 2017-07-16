@@ -17,6 +17,7 @@ public class Amenity implements Parcelable {
 
 
     //region Constructor(s)
+
     /**
      * Instantiates a new Transport object passing a context to allow for the icon resource id to
      * be found via the getIdentifier method.
@@ -33,6 +34,7 @@ public class Amenity implements Parcelable {
     //endregion
 
     //region Getters & setters & toStrings
+
     /**
      * Gets name.
      *

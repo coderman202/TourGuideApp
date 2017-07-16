@@ -57,6 +57,7 @@ public class Tour implements Parcelable {
     //endregion
 
     //region Constructor(s)
+
     /**
      * Instantiates a new Tour. Checks that the price set is valid.
      *
@@ -75,10 +76,10 @@ public class Tour implements Parcelable {
     public Tour(Context context, String name, String operator, float rating, float price,
                 String description, String operatingTimes, Address address,
                 boolean wheelchairAccess, String website, String phoneNumber) {
-        if(price < PRICE_FREE || price > PRICE_HIGH){
+        if (price < PRICE_FREE || price > PRICE_HIGH) {
             throw new IllegalArgumentException("Error. You must pass a valid price");
         }
-        if(rating < RATING_MIN || rating > RATING_MAX){
+        if (rating < RATING_MIN || rating > RATING_MAX) {
             throw new IllegalArgumentException("Error. You must pass a valid rating");
         }
         this.context = context;
@@ -96,6 +97,7 @@ public class Tour implements Parcelable {
     //endregion
 
     //region Getters & setters & toStrings
+
     /**
      * Gets name.
      *
@@ -147,7 +149,7 @@ public class Tour implements Parcelable {
      * @param rating the rating
      */
     public void setRating(float rating) {
-        if(rating < RATING_MIN || rating > RATING_MAX){
+        if (rating < RATING_MIN || rating > RATING_MAX) {
             throw new IllegalArgumentException("Error. You must pass a valid rating");
         }
         this.rating = rating;
@@ -168,7 +170,7 @@ public class Tour implements Parcelable {
      * @param price the price
      */
     public void setPrice(float price) {
-        if(price < PRICE_FREE || price > PRICE_HIGH){
+        if (price < PRICE_FREE || price > PRICE_HIGH) {
             throw new IllegalArgumentException("Error. You must pass a valid price");
         }
         this.price = price;

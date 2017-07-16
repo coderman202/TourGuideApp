@@ -31,6 +31,7 @@ public class Transport implements Parcelable {
     }
 
     //region Getters & setters
+
     /**
      * Gets name.
      *

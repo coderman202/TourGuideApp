@@ -22,6 +22,7 @@ public class Airport implements Parcelable {
     private String city;
 
     //region Constructor(s)
+
     /**
      * Instantiates a new Airport object.
      * I use the Address object to generate the city and country attributes
@@ -39,6 +40,7 @@ public class Airport implements Parcelable {
     //endregion
 
     //region Getters & setters & toStrings
+
     /**
      * Gets name.
      *

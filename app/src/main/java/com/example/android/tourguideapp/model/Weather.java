@@ -34,7 +34,7 @@ public class Weather {
 
         // Getting the current day by using the current date and passing the time into a
         // new SimpleDateFormat class.
-        this.day =  new SimpleDateFormat("EE", this.locale).format(date.getTime());
+        this.day = new SimpleDateFormat("EE", this.locale).format(date.getTime());
     }
 
     /**
@@ -50,7 +50,7 @@ public class Weather {
         this.temperature = temperature;
         this.condition = condition;
         this.locale = locale;
-        this.day =  new SimpleDateFormat("EE", this.locale).format(date.getTime());
+        this.day = new SimpleDateFormat("EE", this.locale).format(date.getTime());
     }
 
     /**
@@ -68,7 +68,7 @@ public class Weather {
      * @param date A date object which will be converted into a day via the aforementioned process.
      */
     public void setDay(Date date) {
-        this.day =  new SimpleDateFormat("EE", this.locale).format(date.getTime());
+        this.day = new SimpleDateFormat("EE", this.locale).format(date.getTime());
     }
 
     /**
@@ -103,7 +103,7 @@ public class Weather {
      *
      * @return the string
      */
-    public String getTemperatureCelsius(){
+    public String getTemperatureCelsius() {
         return this.temperature + "°C";
     }
 
@@ -113,7 +113,7 @@ public class Weather {
      * @return the string
      */
     public String getTemperatureFahrenheit() {
-        return (((9/5) * this.temperature) + 32) + "°F";
+        return (((9 / 5) * this.temperature) + 32) + "°F";
     }
 
     /**

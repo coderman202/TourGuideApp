@@ -35,11 +35,9 @@ public class AttractionFragment extends Fragment {
     public AttractionFragment() {
     }
 
-    public void setCity(City chosenCity){
+    public void setCity(City chosenCity) {
         this.city = chosenCity;
     }
-
-
 
 
     @Override
@@ -47,14 +45,14 @@ public class AttractionFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.attraction_list, container, false);
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             city = savedInstanceState.getParcelable(SAVED_CITY);
         }
 
         ButterKnife.bind(this, rootView);
 
         final List<Attraction> attractionList = city.getAttractions();
-        AttractionAdapter attractionAdapter= new AttractionAdapter(getContext(), attractionList);
+        AttractionAdapter attractionAdapter = new AttractionAdapter(getContext(), attractionList);
 
         attractionListView.setAdapter(attractionAdapter);
 
@@ -62,7 +60,7 @@ public class AttractionFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle saveState){
+    public void onSaveInstanceState(Bundle saveState) {
         super.onSaveInstanceState(saveState);
         saveState.putParcelable(SAVED_CITY, city);
     }

@@ -189,8 +189,10 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
     //region The default constructor and the basic overridden onCreate and onUpgrade methods.
     // Also includes a method ro execute sql scripts from the assets folder.
     //----------------------------------------------------------------------------------------------
+
     /**
      * Default constructor
+     *
      * @param context the context
      */
     public TourGuideDBHelper(Context context) {
@@ -216,6 +218,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
      * the onCreate method, along with the insert_data.sql file. n the onUpgrade method, the
      * drop_tables.sql file can be called along with the create and insert scripts. My resource for
      * this method is found below.
+     *
      * @param context   The context
      * @param db        The db that the script is run on
      * @param sqlScript The sql script
@@ -237,7 +240,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
             inputStream.close();
 
             String[] script = outputStream.toString().split(";");
-            for (String sqlStatement:script) {
+            for (String sqlStatement : script) {
                 sqlStatement = sqlStatement.trim();
                 if (sqlStatement.length() > 0) {
                     db.execSQL(sqlStatement + ";");
@@ -261,13 +264,13 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
      *
      * @return the list
      */
-    public List<City> getAllCities(){
+    public List<City> getAllCities() {
         SQLiteDatabase db = this.getReadableDatabase();
         List<City> cityList = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_CITY;
         Cursor c = db.rawQuery(query, null);
 
-        if(c != null && c.moveToFirst()){
+        if (c != null && c.moveToFirst()) {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
                 int cityID = c.getInt(c.getColumnIndex(CITY_ID));
@@ -316,13 +319,13 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
      * @param address the address
      * @return the list
      */
-    public List<Hotel> getAllHotelsByCity(int cityID, Address address){
+    public List<Hotel> getAllHotelsByCity(int cityID, Address address) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<Hotel> hotelList = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_HOTEL + " WHERE " + HOTEL_CITY + " = " + cityID;
         Cursor c = db.rawQuery(query, null);
 
-        if(c != null && c.moveToFirst()) {
+        if (c != null && c.moveToFirst()) {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
                 int hotelID = c.getInt(c.getColumnIndex(HOTEL_ID));
@@ -361,7 +364,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
      * @param hotelID the hotel id
      * @return the list
      */
-    public List<Amenity> getAllAmenitiesByHotel(int hotelID){
+    public List<Amenity> getAllAmenitiesByHotel(int hotelID) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<Amenity> amenityList = new ArrayList<>();
         String query = "SELECT " + TABLE_AMENITY + "." + AMENITY_NAME + ", " + TABLE_AMENITY + "." +
@@ -371,7 +374,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 AMENITY_ID + ";";
         Cursor c = db.rawQuery(query, null);
 
-        if(c != null && c.moveToFirst()) {
+        if (c != null && c.moveToFirst()) {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
                 String name = c.getString(c.getColumnIndex(AMENITY_NAME));
@@ -393,13 +396,13 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
      * @param address the address
      * @return the list
      */
-    public List<RestaurantBar> getAllRestaurantBarsByCity(int cityID, Address address){
+    public List<RestaurantBar> getAllRestaurantBarsByCity(int cityID, Address address) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<RestaurantBar> restaurantBarList = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_RESTAURANT_BAR + " WHERE " + RESTAURANT_BAR_CITY + " = " + cityID;
         Cursor c = db.rawQuery(query, null);
 
-        if(c != null && c.moveToFirst()) {
+        if (c != null && c.moveToFirst()) {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
                 int restaurantBarID = c.getInt(c.getColumnIndex(RESTAURANT_BAR_ID));
@@ -441,7 +444,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
      * @param restaurantBarID the restaurant bar id
      * @return the list
      */
-    public List<String> getAllCuisinesByRestaurantBar(int restaurantBarID){
+    public List<String> getAllCuisinesByRestaurantBar(int restaurantBarID) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<String> cuisineList = new ArrayList<>();
         String query = "SELECT " + TABLE_CUISINE + "." + CUISINE_NAME + " FROM " + TABLE_CUISINE +
@@ -451,7 +454,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 TABLE_CUISINE + "." + CUISINE_ID + ";";
         Cursor c = db.rawQuery(query, null);
 
-        if(c != null && c.moveToFirst()) {
+        if (c != null && c.moveToFirst()) {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
                 String name = c.getString(c.getColumnIndex(CUISINE_NAME));
@@ -471,13 +474,13 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
      * @param address the address
      * @return the list
      */
-    public List<Event> getAllEventsByCity(int cityID, Address address){
+    public List<Event> getAllEventsByCity(int cityID, Address address) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<Event> eventList = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_EVENT + " WHERE " + EVENT_CITY + " = " + cityID;
         Cursor c = db.rawQuery(query, null);
 
-        if(c != null && c.moveToFirst()) {
+        if (c != null && c.moveToFirst()) {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
                 String name = c.getString(c.getColumnIndex(EVENT_NAME));
@@ -513,13 +516,13 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
      * @param address the address
      * @return the list
      */
-    public List<Attraction> getAllAttractionsByCity(int cityID, Address address){
+    public List<Attraction> getAllAttractionsByCity(int cityID, Address address) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<Attraction> attractionsList = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_ATTRACTION + " WHERE " + ATTRACTION_CITY + " = " + cityID;
         Cursor c = db.rawQuery(query, null);
 
-        if(c != null && c.moveToFirst()) {
+        if (c != null && c.moveToFirst()) {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
                 String name = c.getString(c.getColumnIndex(ATTRACTION_NAME));
@@ -557,13 +560,13 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
      * @param address the address
      * @return the list
      */
-    public List<Tour> getAllToursByCity(int cityID, Address address){
+    public List<Tour> getAllToursByCity(int cityID, Address address) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<Tour> toursList = new ArrayList<>();
-        String query = "SELECT * FROM " + TABLE_TOUR+ " WHERE " + TOUR_CITY + " = " + cityID;
+        String query = "SELECT * FROM " + TABLE_TOUR + " WHERE " + TOUR_CITY + " = " + cityID;
         Cursor c = db.rawQuery(query, null);
 
-        if(c != null && c.moveToFirst()) {
+        if (c != null && c.moveToFirst()) {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
                 String name = c.getString(c.getColumnIndex(TOUR_NAME));
@@ -600,7 +603,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
      * @param cityID the city id
      * @return the list
      */
-    public List<Transport> getAllTransportByCity(int cityID){
+    public List<Transport> getAllTransportByCity(int cityID) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<Transport> transportList = new ArrayList<>();
         String query = "SELECT " + TABLE_TRANSPORT + "." + TRANSPORT_TYPE + ", " + TABLE_TRANSPORT + "." +
@@ -610,7 +613,7 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
                 TRANSPORT_ID + ";";
         Cursor c = db.rawQuery(query, null);
 
-        if(c != null && c.moveToFirst()) {
+        if (c != null && c.moveToFirst()) {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
                 String name = c.getString(c.getColumnIndex(TRANSPORT_TYPE));
@@ -631,13 +634,13 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
      * @param address the address
      * @return the list
      */
-    public List<Airport> getAllAirportsByCity(int cityID, Address address){
+    public List<Airport> getAllAirportsByCity(int cityID, Address address) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<Airport> airportsList = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_AIRPORT + " WHERE " + AIRPORT_CITY + " = " + cityID;
         Cursor c = db.rawQuery(query, null);
 
-        if(c != null && c.moveToFirst()) {
+        if (c != null && c.moveToFirst()) {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
                 String name = c.getString(c.getColumnIndex(AIRPORT_NAME));
@@ -657,14 +660,16 @@ public class TourGuideDBHelper extends SQLiteOpenHelper {
 
     //region Class utility methods in here
     //----------------------------------------------------------------------------------------------
+
     /**
      * A quick utility method to take the address string from the DB and put the first 3 lines of
      * the address into the Address object.
+     *
      * @param stringAddress The first 3 lines of the address in string form
      * @param address       The Address object.
      */
-    private Address getFirstThreeAddressLines(String stringAddress, Address address){
-        String [] addressLines = stringAddress.split(", ");
+    private Address getFirstThreeAddressLines(String stringAddress, Address address) {
+        String[] addressLines = stringAddress.split(", ");
         Address newAddress = new Address(address.getLocale());
         newAddress.setCountryName(address.getCountryName());
         newAddress.setLocality(address.getLocality());

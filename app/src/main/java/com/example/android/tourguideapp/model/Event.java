@@ -43,6 +43,7 @@ public class Event implements Parcelable {
     private Context context;
 
     //region Constructor(s)
+
     /**
      * Instantiates a new Event with a check to ensure the dates are set correctly.
      *
@@ -59,7 +60,7 @@ public class Event implements Parcelable {
     public Event(Context context, String name, Date startDateTime, Date endDateTime, Address address,
                  String description, String theme, String website,
                  boolean wheelchairAccess) {
-        if(startDateTime.after(endDateTime)){
+        if (startDateTime.after(endDateTime)) {
             throw new IllegalArgumentException("Error. Ensure the dates are correct. " +
                     "The start date cannot come after the end date");
         }
@@ -76,6 +77,7 @@ public class Event implements Parcelable {
     //endregion
 
     //region Getters & Setters & toStrings
+
     /**
      * Gets name.
      *
@@ -109,7 +111,7 @@ public class Event implements Parcelable {
      * @param startDateTime the start date time
      */
     public void setStartDateTime(Date startDateTime) {
-        if(startDateTime.after(endDateTime)){
+        if (startDateTime.after(endDateTime)) {
             throw new IllegalArgumentException("Error. Ensure the dates are correct. " +
                     "The start date cannot come after the end date");
         }
@@ -131,7 +133,7 @@ public class Event implements Parcelable {
      * @param endDateTime the end date time
      */
     public void setEndDateTime(Date endDateTime) {
-        if(startDateTime.after(endDateTime)){
+        if (startDateTime.after(endDateTime)) {
             throw new IllegalArgumentException("Error. Ensure the dates are correct. " +
                     "The start date cannot come after the end date");
         }
@@ -228,7 +230,7 @@ public class Event implements Parcelable {
         this.wheelchairAccess = wheelchairAccess;
     }
 
-    public String getStartEndString(){
+    public String getStartEndString() {
         return TourGuideUtilities.dateToString(this.getStartDateTime()) + " - " +
                 TourGuideUtilities.dateToString(this.getEndDateTime());
 

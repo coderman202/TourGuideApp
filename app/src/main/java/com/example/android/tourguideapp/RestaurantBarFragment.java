@@ -35,7 +35,7 @@ public class RestaurantBarFragment extends Fragment {
     public RestaurantBarFragment() {
     }
 
-    public void setCity(City chosenCity){
+    public void setCity(City chosenCity) {
         this.city = chosenCity;
     }
 
@@ -44,7 +44,7 @@ public class RestaurantBarFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.restaurant_bar_list, container, false);
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             city = savedInstanceState.getParcelable(SAVED_CITY);
         }
 
@@ -59,7 +59,7 @@ public class RestaurantBarFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle saveState){
+    public void onSaveInstanceState(Bundle saveState) {
         super.onSaveInstanceState(saveState);
         saveState.putParcelable(SAVED_CITY, city);
     }

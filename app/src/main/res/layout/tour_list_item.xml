@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -23,7 +22,7 @@
         android:layout_height="wrap_content"
         tools:text="@string/placeholder_description"
         tools:layout_editor_absoluteX="174dp"/>
-        
+
     <LinearLayout
         android:id="@+id/tour_rating_price"
         android:layout_width="match_parent"

@@ -28,7 +28,7 @@ public class CityGuidePagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        switch (position){
+        switch (position) {
             case 0:
                 CityInfoFragment cityInfoFragment = new CityInfoFragment();
                 cityInfoFragment.setCity(chosenCity);

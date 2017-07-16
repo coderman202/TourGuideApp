@@ -35,6 +35,7 @@ public class RestaurantBar extends Hospitality {
 
 
     //region Constructor(s)
+
     /**
      * Instantiates a new RestaurantBar with a michelin star, along with a check to make sure the
      * values passed to the constructor were valid.
@@ -57,7 +58,7 @@ public class RestaurantBar extends Hospitality {
                          String openingHours, String diningHours, int michelinStars,
                          List<String> cuisines, boolean wheelchairAccess) {
         super(context, name, address, website, description, rating, price);
-        if(michelinStars < MICHELIN_STARS_MIN || michelinStars > MICHELIN_STARS_MAX){
+        if (michelinStars < MICHELIN_STARS_MIN || michelinStars > MICHELIN_STARS_MAX) {
             throw new IllegalArgumentException("Error. You must pass a valid number of michelin stars");
         }
         this.openingHours = openingHours;
@@ -69,6 +70,7 @@ public class RestaurantBar extends Hospitality {
     //endregion
 
     //region Getters & setters & toStrings
+
     /**
      * Gets opening hours.
      *
@@ -120,7 +122,7 @@ public class RestaurantBar extends Hospitality {
      * @param michelinStars the michelin stars
      */
     public void setMichelinStars(int michelinStars) {
-        if(michelinStars < MICHELIN_STARS_MIN || michelinStars > MICHELIN_STARS_MAX){
+        if (michelinStars < MICHELIN_STARS_MIN || michelinStars > MICHELIN_STARS_MAX) {
             throw new IllegalArgumentException("Error. You must pass a valid number of michelin stars");
         }
         this.michelinStars = michelinStars;
@@ -149,7 +151,7 @@ public class RestaurantBar extends Hospitality {
      *
      * @param cuisine the cuisine
      */
-    public void addCuisine(String cuisine){
+    public void addCuisine(String cuisine) {
         this.cuisines.add(cuisine);
     }
 
@@ -158,7 +160,7 @@ public class RestaurantBar extends Hospitality {
      *
      * @param cuisine the cuisine
      */
-    public void removeCuisine(String cuisine){
+    public void removeCuisine(String cuisine) {
         this.cuisines.remove(cuisine);
     }
 

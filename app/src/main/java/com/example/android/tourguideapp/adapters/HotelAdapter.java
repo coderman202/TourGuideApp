@@ -29,23 +29,28 @@ import static com.example.android.tourguideapp.utils.TourGuideUtilities.addressT
 
 public class HotelAdapter extends ArrayAdapter<Hotel> {
 
-    static class ViewHolder{
+    static class ViewHolder {
         // Get the restaurant info text views to set their text to the values from the current
         // restaurant in the list. Also get the restaurant image view to set the correct image
         // below in the getView method.
-        @BindView(R.id.hotel_name) TextView nameView;
-        @BindView(R.id.hotel_description) TextView descriptionView;
+        @BindView(R.id.hotel_name)
+        TextView nameView;
+        @BindView(R.id.hotel_description)
+        TextView descriptionView;
         @BindView(R.id.hotel_price)
         PriceBar priceBar;
         @BindView(R.id.hotel_rating)
         RatingBar ratingBar;
         @BindView(R.id.hotel_class)
         RatingBar classBar;
-        @BindView(R.id.hotel_phone) TextView phoneView;
-        @BindView(R.id.hotel_website) TextView websiteView;
-        @BindView(R.id.hotel_address) TextView addressView;
+        @BindView(R.id.hotel_phone)
+        TextView phoneView;
+        @BindView(R.id.hotel_website)
+        TextView websiteView;
+        @BindView(R.id.hotel_address)
+        TextView addressView;
 
-        public ViewHolder(View view){
+        public ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }
@@ -53,8 +58,8 @@ public class HotelAdapter extends ArrayAdapter<Hotel> {
     /**
      * Instantiates a new {@link HotelAdapter}.
      *
-     * @param context               the context
-     * @param hotelList             the hotel list
+     * @param context   the context
+     * @param hotelList the hotel list
      */
     public HotelAdapter(Context context, List<Hotel> hotelList) {
         super(context, 0, hotelList);
@@ -74,8 +79,7 @@ public class HotelAdapter extends ArrayAdapter<Hotel> {
                     R.layout.hotel_list_item, parent, false);
             holder = new ViewHolder(listItemView);
             listItemView.setTag(holder);
-        }
-        else{
+        } else {
             holder = (ViewHolder) listItemView.getTag();
         }
 

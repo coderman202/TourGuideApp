@@ -10,8 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.tourguideapp.model.City;
 import com.example.android.tourguideapp.R;
+import com.example.android.tourguideapp.model.City;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -25,15 +25,19 @@ import butterknife.ButterKnife;
 
 public class CityAdapter extends ArrayAdapter<City> {
 
-    static class ViewHolder{
+    static class ViewHolder {
         // Get the city info text views to set their text to the values from the current city in the
         // list. Also get the city image view to set the correct image below in the getView method.
-        @BindView(R.id.population) TextView populationView;
-        @BindView(R.id.country) TextView countryView;
-        @BindView(R.id.language) TextView languageView;
-        @BindView(R.id.city_image) ImageView cityImage;
+        @BindView(R.id.population)
+        TextView populationView;
+        @BindView(R.id.country)
+        TextView countryView;
+        @BindView(R.id.language)
+        TextView languageView;
+        @BindView(R.id.city_image)
+        ImageView cityImage;
 
-        public ViewHolder(View view){
+        public ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }
@@ -41,8 +45,8 @@ public class CityAdapter extends ArrayAdapter<City> {
     /**
      * Instantiates a new {@link CityAdapter}.
      *
-     * @param context       the context
-     * @param cityList      the city list
+     * @param context  the context
+     * @param cityList the city list
      */
     public CityAdapter(Context context, List<City> cityList) {
         super(context, 0, cityList);
@@ -64,17 +68,14 @@ public class CityAdapter extends ArrayAdapter<City> {
                     R.layout.city_list_item_left, parent, false);
             holder = new ViewHolder(listItemView);
             listItemView.setTag(holder);
-        }
-        else if(listItemView == null && (position % 2) != 0){
+        } else if (listItemView == null && (position % 2) != 0) {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.city_list_item_right, parent, false);
             holder = new ViewHolder(listItemView);
             listItemView.setTag(holder);
-        }
-        else{
+        } else {
             holder = (ViewHolder) listItemView.getTag();
         }
-
 
 
         final City currentCity = getItem(position);

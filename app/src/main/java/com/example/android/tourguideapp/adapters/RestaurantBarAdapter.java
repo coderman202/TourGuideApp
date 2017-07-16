@@ -29,21 +29,26 @@ import static com.example.android.tourguideapp.utils.TourGuideUtilities.addressT
 
 public class RestaurantBarAdapter extends ArrayAdapter<RestaurantBar> {
 
-    static class ViewHolder{
+    static class ViewHolder {
         // Get the restaurant info text views to set their text to the values from the current
         // restaurant in the list. Also get the restaurant image view to set the correct image
         // below in the getView method.
-        @BindView(R.id.restaurant_bar_name) TextView nameView;
-        @BindView(R.id.restaurant_bar_description) TextView descriptionView;
+        @BindView(R.id.restaurant_bar_name)
+        TextView nameView;
+        @BindView(R.id.restaurant_bar_description)
+        TextView descriptionView;
         @BindView(R.id.restaurant_bar_price)
         PriceBar priceBar;
         @BindView(R.id.restaurant_bar_rating)
         RatingBar ratingBar;
-        @BindView(R.id.restaurant_bar_phone) TextView phoneView;
-        @BindView(R.id.restaurant_bar_website) TextView websiteView;
-        @BindView(R.id.restaurant_bar_address) TextView addressView;
+        @BindView(R.id.restaurant_bar_phone)
+        TextView phoneView;
+        @BindView(R.id.restaurant_bar_website)
+        TextView websiteView;
+        @BindView(R.id.restaurant_bar_address)
+        TextView addressView;
 
-        public ViewHolder(View view){
+        public ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }
@@ -51,8 +56,8 @@ public class RestaurantBarAdapter extends ArrayAdapter<RestaurantBar> {
     /**
      * Instantiates a new {@link RestaurantBarAdapter}.
      *
-     * @param context               the context
-     * @param restaurantBarList     the restaurant bar list
+     * @param context           the context
+     * @param restaurantBarList the restaurant bar list
      */
     public RestaurantBarAdapter(Context context, List<RestaurantBar> restaurantBarList) {
         super(context, 0, restaurantBarList);
@@ -72,8 +77,7 @@ public class RestaurantBarAdapter extends ArrayAdapter<RestaurantBar> {
                     R.layout.restaurant_bar_list_item, parent, false);
             holder = new ViewHolder(listItemView);
             listItemView.setTag(holder);
-        }
-        else{
+        } else {
             holder = (ViewHolder) listItemView.getTag();
         }
 

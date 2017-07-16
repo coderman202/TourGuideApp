@@ -11,7 +11,6 @@
     <!--Text for textviews in the city guide screen-->
     <string name="transport">Transport Modes:</string>
     <string name="time_header">Local Time</string>
-    <string name="weather_header">Local Weather</string>
     <string name="description_header">About <xliff:g example="London" id="city_name">%s</xliff:g></string>
     <string name="history_header"><xliff:g example="London" id="city_name">%s</xliff:g> History</string>
     <string name="website">Website</string>
@@ -45,7 +44,6 @@
 
     <string name="title_activity_city_guide">CityGuideActivity</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
 
 
 </resources>

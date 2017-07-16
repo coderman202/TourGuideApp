@@ -27,20 +27,24 @@ import butterknife.ButterKnife;
 
 public class TourAdapter extends ArrayAdapter<Tour> {
 
-    static class ViewHolder{
+    static class ViewHolder {
         // Get the restaurant info text views to set their text to the values from the current
         // restaurant in the list. Also get the restaurant image view to set the correct image
         // below in the getView method.
-        @BindView(R.id.tour_name) TextView nameView;
-        @BindView(R.id.tour_description) TextView descriptionView;
+        @BindView(R.id.tour_name)
+        TextView nameView;
+        @BindView(R.id.tour_description)
+        TextView descriptionView;
         @BindView(R.id.tour_price)
         PriceBar priceBar;
         @BindView(R.id.tour_rating)
         RatingBar ratingBar;
-        @BindView(R.id.tour_website) TextView websiteView;
-        @BindView(R.id.tour_operating_times) TextView operatingTimesView;
+        @BindView(R.id.tour_website)
+        TextView websiteView;
+        @BindView(R.id.tour_operating_times)
+        TextView operatingTimesView;
 
-        public ViewHolder(View view){
+        public ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }
@@ -48,8 +52,8 @@ public class TourAdapter extends ArrayAdapter<Tour> {
     /**
      * Instantiates a new {@link TourAdapter}.
      *
-     * @param context               the context
-     * @param tourList             the hotel list
+     * @param context  the context
+     * @param tourList the hotel list
      */
     public TourAdapter(Context context, List<Tour> tourList) {
         super(context, 0, tourList);
@@ -69,8 +73,7 @@ public class TourAdapter extends ArrayAdapter<Tour> {
                     R.layout.tour_list_item, parent, false);
             holder = new ViewHolder(listItemView);
             listItemView.setTag(holder);
-        }
-        else{
+        } else {
             holder = (ViewHolder) listItemView.getTag();
         }
 
